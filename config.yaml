@@ -23,8 +23,6 @@ disableKinds: ["sitemap","RSS"]
 blackfriday:
   hrefTargetBlank: true
 
-
-
 # allows html in markdown files
 markup:
   goldmark:
