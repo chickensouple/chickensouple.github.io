@@ -1,4 +1,4 @@
-baseURL: https://example.com
+baseURL: chickensouple.github.io
 languageCode: en-us
 title: Personal website and blog
 theme: hugo-refresh
@@ -25,11 +25,16 @@ blackfriday:
   hrefTargetBlank: true
 
 
+
 # allows html in markdown files
 markup:
   goldmark:
     renderer:
       unsafe: true
+
+# build:
+relativeURLs: true
+
 
 Taxonomies:
   tag: "tags"
