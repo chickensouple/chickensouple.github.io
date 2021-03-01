@@ -119,7 +119,7 @@ params:
     # option to specify the subtitle in the homepage
     subtitle: Hi,
     # option to specify image in the homepage
-    image: "images/clark.jpg" # worker.svg 
+    image: "images/face.png" # worker.svg 
     # option to specify the width of the image in the homepage
     imageWidth: 500px
 
