@@ -4,8 +4,6 @@ date: 2021-02-28T19:07:18-05:00
 draft: false
 ---
 
-
-
 <script type="text/javascript">
     // set the pyodide files URL (packages.json, pyodide.asm.data etc)
     window.languagePluginUrl = 'https://cdn.jsdelivr.net/pyodide/v0.16.1/full/';
