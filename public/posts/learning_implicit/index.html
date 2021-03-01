@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><link rel="icon" href="../../favicon_main.svg"><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" /><meta property="og:url"  content="/posts/learning_implicit/" />
+    <meta property="og:type" content="article" /><meta property="og:title" content="Learning Implicit Sampling Distributions" /><meta property="og:description" content="" /><meta property="og:image:width"  content="600" />
+        <meta property="og:image:height" content="317" /><meta property="og:image" content="/posts/learning_implicit/images/main_hu05575220a12ae26b9d90594b61ed693c_62187_600x0_resize_box_2.png" /><title>Personal website and blog - Learning Implicit Sampling Distributions</title>
+
+    
+<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="../../css/style.b1c6c3afa3fce32270f3a11941259d0944a34739779a5d010a67c7149d6315b1.css" integrity="sha256-scbDr6P84yJw86EZQSWdCUSjRzl3ml0BCmfHFJ1jFbE=">
+<link rel="stylesheet" type="text/css" href="../../css/monokai-sublime.9.15.8.min.91376415864fdd3a92be524052267afece4bdb1bb8c6c754f5e60c5ac28e93be.css" integrity="sha256-kTdkFYZP3TqSvlJAUiZ6/s5L2xu4xsdU9eYMWsKOk74=">
+<link rel="stylesheet" type="text/css" href="../../css/icons.f72c0103ff9598115ab2a76351494b950570479ce3f1795fec13fc62e4185dcf.css" integrity="sha256-9ywBA/&#43;VmBFasqdjUUlLlQVwR5zj8Xlf7BP8YuQYXc8=">
+<link rel="stylesheet" type="text/css" href="../../css/refresh.ccfd23f8053a1571a3e474a6877f42a6a1924c6bbf1b64c7704b49a0353b4650.css" integrity="sha256-zP0j&#43;AU6FXGj5HSmh39CpqGSTGu/G2THcEtJoDU7RlA=">
+<link rel="stylesheet" type="text/css" href="../../css/devicon.min.149016fbf45c8bc157d6f55ce3ee875feaa3f90446bf7d151fbc16a9f21a8859.css" integrity="sha256-FJAW&#43;/Rci8FX1vVc4&#43;6HX&#43;qj&#43;QRGv30VH7wWqfIaiFk=">
+    
+
+  </head>
+  <body>
+     
+
+    <div id="preloader">
+      <div id="status"></div>
+    </div><nav class="navbar is-fresh is-transparent no-shadow" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+
+      
+      
+      
+      <a class="navbar-item">
+        <div class="menu-icon-wrapper left-menu-icon-wrapper" style="visibility: visible;">
+          <svg width="1000px" height="1000px">
+            <path class="path1" d="M 300 400 L 700 400 C 900 400 900 750 600 850 A 400 400 0 0 1 200 200 L 800 800"></path>
+            <path class="path2" d="M 300 500 L 700 500"></path>
+            <path class="path3" d="M 700 600 L 300 600 C 100 600 100 200 400 150 A 400 380 0 1 1 200 800 L 800 200"></path>
+          </svg>
+          <button id="menu-icon-trigger" class="menu-icon-trigger"></button>
+        </div>
+        <div class="navbar-item left-menu-icon-wrapper">
+          Menu
+        </div>
+      </a>
+
+      
+    </div></div>
+</nav>
+<nav id="navbar-clone" class="navbar is-fresh is-transparent" role="navigation" aria-label="main navigation">
+  <div class="container">
+      <div class="navbar-brand">
+  
+        
+        
+        
+        <a class="navbar-item">
+          <div class="menu-icon-wrapper left-menu-icon-wrapper" style="visibility: visible;">
+            <svg width="1000px" height="1000px">
+              <path class="path1" d="M 300 400 L 700 400 C 900 400 900 750 600 850 A 400 400 0 0 1 200 200 L 800 800"></path>
+              <path class="path2" d="M 300 500 L 700 500"></path>
+              <path class="path3" d="M 700 600 L 300 600 C 100 600 100 200 400 150 A 400 380 0 1 1 200 800 L 800 200"></path>
+            </svg>
+            <button id="menu-icon-trigger" class="menu-icon-trigger"></button>
+          </div>
+          <div class="navbar-item left-menu-icon-wrapper">
+            Tags
+          </div>
+        </a>
+  
+        <div class="navbar-item is-expanded"></div>
+        <a class="navbar-item is-hidden-desktop">  
+          <div data-target="cloned-navbar-menu" class="navbar-item right-menu-icon-wrapper is-hidden-desktop">
+            Menu
+          </div>
+          <div data-target="cloned-navbar-menu" class="menu-icon-wrapper right-menu-icon-wrapper" style="visibility: visible;">
+            <svg width="1000px" height="1000px">
+              <path class="path1" d="M 300 400 L 700 400 C 900 400 900 750 600 850 A 400 400 0 0 1 200 200 L 800 800"></path>
+              <path class="path2" d="M 300 500 L 700 500"></path>
+              <path class="path3" d="M 700 600 L 300 600 C 100 600 100 200 400 150 A 400 380 0 1 1 200 800 L 800 200"></path>
+            </svg>
+            <button id="menu-icon-trigger" class="menu-icon-trigger"></button>
+          </div>
+        </a>
+      </div><div id="cloned-navbar-menu" class="navbar-menu is-static">
+        <div class="navbar-end"><a href="../../posts/" class="navbar-item is-secondary">Posts</a>
+          
+          
+        
+        </div>
+      </div>
+    </div>
+  </nav>
+<section class="section is-medium">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-centered-tablet-portrait">
+        <h1 class="title is-2 section-title">Learning Implicit Sampling Distributions</h1>
+        <h5 class="subtitle is-5 is-muted"></h5>
+        <div class="divider"></div>
+        
+        <section class="section content has-text-justified">
+          <h1 id="introduction">Introduction</h1>
+<p>Robot motion planning is a problem that has been studied for many decades. For quite a while, sampling based planning approaches such as <a href="http://msl.cs.uiuc.edu/~lavalle/papers/LavKuf01.pdf">Rapidly Exploring Random Trees (RRT)</a>, <a href="http://ftp.cs.stanford.edu/cs/robotics/dyhsu/papers/icra97.pdf">Expansive Space Trees (EST)</a>, were quite popular in academia have been used with great success in some problem domains.
+This post introduces work I have done in collaboration with Jinwook Huh and Daniel D. Lee about speeding up such motion planning approaches by learning a better sampling distribution to draw from. This work is available <a href="#zhang">here</a>.
+While many more modern planners for robots such as autonomous vehicles no longer have a basis in these sampling based planners, perhaps similar ideas in how to integrate machine learning into an existing planning framework can be useful.</p>
+<h1 id="background">Background</h1>
+<p>We can discuss a bare-bones planning problem. You have a map of the environment that can be represented maybe as a point cloud or occupancy map or collection of polygons, or a signed distance function, etc. You have a goal state and a starting state, and you would like to find a set of actions for a robot that will take you from start to goal.</p>
+<figure display="table">
+  <img src="images/flytrap_b.png" />
+  <figcaption display="table-caption" caption-side="bottom"><i>Fig. 1: An example of a planning problem. The green dot is the start, while the red is the goal.</i></figcaption>
+</figure>
+<p>For sampling-based planners, the general idea is to explore a continuous state space with random samples. The prototypical sampling based planner, RRT, roughly works as follows.</p>
+<ol>
+<li>Initialize a tree with a node that represents the starting state</li>
+<li>Sample a point in the entire state space</li>
+<li>Find the closest node in your tree to the sample</li>
+<li>From the closest point, move towards the random sample and add the new state as a node in the tree</li>
+<li>Repeat steps 2-4 until the goal is included in the tree.</li>
+</ol>
+<p>This process will grow the tree to cover the space and hopefully find a path from the start to the goal. You can check out <a href="http://lavalle.pl/rrt/gallery_2drrt.html">Steven LaValle&rsquo;s website</a> (The guy who invented RRT&rsquo;s) for cool pictures of RRT in action and what it looks like while the algorithm is running.</p>
+<p>For these sampling based planners, Step 2 in the algorithm can be quite important. It is what will guide how the tree searches the environment (if you are familiar with A* and its many variants, the sampling distribution plays a similar role to the heuristic function). Typically, a uniform distribution with a slight goal bias (with some chance, choose the goal as the random sample) is used. There have been many efforts to come up with better sampling techniques including using the <a href="#yang2004">medial axis</a>, <a href="#yershova2005">visibility</a>, or <a href="#shkolnik2011">volumes</a>. These are all heuristics that hopefully are better distributions to sample from than the uniform distribution.</p>
+<p>A natural question arises, can we learn more general heuristics for common classes of planning problems? For example, if we are using a robot arm to manipulate objects on a table, we might be able to exploit some of the structure of the problem to speed up our search. This heuristic may be different if you are talking about a robot navigating an office space, or an autonomous vehicle navigating around a city. And it would be great to use data from planning in those different environments to learn good sample distribution.</p>
+<h1 id="method">Method</h1>
+<p>To learn a sampling distribution, we must first be able to represent a sampling distribution. In this case, we have chosen to represent it implicitly (thus the title of the paper) with rejection sampling. That is, given some simple distribution that you can easily draw samples from (uniform with goal bias), assign a probability of rejecting that sample. Then when you are sampling from this implicitly defined distribution, you will draw samples from the original distribution and with some probability, reject on those samples. This will define a new distribution that can look quite different from the original distribution with out rejecting any samples.</p>
+<p>In this particular case, we use a small (tiny by modern standards) neural network to process some features of a sample drawn. The output of the neural network is a probability to accept or reject.</p>
+<figure display="table">
+  <img src="images/RRT_NN.png" width="500"/>
+  <figcaption display="table-caption" caption-side="bottom"><i>Fig. 2: A tiny neural network.</i></figcaption>
+</figure>
+<p>We can then view the process of accepting and rejecting samples to pass to the planner as a <a href="https://en.wikipedia.org/wiki/Markov_decision_process">Markov Decision Process (MDP)</a> where the state is the state of the planner with a new random sample, and the actions are to reject or accept it. The rewards are chosen to reward finding a path faster. This process can be optimized with some standard Reinforcement Learning (RL) techniques. There are a great many tutorials and introductions to RL, so I will abstain from adding one more slightly worse introduction. I highly recommend <a href="#sutton">this book by Sutton</a> as a good introductory read. For our purpoes, we will use a simple policy gradient method to optimize our rejection &ldquo;policy.&rdquo;</p>
+<h1 id="results">Results</h1>
+<p>This methodology is applied to several environments and algorithms and the results are shown in Fig. 3. In addition to RRT, you can apply this rejection sampling technique to any other sampling-based planner such as Bi-RRT or EST, etc. The flytrap environment refers to Fig. 1, while Pendulum referes to an inverted pendulum.</p>
+<figure display="table">
+  <img src="images/results_graphs.png" width="700"/>
+  <figcaption display="table-caption" caption-side="bottom"><i>Fig. 3: Results in simulation.</i></figcaption>
+</figure>
+<p>We also applied this to a robot arm in real life.</p>
+<figure display="table">
+  <img src="images/thor.jpg" width="400"/>
+  <figcaption display="table-caption" caption-side="bottom"><i>Fig. 4: Thor's robot arm.</i></figcaption>
+</figure>
+<figure display="table">
+  <img src="images/arm_results.png" width="400"/>
+  <figcaption display="table-caption" caption-side="bottom"><i>Fig. 5: Results on a robot arm.</i></figcaption>
+</figure>
+<p>In these cases, the new sampling distribution can reduce the number of collision checks by rejecting samples that are highly likely to induce them as well as reducing overall execution time.</p>
+<p>It is also interesting to look at the learned rejection policies more closely. For the flytrap environment, good rejection policies actually depend on the size of the flytrap relative to the environment. The <a href="#yershova2005">visibility</a> based heuristic works when the flytrap is small, and the <a href="#shkolnik2011">volume</a> based heuristic works when the flytrap is big. When running the rejection policy optimization over small and big flytrap environments, it actually obtains very similar heuristics to the human created ones.</p>
+<figure display="table">
+  <img src="images/flytrap_policies.png" width="700"/>
+  <figcaption display="table-caption" caption-side="bottom"><i>Fig. 6: Learned rejection policies vs. human heuristics. Flytrap train refers to the small flytrap, dynamic-domain refers to the visibility heuristic, flytrap-balltree refers to the big flytrap, and BallTree refers to the volume based heuristic.</i></figcaption>
+</figure>
+<figure display="table">
+  <img src="images/distributions.png" width="700"/>
+  <figcaption display="table-caption" caption-side="bottom"><i>Fig. 7: Cool sampling distributions in action on the flytrap environment.</i></figcaption>
+</figure>
+<p>For the robotic arm, when we look at the learned distribution, the samples that are further away from the table are rejected more often. For the task of moving objects around, it is wasteful to explore random configurations that bring the arm way over or away from the objects.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>This work had the goal to unify the understanding of how a lot of previous sampling heuristics worked. Many use rejection sampling, and Reinforcement Learning can be applied to optimize that rejection sampling so as to automate the process of finding heuristics. There are some interesting tangents to discuss. For example, if an optimal planner is available (RRT* and friends), instead of using RL to optimize rejection policies, supervised learning can be used instead. With supervision, the policies can be learned faster, and perhaps, we can obtain even better policies. For complicated environments, however, RRT* can take very long to run. It can be interesting to start with RL and move to supervised learning as our heuristics get better and we can find near-optimal policies. Since this paper&rsquo;s publication, there has been interesting work in learning <a href="#zlatan2019">heurstics for A*</a>, as well as <a href="#ichter2018">generative sampling distributions</a>.</p>
+<h1 id="references">References</h1>
+<p><a name="zhang" href="https://arxiv.org/pdf/1806.01968.pdf" target="_blank">Zhang, Clark, Jinwook Huh, and Daniel D. Lee. &ldquo;Learning implicit sampling distributions for motion planning.&rdquo; 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2018.</a></p>
+<p><a name="yang2004" href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.4.8254&rep=rep1&type=pdf" target="_blank">Y. Yang and O. Brock, “Adapting the sampling distribution in prm
+planners based on an approximated medial axis,” in Robotics and
+Automation, 2004. Proceedings. ICRA’04. 2004 IEEE International
+Conference on, vol. 5, pp. 4405–4410, IEEE, 2004.</a></p>
+<p><a name="yershova2005" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.60.5751&rep=rep1&type=pdf" target="_blank">A. Yershova, L. Jaillet, T. Siméon, and S. M. LaValle, “Dynamic-
+domain rrts: Efficient exploration by controlling the sampling domain,”
+in Robotics and Automation, 2005. ICRA 2005. Proceedings of the
+2005 IEEE International Conference on, pp. 3856–3861, IEEE, 2005.</a></p>
+<p><a name="shkolnik2011" href="https://arxiv.org/pdf/1109.3145.pdf" target="_blank">A. Shkolnik and R. Tedrake, “Sample-based planning with volumes
+in configuration space,” arXiv preprint arXiv:1109.3145, 2011.</a></p>
+<p><a name="sutton" href="http://incompleteideas.net/book/the-book-2nd.html" target="_blank">Sutton, R. S., Barto, A. G. (2018 ). Reinforcement Learning: An Introduction. The MIT Press.</a></p>
+<p><a name="zlatan2019" href="https://arxiv.org/pdf/1906.02789.pdf" target="_blank">Zlatan Ajanovic, Halil Beglerovic, Bakir Lacevic. &ldquo;A novel approach to model exploration for value function learning.&rdquo; RSS 2019 workshop. </a></p>
+<p><a name="ichter2018" href="https://arxiv.org/pdf/1709.05448.pdf" target="_blank">Ichter, Brian, James Harrison, and Marco Pavone. &ldquo;Learning sampling distributions for robot motion planning.&rdquo; 2018 IEEE International Conference on Robotics and Automation (ICRA). IEEE, 2018.</a></p>
+
+        </section>
+      </div>
+    </div>
+  </div>  
+  <div class="container">
+    <div class="columns">
+      <div class="column has-text-right is-family-monospace is-centered-tablet-portrait">
+        Last modified:&nbsp;28 February 2021</div>
+    </div>
+  </div></section>
+<footer class="footer footer-dark">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <img src="../../footer.svg" alt="">
+        
+      </div>
+      
+    <div class="column"> 
+        
+    
+      
+      <div class="column">
+        <div class="footer-column">
+          <div class="footer-header">
+              <h3>Contacts</h3>
+          </div>
+          <ul class="link-list">
+            
+            <li>
+              <a href="https://www.linkedin.com/in/clark-zhang-2207a774" target="_blank">
+                <span class="icon"><i class="fa fa-linkedin"></i></span>
+                
+                  LinkedIn
+                
+              </a>
+            </li>
+            
+            
+            <li>
+              <a href="https://github.com/chickensouple" target="_blank">
+                <span class="icon"><i class="fa fa-github"></i></span>
+                
+                  Github
+                
+              </a>
+            </li>
+                         
+            
+            <li>
+              <a href="mailto:N/A" target="_blank">
+                <span class="icon"><i class="fa fa-envelope"></i></span>
+                
+                  clarkjzhang (at) gmail.com
+                
+              </a>
+            </li>
+            
+                   
+                   
+                   
+          </ul>
+        </div>
+      </div>
+      
+
+      
+
+    </div>
+  </div>
+</footer>
+    <div id="backtotop"><a href="#"></a></div><div class="sidebar scroll">
+  <div class="sidebar-header"><img src="../../sidebar.svg" alt="">
+    
+    <a class="sidebar-close" href="javascript:void(0);">
+      <i data-feather="x"></i>
+    </a>
+  </div>
+  <div class="inner">
+    <ul class="sidebar-menu">
+      <li class="no-children"><a href="../../"><div class="columns">
+          <table width="100%">  
+            <tr>
+              <td class="">
+                <span class="icon"><i class="fa fa-cubes"></i></span>
+                Home
+              </td>
+              <td class="has-text-right" >
+                  
+              </td>
+            </tr>
+          </table>
+        </div>
+      </a>
+      </li>
+      <li class="no-children"><a href="../../posts/"><div class="columns">
+          <table width="100%">  
+            <tr>
+              <td class="">
+                <span class="icon"><i class="fa fa-cubes"></i></span>
+                Posts
+              </td>
+              <td class="has-text-right" >
+                  
+              </td>
+            </tr>
+          </table>
+        </div>
+      </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<script src="../../js/jquery-2.2.4.893e90f6230962e42231635df650f20544ad22affc3ee396df768eaa6bc5a6a2.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="></script>
+  <script src="../../js/feather.4.22.0.1ab07abeb9975f283f6b5f29451981be680fbf77ea778f991d457511d210476a.js" integrity="sha256-GrB6vrmXXyg/a18pRRmBvmgPv3fqd4&#43;ZHUV1EdIQR2o="></script>
+  <script src="../../js/modernizr-3.6.0.e013a1e54e3c19d83537ba42b900d34451e5e4b2e789be27a02ac9b152edb741.js" integrity="sha256-4BOh5U48Gdg1N7pCuQDTRFHl5LLnib4noCrJsVLtt0E="></script>
+  <script src="../../js/refresh.62c1a9b7d85bcf4d944cd585a01dfa8fb15112a7d2cf9fb819db20493bfe7484.js" integrity="sha256-YsGpt9hbz02UTNWFoB36j7FREqfSz5&#43;4GdsgSTv&#43;dIQ="></script><script>
+  window.MathJax = {
+    loader: {
+      load: ['core', 'input/tex-base', 'output/chtml'],  
+      source: {
+        'core': '\/js\/mathjax\/core.d48fedf25c74c54fa6bf79646de92b02155872bdc4f5f7d0bbfc662523d8b4f5.js',
+        'input/tex-base': '\/js\/mathjax\/tex-base.1b68b8741dfc54e8f7222f88bea8ffcfc57ac54b2a2d8f4edf6800aa44d49441.js',
+        'output/chtml': '\/js\/mathjax\/chtml.926cd166e0f8c1f8a566a718d60c9c58a2b7142b156d30d5f02cec7c3b0ad60a.js',
+        'output/chtml/fonts/tex': '\/js\/mathjax\/tex_out.b8b2bb939c0dae84bf1390bfe6d32af13e83f647cdac01d544d2a7a517477e9d.js'
+      },
+    },
+    chtml: {
+      fontURL: '/fonts' 
+    },
+  };
+</script><script src="../../js/mathjax/startup.234a2513e6bdbc1eee06ca19abceca30fe4034e82afb373c08274c1ba2feb1a6.js" integrity="sha256-I0olE&#43;a9vB7uBsoZq87KMP5ANOgq&#43;zc8CCdMG6L&#43;saY="></script>
+  <script src="../../js/highlight.9.18.1.b1c58829c55afcc1f568022af4b08ed8976da404d2990b7535bd8e19c0e3310c.js" integrity="sha256-scWIKcVa/MH1aAIq9LCO2JdtpATSmQt1Nb2OGcDjMQw="></script>
+  <script src="../../js/highlightjs-line-numbers.2.7.0.min.ddfe282e07b7ec1ed069c23f92c7c8216ddb3f1879c4e962d37fd52adbd15a05.js" integrity="sha256-3f4oLge37B7QacI/ksfIIW3bPxh5xOli03/VKtvRWgU="></script><script>
+  hljs.initHighlightingOnLoad();
+  hljs.initLineNumbersOnLoad();
+  document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('.codeinline').forEach((block) => {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>
