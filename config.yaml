@@ -1,4 +1,4 @@
-baseURL: chickensouple.github.io
+baseURL: /
 languageCode: en-us
 title: Clark Zhang
 theme: hugo-refresh
