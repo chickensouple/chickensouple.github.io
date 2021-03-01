@@ -1,12 +1,10 @@
 ---
 title: Constrained Learning for Wireless Systems
-date: 2021-02-28T19:07:18-05:00
+date: 2021-02-21
 draft: false
 summaryImage: "images/cap_lambd.png"
 keepImageRatio: true
 ---
-
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
 # Introduction
 This post introduces some work done in collaboration with Mark Eisen about solving optimization problems of the form
@@ -14,10 +12,10 @@ This post introduces some work done in collaboration with Mark Eisen about solvi
 $$min_\theta \text{ } E_h[l(h, f_\theta(h))] \\
 s.t. E_h[g(h, f_\theta(h))] \leq 0$$
 
-where $$l$$ is a smooth loss function, and $$g$$ is a smooth constraint function. In particular, this optimization has to be done where $$l$$ and $$g$$ may be unknown or hard to measure. This is the case for wireless power allocation. One goal is to maximize throughput while under power constraints. The throughput is affected by the environment (how the waves bounce around, other wireless interference, etc.) which can be changing over time. The characterstics of the environment can be measured, but not so easily, and it can change quite fast. Thus, Reinforcement Learning (RL) seems to be a good candidate solution. However, most Reinforcement learning algorithms do not optimize with constraints in mind. This work will extend common methods into constrained versions. Our paper is available [here](#eisen).
+where \\( l \\) is a smooth loss function, and \\(g\\) is a smooth constraint function. In particular, this optimization has to be done where \\(l\\) and \\(g\\) may be unknown or hard to measure. This is the case for wireless power allocation. One goal is to maximize throughput while under power constraints. The throughput is affected by the environment (how the waves bounce around, other wireless interference, etc.) which can be changing over time. The characterstics of the environment can be measured, but not so easily, and it can change quite fast. Thus, Reinforcement Learning (RL) seems to be a good candidate solution. However, most Reinforcement learning algorithms do not optimize with constraints in mind. This work will extend common methods into constrained versions. Our paper is available [here](#eisen).
 
 # Background
-I am not an expert in wireless technology. So for a more complete picture, I will point you to examples in [our paper](https://arxiv.org/abs/1807.08088) that my coauthor has written. A brief summary will be that wireless transceivers have a variety of channels (frequency allocations) on which it can choose to communicate on. The channels are effected by $$h$$, the [fading](https://en.wikipedia.org/wiki/Fading). Generally, sending a more powerful signal will allow the message to be recieved with greater probability, though other transmitters might interfere as well. The goal is to allocate power to multiple transmitters across channels to maximize throughput while obeying a power constraint.
+I am not an expert in wireless technology. So for a more complete picture, I will point you to examples in [our paper](https://arxiv.org/abs/1807.08088) that my coauthor has written. A brief summary will be that wireless transceivers have a variety of channels (frequency allocations) on which it can choose to communicate on. The channels are effected by \\(h\\), the [fading](https://en.wikipedia.org/wiki/Fading). Generally, sending a more powerful signal will allow the message to be recieved with greater probability, though other transmitters might interfere as well. The goal is to allocate power to multiple transmitters across channels to maximize throughput while obeying a power constraint.
 
 Reinforcement learning is a technique to solve [Markov Decision Processes (MDP)](https://en.wikipedia.org/wiki/Markov_decision_process) when some part of the MDP is unknown. There are many great resources for an intro into reinforcement learning such as [this book](#sutton). I will abstain from adding one more slightly worse introduction. 
 
@@ -30,7 +28,7 @@ The dual problem looks like this
 $$max_\lambda min_\theta E_h[l(h, f_\theta(h))] + \lambda^T E_h[g(h, f_\theta(h))]\\
 s.t. \lambda \geq 0 $$
 
-There is a maximization over the Lagrange multipliers, $$\lambda$$, and a minimization over the parameters of the policy, $$\theta$$. We can treat the Lagrangian (everything within the max-min) as a reward for policy optimizaiton. We can then interleave minimizations, by taking steps with the policy gradient, with maximizations with respect to the lagrange multipliers. This way of alternating optimizations is known as a primal-dual method, and is known method in optimization.
+There is a maximization over the Lagrange multipliers, \\(\lambda\\), and a minimization over the parameters of the policy, \\(\theta\\). We can treat the Lagrangian (everything within the max-min) as a reward for policy optimizaiton. We can then interleave minimizations, by taking steps with the policy gradient, with maximizations with respect to the lagrange multipliers. This way of alternating optimizations is known as a primal-dual method, and is known method in optimization.
 
 # Results
 Fig. 1 shows the results of our experiments. We simulated wireless channels with noise, and compared some strategies with the learned policy. The x axis represents time. Our policy gets better with time as it learns from the accumulated experience. The strategies compared with are 1) random allocation, 2) equal power allocation, 3) WMMSE. WWMSE is a state-of-the-art method that requires a model of the capacity function (which our method does not have access to). We can do this in simulation, because we can choose a capacity function and give it to WWMSE. The graphs show that we can obtain comparable performance to WMMSE without having to model the capacity function.

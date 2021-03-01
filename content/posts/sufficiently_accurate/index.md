@@ -1,6 +1,6 @@
 ---
 title: Sufficiently Accurate Model Learning
-date: 2021-02-28T19:07:18-05:00
+date: 2021-02-27
 draft: false
 summaryImage: "images/main.png"
 keepImageRatio: true
@@ -26,11 +26,11 @@ Many modern planners will formulate the problem as a nonlinear optimization prob
 
 One can try to use data to obtain a better model for planning  with these optimization based planners. Usually the constraints on the model are that they have to be differentiable. Using a neural network to represent these models fits this constraint quite well. By using data to tune or learn your model, you can have a more accurate picture of what your system looks like and adapt to any physical changes it undergoes. Maybe the wheel of a car becomes more smooth over time, or a motor in a robot arm becomes less powerful. By using data, the planners can adapt to these changes in a more active way. 
 
-There is a vast literature on model learning. In controls, there is a huge trove of "System Identification" papers which mostly focus on learning linear systems. In robotics, there are many methods that fit Gaussian Process Regression models, or Gaussian Mixture Models, or Neural Networks, or linear models to various systems. This paper presents not a new method, but a new objective for which these methods can use. Most of these methods will simply seek to minimize an error between an observed next state, $$x_{k+1}$$ with that the predicted next state, $$\hat{x}_{k+1}$$. This results in a loss functions that look like
+There is a vast literature on model learning. In controls, there is a huge trove of "System Identification" papers which mostly focus on learning linear systems. In robotics, there are many methods that fit Gaussian Process Regression models, or Gaussian Mixture Models, or Neural Networks, or linear models to various systems. This paper presents not a new method, but a new objective for which these methods can use. Most of these methods will simply seek to minimize an error between an observed next state, \\(x_{k+1}\\) with that the predicted next state, \\(\hat{x}_{k+1}\\). This results in a loss functions that look like
 
 $$ \mathbb{E} || x_{k+1} - f_\theta(x_k, u_k) ||_2^2$$
 
-where $$f_\theta$$ is the learned model.
+where \\(f_\theta\\) is the learned model.
 
 # Method
 Our work proposes that we can solve a constrained problem instead of simply minimizing an unconstrained objective. The constraints can contain prior information about the system, and solving the constrained problem can then lead to models better suited for planners.

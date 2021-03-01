@@ -29,7 +29,7 @@ markup:
     renderer:
       unsafe: true
 
-# build:
+# build options
 relativeURLs: true
 publishDir: "docs"
 
@@ -50,7 +50,7 @@ params:
 
   # option to specify the favicon image of the site
   # the path is relative to the folder "assetDir" of this configuration
-  favicon: "/images/favicon.svg"
+  favicon: "/images/chicken.png"
 
   # parameter used to specify if you want to minify the imported js
   jsMinify: false

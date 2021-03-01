@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head><link rel="icon" href="../../favicon_main.svg"><meta charset="utf-8" />
+  <head><link rel="icon" href="../../images/chicken.png"><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" /><meta property="og:url"  content="/posts/constrained_wireless/" />
     <meta property="og:type" content="article" /><meta property="og:title" content="Constrained Learning for Wireless Systems" /><meta property="og:description" content="" /><meta property="og:image:width"  content="600" />
@@ -9,7 +9,7 @@
     
 <link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="../../css/style.b1c6c3afa3fce32270f3a11941259d0944a34739779a5d010a67c7149d6315b1.css" integrity="sha256-scbDr6P84yJw86EZQSWdCUSjRzl3ml0BCmfHFJ1jFbE=">
+<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="../../css/style.cd0a9ad63083f8bc410c7cfcb8c0f1a2bddcaca03e446551e99fcdde8442a24e.css" integrity="sha256-zQqa1jCD&#43;LxBDHz8uMDxor3crKA&#43;RGVR6Z/N3oRCok4=">
 <link rel="stylesheet" type="text/css" href="../../css/monokai-sublime.9.15.8.min.91376415864fdd3a92be524052267afece4bdb1bb8c6c754f5e60c5ac28e93be.css" integrity="sha256-kTdkFYZP3TqSvlJAUiZ6/s5L2xu4xsdU9eYMWsKOk74=">
 <link rel="stylesheet" type="text/css" href="../../css/icons.f72c0103ff9598115ab2a76351494b950570479ce3f1795fec13fc62e4185dcf.css" integrity="sha256-9ywBA/&#43;VmBFasqdjUUlLlQVwR5zj8Xlf7BP8YuQYXc8=">
 <link rel="stylesheet" type="text/css" href="../../css/refresh.ccfd23f8053a1571a3e474a6877f42a6a1924c6bbf1b64c7704b49a0353b4650.css" integrity="sha256-zP0j&#43;AU6FXGj5HSmh39CpqGSTGu/G2THcEtJoDU7RlA=">
@@ -83,14 +83,13 @@
         <div class="divider"></div>
         
         <section class="section content has-text-justified">
-          <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-<h1 id="introduction">Introduction</h1>
+          <h1 id="introduction">Introduction</h1>
 <p>This post introduces some work done in collaboration with Mark Eisen about solving optimization problems of the form</p>
 <p>$$min_\theta \text{ } E_h[l(h, f_\theta(h))] \<br>
 s.t. E_h[g(h, f_\theta(h))] \leq 0$$</p>
-<p>where $$l$$ is a smooth loss function, and $$g$$ is a smooth constraint function. In particular, this optimization has to be done where $$l$$ and $$g$$ may be unknown or hard to measure. This is the case for wireless power allocation. One goal is to maximize throughput while under power constraints. The throughput is affected by the environment (how the waves bounce around, other wireless interference, etc.) which can be changing over time. The characterstics of the environment can be measured, but not so easily, and it can change quite fast. Thus, Reinforcement Learning (RL) seems to be a good candidate solution. However, most Reinforcement learning algorithms do not optimize with constraints in mind. This work will extend common methods into constrained versions. Our paper is available <a href="#eisen">here</a>.</p>
+<p>where \( l \) is a smooth loss function, and \(g\) is a smooth constraint function. In particular, this optimization has to be done where \(l\) and \(g\) may be unknown or hard to measure. This is the case for wireless power allocation. One goal is to maximize throughput while under power constraints. The throughput is affected by the environment (how the waves bounce around, other wireless interference, etc.) which can be changing over time. The characterstics of the environment can be measured, but not so easily, and it can change quite fast. Thus, Reinforcement Learning (RL) seems to be a good candidate solution. However, most Reinforcement learning algorithms do not optimize with constraints in mind. This work will extend common methods into constrained versions. Our paper is available <a href="#eisen">here</a>.</p>
 <h1 id="background">Background</h1>
-<p>I am not an expert in wireless technology. So for a more complete picture, I will point you to examples in <a href="https://arxiv.org/abs/1807.08088">our paper</a> that my coauthor has written. A brief summary will be that wireless transceivers have a variety of channels (frequency allocations) on which it can choose to communicate on. The channels are effected by $$h$$, the <a href="https://en.wikipedia.org/wiki/Fading">fading</a>. Generally, sending a more powerful signal will allow the message to be recieved with greater probability, though other transmitters might interfere as well. The goal is to allocate power to multiple transmitters across channels to maximize throughput while obeying a power constraint.</p>
+<p>I am not an expert in wireless technology. So for a more complete picture, I will point you to examples in <a href="https://arxiv.org/abs/1807.08088">our paper</a> that my coauthor has written. A brief summary will be that wireless transceivers have a variety of channels (frequency allocations) on which it can choose to communicate on. The channels are effected by \(h\), the <a href="https://en.wikipedia.org/wiki/Fading">fading</a>. Generally, sending a more powerful signal will allow the message to be recieved with greater probability, though other transmitters might interfere as well. The goal is to allocate power to multiple transmitters across channels to maximize throughput while obeying a power constraint.</p>
 <p>Reinforcement learning is a technique to solve <a href="https://en.wikipedia.org/wiki/Markov_decision_process">Markov Decision Processes (MDP)</a> when some part of the MDP is unknown. There are many great resources for an intro into reinforcement learning such as <a href="#sutton">this book</a>. I will abstain from adding one more slightly worse introduction.</p>
 <h1 id="method">Method</h1>
 <p>We use policy gradient methods from Reinforcement Learning to find a good policy for wireless allocation. The policy is stochastic, and takes a measurement of the fading environment as input. The output is a distribution over power allocations, represented by the parameters of a truncated Gaussian.</p>
@@ -98,7 +97,7 @@ s.t. E_h[g(h, f_\theta(h))] \leq 0$$</p>
 The dual problem looks like this</p>
 <p>$$max_\lambda min_\theta E_h[l(h, f_\theta(h))] + \lambda^T E_h[g(h, f_\theta(h))]\<br>
 s.t. \lambda \geq 0 $$</p>
-<p>There is a maximization over the Lagrange multipliers, $$\lambda$$, and a minimization over the parameters of the policy, $$\theta$$. We can treat the Lagrangian (everything within the max-min) as a reward for policy optimizaiton. We can then interleave minimizations, by taking steps with the policy gradient, with maximizations with respect to the lagrange multipliers. This way of alternating optimizations is known as a primal-dual method, and is known method in optimization.</p>
+<p>There is a maximization over the Lagrange multipliers, \(\lambda\), and a minimization over the parameters of the policy, \(\theta\). We can treat the Lagrangian (everything within the max-min) as a reward for policy optimizaiton. We can then interleave minimizations, by taking steps with the policy gradient, with maximizations with respect to the lagrange multipliers. This way of alternating optimizations is known as a primal-dual method, and is known method in optimization.</p>
 <h1 id="results">Results</h1>
 <p>Fig. 1 shows the results of our experiments. We simulated wireless channels with noise, and compared some strategies with the learned policy. The x axis represents time. Our policy gets better with time as it learns from the accumulated experience. The strategies compared with are 1) random allocation, 2) equal power allocation, 3) WMMSE. WWMSE is a state-of-the-art method that requires a model of the capacity function (which our method does not have access to). We can do this in simulation, because we can choose a capacity function and give it to WWMSE. The graphs show that we can obtain comparable performance to WMMSE without having to model the capacity function.</p>
 <figure display="table">
@@ -119,7 +118,7 @@ s.t. \lambda \geq 0 $$</p>
   <div class="container">
     <div class="columns">
       <div class="column has-text-right is-family-monospace is-centered-tablet-portrait">
-        Last modified:&nbsp;28 February 2021</div>
+        Last modified:&nbsp;21 February 2021</div>
     </div>
   </div></section>
 <footer class="footer footer-dark">
@@ -200,11 +199,13 @@ s.t. \lambda \geq 0 $$</p>
   </div>
 </footer>
     <div id="backtotop"><a href="#"></a></div><div class="sidebar scroll">
-  <div class="sidebar-header"><img src="../../sidebar.svg" alt="">
+  <div class="sidebar-header">
     
+    <img src="images/chicken.png" alt="">
     <a class="sidebar-close" href="javascript:void(0);">
       <i data-feather="x"></i>
     </a>
+    
   </div>
   <div class="inner">
     <ul class="sidebar-menu">
@@ -212,7 +213,7 @@ s.t. \lambda \geq 0 $$</p>
           <table width="100%">  
             <tr>
               <td class="">
-                <span class="icon"><i class="fa fa-cubes"></i></span>
+                <span class="icon"><i class="fa fa-caret-right"></i></span>
                 Home
               </td>
               <td class="has-text-right" >
@@ -227,7 +228,7 @@ s.t. \lambda \geq 0 $$</p>
           <table width="100%">  
             <tr>
               <td class="">
-                <span class="icon"><i class="fa fa-cubes"></i></span>
+                <span class="icon"><i class="fa fa-caret-right"></i></span>
                 Posts
               </td>
               <td class="has-text-right" >

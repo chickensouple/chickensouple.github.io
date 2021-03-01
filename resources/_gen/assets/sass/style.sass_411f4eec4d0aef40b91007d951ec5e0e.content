@@ -7118,7 +7118,7 @@ Hero styles
 Fresh Footer
 ========================================================================== */
 footer.footer-dark {
-  background: #444F60;
+  background: #025e1b;
   color: #fff; }
   footer.footer-dark .columns {
     margin-top: 35px; }
@@ -7470,7 +7470,7 @@ Sidebar Styles
     padding: 0; }
 
 .sidebar {
-  background: #344258;
+  background: #01360f;
   width: 280px;
   height: 100%;
   position: fixed;
@@ -7486,7 +7486,7 @@ Sidebar Styles
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #3d4e68;
+    border-bottom: 1px solid #014f16;
     padding: 0 20px; }
     .sidebar .sidebar-header img {
       height: 32px; }
@@ -7526,9 +7526,9 @@ Sidebar Styles
       .sidebar .inner .sidebar-menu li.have-children ul {
         padding: 0px; }
       .sidebar .inner .sidebar-menu li.have-children li a {
-        background-color: #2b3648;
+        background-color: #011d08;
         padding-left: 62px;
-        border-bottom: 1px solid #303d52;
+        border-bottom: 1px solid #012c0c;
         font-size: .8rem; }
         .sidebar .inner .sidebar-menu li.have-children li a:hover {
           color: #4FC1EA;
