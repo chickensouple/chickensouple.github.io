@@ -6,11 +6,11 @@ summaryImage: "images/main.png"
 keepImageRatio: true
 ---
 
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript" crossorigin="anonymous"></script>
 
 
 # Introduction
-This work looks at learning dynamics model for planning and control. Planners require a model of the system to work with. This model will inform the planner what happens when you take an action at some specific state. In <a href="../learning_implicit"> previous work </a>, we had applied machine learning to learn heuristics for planning. This work addresses learning the model for planning. A paper containing some results is available [here](#zhang2021). 
+This work looks at learning dynamics model for planning and control. Planners require a model of the system to work with. This model will inform the planner what happens when you take an action at some specific state. In <a href="../learning_implicit"> previous work </a>, we had applied machine learning to learn heuristics for planning. This work addresses learning the model for planning. A paper containing some results is available [here](#zhang2021).
 
 # Background
 Planners require a model of the world that will tell us how it will evolve with certain actions. This can be expressed as a differential equation

@@ -2,9 +2,9 @@
 <html lang="en-us">
   <head><link rel="icon" href="../../favicon_main.svg"><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta http-equiv="x-ua-compatible" content="ie=edge" /><meta property="og:url"  content="/posts/constrained_wireless/" />
-    <meta property="og:type" content="article" /><meta property="og:title" content="Constrained Learning for Wireless Systems" /><meta property="og:description" content="" /><meta property="og:image:width"  content="600" />
-        <meta property="og:image:height" content="455" /><meta property="og:image" content="/posts/constrained_wireless/images/cap_lambd_hu2887ca7646cd42e51b7ffd8624bbbc77_28779_600x0_resize_box_2.png" /><title>Personal website and blog - Constrained Learning for Wireless Systems</title>
+<meta http-equiv="x-ua-compatible" content="ie=edge" /><meta property="og:url"  content="/posts/sufficiently_accurate/" />
+    <meta property="og:type" content="article" /><meta property="og:title" content="Sufficiently Accurate Model Learning" /><meta property="og:description" content="" /><meta property="og:image:width"  content="600" />
+        <meta property="og:image:height" content="477" /><meta property="og:image" content="/posts/sufficiently_accurate/images/main_huf56d47a1ef50456175de88d0aa5fd9f3_72932_600x0_resize_box_2.png" /><title>Clark Zhang - Sufficiently Accurate Model Learning</title>
 
     
 <link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
@@ -94,39 +94,47 @@
   <div class="container">
     <div class="columns">
       <div class="column is-centered-tablet-portrait">
-        <h1 class="title is-2 section-title">Constrained Learning for Wireless Systems</h1>
+        <h1 class="title is-2 section-title">Sufficiently Accurate Model Learning</h1>
         <h5 class="subtitle is-5 is-muted"></h5>
         <div class="divider"></div>
         
         <section class="section content has-text-justified">
-          <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+          <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript" crossorigin="anonymous"></script>
 <h1 id="introduction">Introduction</h1>
-<p>This post introduces some work done in collaboration with Mark Eisen about solving optimization problems of the form</p>
-<p>$$min_\theta \text{ } E_h[l(h, f_\theta(h))] \<br>
-s.t. E_h[g(h, f_\theta(h))] \leq 0$$</p>
-<p>where $$l$$ is a smooth loss function, and $$g$$ is a smooth constraint function. In particular, this optimization has to be done where $$l$$ and $$g$$ may be unknown or hard to measure. This is the case for wireless power allocation. One goal is to maximize throughput while under power constraints. The throughput is affected by the environment (how the waves bounce around, other wireless interference, etc.) which can be changing over time. The characterstics of the environment can be measured, but not so easily, and it can change quite fast. Thus, Reinforcement Learning (RL) seems to be a good candidate solution. However, most Reinforcement learning algorithms do not optimize with constraints in mind. This work will extend common methods into constrained versions. Our paper is available <a href="#eisen">here</a>.</p>
+<p>This work looks at learning dynamics model for planning and control. Planners require a model of the system to work with. This model will inform the planner what happens when you take an action at some specific state. In <a href="../learning_implicit"> previous work </a>, we had applied machine learning to learn heuristics for planning. This work addresses learning the model for planning. A paper containing some results is available <a href="#zhang2021">here</a>.</p>
 <h1 id="background">Background</h1>
-<p>I am not an expert in wireless technology. So for a more complete picture, I will point you to examples in <a href="https://arxiv.org/abs/1807.08088">our paper</a> that my coauthor has written. A brief summary will be that wireless transceivers have a variety of channels (frequency allocations) on which it can choose to communicate on. The channels are effected by $$h$$, the <a href="https://en.wikipedia.org/wiki/Fading">fading</a>. Generally, sending a more powerful signal will allow the message to be recieved with greater probability, though other transmitters might interfere as well. The goal is to allocate power to multiple transmitters across channels to maximize throughput while obeying a power constraint.</p>
-<p>Reinforcement learning is a technique to solve <a href="https://en.wikipedia.org/wiki/Markov_decision_process">Markov Decision Processes (MDP)</a> when some part of the MDP is unknown. There are many great resources for an intro into reinforcement learning such as <a href="#sutton">this book</a>. I will abstain from adding one more slightly worse introduction.</p>
+<p>Planners require a model of the world that will tell us how it will evolve with certain actions. This can be expressed as a differential equation</p>
+<p>$$\dot{x} = f(x, u)$$</p>
+<p>or as a discrete time function</p>
+<p>$$x_{k+1} = f(x_k, u_k)$$</p>
+<p>This work will be using discrete time functions, but the ideas are more generally applicable.
+Many modern planners will formulate the problem as a nonlinear optimization problem, and solve it with general purpose or more specialized solvers. Examples include <a href="#zucker2013">CHOMP</a>, <a href="#schulman2013">TrajOpt</a>, or <a href="#todorov2005">iLQG</a>. An advantage these planners have over sampling based (such as RRT) or search based (such as A*) planners are that they perform quite admirably in high dimensions and converge quickly to locally optimal solutions. These optimization planners only work in &ldquo;relatively&rdquo; simple environments. Problems where finding the solution might require a search through many homotopy classes are difficult for this class of optimization based planners. They require a decent initialization. But, as it turns out, for many real world situations, planning is more akin to optimizing a general idea of what to do, rather than solving a complicated maze.</p>
+<p>One can try to use data to obtain a better model for planning  with these optimization based planners. Usually the constraints on the model are that they have to be differentiable. Using a neural network to represent these models fits this constraint quite well. By using data to tune or learn your model, you can have a more accurate picture of what your system looks like and adapt to any physical changes it undergoes. Maybe the wheel of a car becomes more smooth over time, or a motor in a robot arm becomes less powerful. By using data, the planners can adapt to these changes in a more active way.</p>
+<p>There is a vast literature on model learning. In controls, there is a huge trove of &ldquo;System Identification&rdquo; papers which mostly focus on learning linear systems. In robotics, there are many methods that fit Gaussian Process Regression models, or Gaussian Mixture Models, or Neural Networks, or linear models to various systems. This paper presents not a new method, but a new objective for which these methods can use. Most of these methods will simply seek to minimize an error between an observed next state, $$x_{k+1}$$ with that the predicted next state, $$\hat{x}_{k+1}$$. This results in a loss functions that look like</p>
+<p>$$ \mathbb{E} || x_{k+1} - f_\theta(x_k, u_k) ||_2^2$$</p>
+<p>where $$f_\theta$$ is the learned model.</p>
 <h1 id="method">Method</h1>
-<p>We use policy gradient methods from Reinforcement Learning to find a good policy for wireless allocation. The policy is stochastic, and takes a measurement of the fading environment as input. The output is a distribution over power allocations, represented by the parameters of a truncated Gaussian.</p>
-<p>Because we have a constrained problem, just applying policy gradient doesn&rsquo;t work. Instead, we look at the <a href="https://en.wikipedia.org/wiki/Duality_(optimization)">dual problem</a>. If you are unfamiliar with optimization and duality, this is a large topic to try to breach here. A high level overview is that optimization problems can be represented in a different (dual) form that may be easier to solve. This dual form takes the constraints of the original and puts it into the objective. The optimization is then done over Lagrange multipliers. One thing to note is that solving the dual problem is not always the same as solving the original problem. In the case of <a href="https://en.wikipedia.org/wiki/Convex_optimization">convex problems</a>, they are the same. This paper shows that with large enough neural networks to represent the policy, the dual problem is <em>almost</em> the same as solving the original.
-The dual problem looks like this</p>
-<p>$$max_\lambda min_\theta E_h[l(h, f_\theta(h))] + \lambda^T E_h[g(h, f_\theta(h))]\<br>
-s.t. \lambda \geq 0 $$</p>
-<p>There is a maximization over the Lagrange multipliers, $$\lambda$$, and a minimization over the parameters of the policy, $$\theta$$. We can treat the Lagrangian (everything within the max-min) as a reward for policy optimizaiton. We can then interleave minimizations, by taking steps with the policy gradient, with maximizations with respect to the lagrange multipliers. This way of alternating optimizations is known as a primal-dual method, and is known method in optimization.</p>
+<p>Our work proposes that we can solve a constrained problem instead of simply minimizing an unconstrained objective. The constraints can contain prior information about the system, and solving the constrained problem can then lead to models better suited for planners.
+An simple example is suppose we have a block we are pushing on a table, that has lot of uneven surfaces. Suppose we want to push the block from various points to a common resting location. We can learn a model that is uniformly accurate everywhere. Or, we can learn a model that is selectively good near the goal location. Because far away from the goal, the plan is simple, we push in the direction of the goal. It is only when we are near the goal we care about how much we push so that the block comes to a stop efficiently and correctly. This prior knowledge can be summarized as a constraint on the accuracy near the goal. We can write a constrained problem that looks like</p>
+<p>$$ min_\theta \mathbb{E} f(x_k, u_k, x_{k+1})\<br>
+s.t. \mathbb{E} g(x_k, u_k, x_{k+1}) \leq 0$$</p>
+<p>We have explored solving constrained problems <a href="../../2018/09/09/constrained_wireless"> before </a>. In this case, we expand the theory somewhat. We can no longer analytically compute the expectations in the constrained problem and can only use samples of data. This is because the distribution of trajectories for a system is very complicated. This paper shows that you can still obtain <a href="https://en.wikipedia.org/wiki/Duality_gap">small duality gaps</a> with large enough models and large enough numbers of samples.</p>
+<p>Similar to <a href="../../2018/09/09/constrained_wireless"> our previous work </a>, we can use a primal-dual method to solve this. We alternatively minimize the Lagrangian, and maximize the dual variables.</p>
 <h1 id="results">Results</h1>
-<p>Fig. 1 shows the results of our experiments. We simulated wireless channels with noise, and compared some strategies with the learned policy. The x axis represents time. Our policy gets better with time as it learns from the accumulated experience. The strategies compared with are 1) random allocation, 2) equal power allocation, 3) WMMSE. WWMSE is a state-of-the-art method that requires a model of the capacity function (which our method does not have access to). We can do this in simulation, because we can choose a capacity function and give it to WWMSE. The graphs show that we can obtain comparable performance to WMMSE without having to model the capacity function.</p>
+<p>Using some constrained objectives, we can obtain models so that the planner can do better on average. We have tested this in simulation on a state-dependent-friction block pushing task, a ball bouncing task, and a quadrotor landing task. Numerical results show that we can trade off accuracy in unimportant parts of the statespace for better accuracy in others, and obtain better performing planners. The detailed results are under submission right now. But to highlight a few instances for why this is better, we can look at the quadrotor landing. Our constraint is that the model should be more accurate close to the ground. This is where ground effects are most prominant and require greater precision in the model.</p>
 <figure display="table">
-  <img src="images/results.png" />
-  <figcaption display="table-caption" caption-side="bottom"><i>Fig. 1: Results of applying our method on a wireless channel simulation. </i></figcaption>
+  <img src="images/quad_traj.png" width="700"/>
+  <figcaption display="table-caption" caption-side="bottom"><i>Fig. 1: Quadrotor trajectories.</i></figcaption>
 </figure>
-<h1 id="conclusion">Conclusion</h1>
-<p>This work shows that there is some promise in using Reinforcement Learning to optimize wireless power allocation. Since this paper&rsquo;s publication, Mark has <a href="#eisen2020">extended it to use graph neural networks</a>.</p>
+<p>A model learned using our objective is better able to compensate for the greater updraft near the ground when landing and can get to the location more accurately.</p>
 <h1 id="references">References</h1>
-<p><a name="eisen" href="https://arxiv.org/abs/1807.08088" target="_blank">Eisen, Mark, et al. &ldquo;Learning optimal resource allocations in wireless systems.&rdquo; IEEE Transactions on Signal Processing 67.10 (2019): 2775-2790.</a></p>
-<p><a name="sutton" href="http://incompleteideas.net/book/the-book-2nd.html" target="_blank">Sutton, R. S., Barto, A. G. (2018 ). Reinforcement Learning: An Introduction. The MIT Press.</a></p>
-<p><a name="eisen2020" href="https://arxiv.org/pdf/1909.01865.pdf" target="_blank">Eisen, Mark, and Alejandro R. Ribeiro. &ldquo;Optimal wireless resource allocation with random edge graph neural networks.&rdquo; IEEE Transactions on Signal Processing (2020).</a></p>
+<p><a name="zhang2021" href="https://arxiv.org/pdf/2102.06099.pdf" target="_blank">Zhang, Clark, and Paternain, Santiago, &amp; Ribeiro, Alejandro. Sufficiently Accurate Model Learning for Planning. 2021.</a></p>
+<p><a name="zucker2013" href="https://www.ri.cmu.edu/pub_files/2013/5/CHOMP_IJRR.pdf" target="_blank">Zucker, Matt, et al. &ldquo;Chomp: Covariant hamiltonian optimization for motion planning.&rdquo; The International Journal of Robotics Research 32.9-10 (2013): 1164-1193.
+</a></p>
+<p><a name="schulman2013" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.387.4642&rep=rep1&type=pdf" target="_blank">Schulman, John, et al. &ldquo;Finding Locally Optimal, Collision-Free Trajectories with Sequential Convex Optimization.&rdquo; Robotics: science and systems. Vol. 9. No. 1. 2013.&lt;
+/a&gt;</p>
+<p><a name="todorov2005" href="http://maeresearch.ucsd.edu/skelton/publications/weiwei_ilqg_CDC43.pdf" target="_blank">Todorov, Emanuel, and Weiwei Li. &ldquo;A generalized iterative LQG method for locally-optimal feedback control of constrained nonlinear stochastic systems.&rdquo; Proceedings of the 2005, American Control Conference, 2005.. IEEE, 2005.
+</a></p>
 
         </section>
       </div>

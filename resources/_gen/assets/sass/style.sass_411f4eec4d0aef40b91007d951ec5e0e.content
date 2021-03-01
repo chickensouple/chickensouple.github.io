@@ -7705,7 +7705,7 @@ button:focus, button:active {
   position: absolute;
   left: 50%;
   top: 50%;
-  background-image: url("/loader.svg");
+  background-image: url("//localhost:1313/loader.svg");
   background-size: 80px 80px;
   background-repeat: no-repeat;
   background-position: center;

@@ -1,8 +1,7 @@
 baseURL: chickensouple.github.io
 languageCode: en-us
-title: Personal website and blog
+title: Clark Zhang
 theme: hugo-refresh
-# theme: ../..
 
 #########################################
 ######## Uncomment this option ##########
@@ -34,7 +33,7 @@ markup:
 
 # build:
 relativeURLs: true
-
+publishDir: "docs"
 
 Taxonomies:
   tag: "tags"
