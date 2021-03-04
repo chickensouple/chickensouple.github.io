@@ -1,0 +1,16 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from js import document
+import io
+import base64
+
+f = plt.figure()
+plt.plot([0, 1], [0, 1])
+buf = io.BytesIO()
+plt.savefig(buf, format='png')
+buf.seek(0)
+img_str = "data:image/png;base64," + base64.b64encode(buf.read()).decode('UTF-8')
+
+img_tag = document.getElementById("figure1")
+img_tag.src = img_str
+buf.close()
