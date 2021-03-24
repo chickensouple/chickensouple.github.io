@@ -1,0 +1,3 @@
+[submodule "themes/hugo-refresh"]
+	path = themes/hugo-refresh
+	url = git@github.com:chickensouple/hugo-refresh.git
