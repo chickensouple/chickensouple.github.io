@@ -1,6 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# class IntersectionStatus()
+
+
 class Circle(object):
     def __init__(self, mean, radius):
         assert(len(mean) == 2)
@@ -13,7 +16,6 @@ class Circle(object):
     def __str__(self):
         return "(({}, {}), {}, {})".format(self.mean[0], self.mean[1], self.radius)
     
-
     @staticmethod
     def get_intersection_pts(circle1, circle2):
         """
@@ -24,7 +26,7 @@ class Circle(object):
         if dist >= (circle1.radius + circle2.radius):
             # circles are too far apart
             return []
-        elif dist < np.abs(circle1.radius - circle2.radius):
+        elif dist <= np.abs(circle1.radius - circle2.radius):
             # one circle is fully within the other
             return []
         elif abs(dist - np.abs(circle1.radius - circle2.radius)) < 1e-3 \
@@ -32,9 +34,6 @@ class Circle(object):
             # circle is touching at one point
             pt = circle1.mean + circle1.radius * (circle2.mean - circle1.mean) / dist
             return [pt]
-        elif np.all(np.abs(circle1.mean - circle2.mean) < 1e-3) and np.abs(circle1.radius - circle2.radius) < 1e-3:
-            # nearly coincident circles
-            return []
         else:
             # two intersection pts
             r1_sq = circle1.radius**2
@@ -61,9 +60,6 @@ class Circle(object):
         elif dist + circle2.radius <= circle1.radius:
             # circle2 is fully contained in circle 1
             return np.pi * circle2.radius**2
-        elif np.all(np.abs(circle1.mean - circle2.mean) < 1e-3) and np.abs(circle1.radius - circle2.radius) < 1e-3:
-            # nearly coincident circles
-            return np.pi * circle1.radius**2
         else:
             # "normal" intersection with two intersection points
             r1_sq = circle1.radius**2
