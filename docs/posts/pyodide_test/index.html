@@ -114,7 +114,8 @@ arm.lengths = np.array([1., 1., 1.])
 <br>
 <br>
 
-<img id="arm-figure1"/>
+<!-- <img id="arm-figure1"/> -->
+<div id="arm-figure1"></div>
 <div>
     <input type="range" id="arm-theta0"
            min="-3.14" max="3.14", step="0.1", value="1.5">
@@ -183,8 +184,19 @@ class Arm(object):
         ax.set_ylim([-4, 4])
         ax.set_aspect('equal', 'box')
 
+#ordinary function to find an existing div
+#you'll need to put a div with appropriate id somewhere in the document
+def create_root_element2(self):
+    return document.getElementById('arm-figure1')
+
 arm = Arm()
 f = plt.figure()
+
+print(dir(f.canvas))
+#override create_root_element method of canvas by one of the functions above
+f.canvas.create_root_element = create_root_element2.__get__(
+    create_root_element2, f.canvas.__class__)
+
 ax = f.gca()
 
 ax.grid()
@@ -195,14 +207,17 @@ theta2 = float(document.getElementById("arm-theta2").value)
 thetas = [theta0, theta1, theta2]
 arm.draw(ax, thetas)
 
-buf = io.BytesIO()
-plt.savefig(buf, format='png')
-buf.seek(0)
-img_str = "data:image/png;base64," + base64.b64encode(buf.read()).decode('UTF-8')
+f.canvas.show()
 
-img_tag = document.getElementById("arm-figure1")
-img_tag.src = img_str
-buf.close()`
+
+#buf = io.BytesIO()
+#plt.savefig(buf, format='png')
+#buf.seek(0)
+#img_str = "data:image/png;base64," + base64.b64encode(buf.read()).decode('UTF-8')
+
+#img_tag = document.getElementById("arm-figure1")
+#img_tag.src = img_str
+#buf.close()`
 
     theta_change_script = `
 theta0 = float(document.getElementById("arm-theta0").value)
@@ -212,14 +227,7 @@ theta2 = float(document.getElementById("arm-theta2").value)
 thetas = [theta0, theta1, theta2]
 arm.draw(ax, thetas)
 
-buf = io.BytesIO()
-plt.savefig(buf, format='png')
-buf.seek(0)
-img_str = "data:image/png;base64," + base64.b64encode(buf.read()).decode('UTF-8')
-
-img_tag = document.getElementById("arm-figure1")
-img_tag.src = img_str
-buf.close()
+f.canvas.show()
 `
 
     function setup_slider_cbs() {
@@ -243,6 +251,7 @@ buf.close()
     languagePluginLoader.then(() => {
         pyodide.runPythonAsync(setup_script)
             .then( (output)=>{
+                console.log(output);
                 $("#output").val("Ready\n>>>");
                 setup_slider_cbs();} )
             .catch( (err)=>{console.log(err);});

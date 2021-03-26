@@ -51,6 +51,7 @@ def get_intersection_pts(circle1, circle2):
 def plot_circle(ax, circle, **kwargs):
     circle = plt.Circle(circle.center, circle.radius, **kwargs)
     ax.add_patch(circle)
+    return circle
 
 def get_angles_from_intersection(circle, intersection_pts, smaller_area=True):
     assert(len(intersection_pts) == 2)
@@ -81,15 +82,15 @@ def draw_intersection(ax, circle1, circle2, **kwargs):
     intersect_pts, intersect_type = get_intersection_pts(circle1, circle2)
 
     if intersect_type == CircleIntersectionType.TOO_FAR:
-        return
+        return None
 
     if intersect_type == CircleIntersectionType.CIRCLE1_IN_CIRCLE2:
-        plot_circle(ax, circle1, **kwargs)
-        return
+        circle_patch = plot_circle(ax, circle1, **kwargs)
+        return circle_patch
     
     if intersect_type == CircleIntersectionType.CIRCLE2_IN_CIRCLE1:
-        plot_circle(ax, circle2, **kwargs)
-        return
+        circle_patch = plot_circle(ax, circle2, **kwargs)
+        return circle_patch
 
     if intersect_type == CircleIntersectionType.RADIAL_AXIS_CENTERED:
         angles1 = get_angles_from_intersection(circle1, intersect_pts)
@@ -100,7 +101,7 @@ def draw_intersection(ax, circle1, circle2, **kwargs):
 
         poly = mpatches.Polygon(poly_pts.T, closed=True, **kwargs)
         ax.add_patch(poly)
-        return
+        return poly
 
     if intersect_type == CircleIntersectionType.RADIAL_AXIS_NONCENTERED_SMALL_CIRCLE1:
         angles1 = get_angles_from_intersection(circle1, intersect_pts, smaller_area=False)
@@ -110,7 +111,7 @@ def draw_intersection(ax, circle1, circle2, **kwargs):
         poly_pts = np.concatenate((pts1, pts2), axis=1)
         poly = mpatches.Polygon(poly_pts.T, closed=True, **kwargs)
         ax.add_patch(poly)
-        return
+        return poly
 
     if intersect_type == CircleIntersectionType.RADIAL_AXIS_NONCENTERED_SMALL_CIRCLE2:
         angles1 = get_angles_from_intersection(circle1, intersect_pts)
@@ -120,40 +121,65 @@ def draw_intersection(ax, circle1, circle2, **kwargs):
         poly_pts = np.concatenate((pts1, pts2), axis=1)
         poly = mpatches.Polygon(poly_pts.T, closed=True, **kwargs)
         ax.add_patch(poly)
-        return
+        return poly
 
 def draw_main(ax, circle1, circle2):
     circle1_color="xkcd:grass green"
     circle2_color="xkcd:royal blue"
 
     # drawing circles
-    plot_circle(ax, circle1, fill=False, edgecolor=circle1_color, linewidth=2)
-    plot_circle(ax, circle2, fill=False, edgecolor=circle2_color, linewidth=2)
-    draw_intersection(ax, circle1, circle2, color="red", alpha=0.5)
+    circle1_patch = plot_circle(ax, circle1, fill=False, edgecolor=circle1_color, linewidth=2)
+    circle2_patch = plot_circle(ax, circle2, fill=False, edgecolor=circle2_color, linewidth=2)
+    intersect_patch = draw_intersection(ax, circle1, circle2, color="red", alpha=0.5)
 
     plt.xlim([-5, 5])
     plt.ylim([-5, 5])
     ax.set_aspect('equal', 'box')
 
+    return circle1_patch, circle2_patch, intersect_patch
 
-
-# Initial Drawing of the circle
+fig1 = plt.figure()
 circle1 = Circle([0, 0], 1.0)
 circle2 = Circle([0.5, 0], 0.7)
-
-f = plt.figure()
-ax = f.gca()
-draw_main(ax, circle1, circle2)
+ax = fig1.gca()
+# Initial Drawing of the circle
+circle1_patch, circle2_patch, intersect_patch = draw_main(ax, circle1, circle2)
 ax.grid()
+plt_text = ax.text(-4, -4.5, "Intersection Area: {}".format(get_intersection_area(circle1.center, circle1.radius, circle2.center, circle2.radius)))
 
-buf = io.BytesIO()
-f.savefig(buf, format="png")
-buf.seek(0)
-img_str = "data:image/png;base64," + base64.b64encode(buf.read()).decode('UTF-8')
+# setup for webasm canvas backend
+def create_root_element2(self):
+    return document.getElementById('widget-output')
+#override create_root_element method of canvas 
+fig1.canvas.create_root_element = create_root_element2.__get__(
+    create_root_element2, fig1.canvas.__class__)
 
-img_tag = document.getElementById("widget-output")
-img_tag.src = img_str
-buf.close()
+
+def redraw(event):
+    global fig1
+    global circle1, circle2
+    global circle1_patch, circle2_patch, intersect_patch
+    global plt_text
+
+    circle2_patch.center = (event.xdata, event.ydata)
+    circle2.center = np.array([event.xdata, event.ydata])
+
+    if intersect_patch is not None:
+        intersect_patch.remove()
+    intersect_patch = draw_intersection(fig1.gca(), circle1, circle2, color="red", alpha=0.5)
+
+    plt_text.set_text("Intersection Area: {}".format(get_intersection_area(circle1.center, circle1.radius, circle2.center, circle2.radius)))
+
+def redraw_text():
+    global fig1
+    global circle1, circle2
+    global plt_text
+
+    plt_text.set_text("Intersection Area: {}".format(get_intersection_area(circle1.center, circle1.radius, circle2.center, circle2.radius)))
+
+
+fig1.canvas.mpl_connect("button_press_event", redraw)    
+fig1.canvas.show()
 
 
 

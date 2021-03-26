@@ -1,5 +1,17 @@
 #circle-editor {
     position: relative;
-    width: 800px;
+    width: 550px;
     height: 600px;
+}
+#editor-io-div {
+    visibility: hidden;
+}
+#editor-outputarea {
+    position: relative;
+    width: 550px;
+    height: 100px;
+}
+
+#loaded-widget-div{
+    visibility:hidden
 }
