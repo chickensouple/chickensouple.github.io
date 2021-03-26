@@ -111,8 +111,7 @@ Cap Area &= Arc Area \quad &- \quad&Triangle Area\\\\
 \end{align}$$
 Circle two is the same but with \\(r_2\\) and \\(d_2\\).
 
-To check if any of the caps have to be inverted, we can compute \\(\color{#3f9b0b}d_1\\) for each scenario, and it will be positive (valid) only in the scenario that is true. We do not actually have to compute whether or not the radical line is in between circle centers.
-
+To check if any of the caps have to be inverted, we can compute \\(\color{#3f9b0b}d_1\\) for the scenarios where the radial axis is not in between the circle centers. If they are not, then the value will be positive. 
 With this, we can now compute the intersection area.
 
 
@@ -138,10 +137,10 @@ $$ \color{#3f9b0b} d_{1}^{(circle1)} \color{black} =
 \quad \color{red} h^{(circle1)} \color{black} = \sqrt{\color{#0504aa} r_1^2 \color{black} - \color{#0504aa} {d_1^{(circle1)}}^2\color{black}} $$
 
 $$ \color{#0504aa} d_{2}^{(circle2)} \color{black} = 
-    \frac{\color{#0504aa} r_2^2 \color{black} - \color{#3f9b0b} r_1^2 \color{black} - \color{red} D^2 \color{black}}
+    \frac{\color{#3f9b0b} r_1^2 \color{black} - \color{#0504aa} r_2^2 \color{black} - \color{red} D^2 \color{black}}
       {2\color{red}D}, 
 %
- \quad \color{#3f9b0b} d_1^{(circle2)} \color{black} = \color{red} D \color{black} + \color{#0504aa} d_{1}^{(circle2)} \color{black},
+ \quad \color{#3f9b0b} d_1^{(circle2)} \color{black} = \color{red} D \color{black} + \color{#0504aa} d_{2}^{(circle2)} \color{black},
  %
 \quad \color{red} h^{(circle2)} \color{black} = \sqrt{\color{#0504aa} r_1^2 \color{black} - \color{#0504aa} {d_1^{(circle2)}}^2\color{black}}$$
 
