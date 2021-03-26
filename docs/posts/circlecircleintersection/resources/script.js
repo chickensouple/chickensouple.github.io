@@ -23,10 +23,11 @@ function setup_pyodide() {
 }
 
 function resize_mathjax() {
-    var window_width = $( window ).width();
-    var fontSize = String($(window).width() / 20)  + "%";
+    var fontSize = Math.min(Math.max($(window).width() / 12, 70), 120);  
+    var fontSizeStr = String(fontSize) + "%";
+
     jQuery('.MathJax').each(function(ii, obj) {
-        obj.style.fontSize = fontSize;
+        obj.style.fontSize = fontSizeStr;
     });
 }
 
