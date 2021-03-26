@@ -73,10 +73,8 @@ def get_angles_from_intersection(circle, intersection_pts, smaller_area=True):
         angles = angles[::-1]
     
     # we want to draw a cap counterclockwise from angles[0] to angles[1]
-
-    # this is to check if going counterclockwise passes the +-pi break
-    # if so, we need to add 2*pi to the second angle so that numpy can interpolate in the clockwise direction
-    if angles[0] > 0 and angles[1] < 0:
+    # make sure angles[1] is always greater so interpolation will go counterclockwise
+    if angles[0] > angles[1]:
         angles[1] = angles[1] + (2*np.pi)
     return angles
 
@@ -140,7 +138,7 @@ if __name__ == "__main__":
     fig1 = plt.figure(dpi=120)
     ax = plt.gca()
     circle1 = Circle([0, 0], 1)
-    circle2 = Circle([-0.5, 0.], 0.7)
+    circle2 = Circle([0.5, 0.], 0.7)
 
     
     # drawing circles

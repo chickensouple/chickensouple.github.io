@@ -2,6 +2,8 @@
 title: "Circle-Circle Intersection Area"
 date: 2021-03-25
 draft: false
+summaryImage: "images/notation.png"
+keepImageRatio: true
 ---
 
 
