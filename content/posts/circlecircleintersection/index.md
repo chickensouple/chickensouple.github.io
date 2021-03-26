@@ -184,14 +184,15 @@ Concretely in python:
 </textarea>
 </div>
 
-# Widgets
+# Widget
 <div id="load-widget-div">
-Click the button to load widgets. Warning, this can lag the webpage while loading.
+Click the button to load the widget. Warning, this can lag the webpage while loading.
 <button type="button" id="load-widget-button1">Click </button>
 </div>
 
 
 <div id="loaded-widget-div">
+
 This widget allows you to change and execute the python code shown in the previous section.
 You can click around the plot to change the location of the smaller circle. The output of the code above will be displayed as text at the bottom of the plot. Note that the visualization of the intersection area is unaffected by the code above.
 
