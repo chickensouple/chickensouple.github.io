@@ -53,9 +53,9 @@ params:
   favicon: "images/chicken.png"
 
   # parameter used to specify if you want to minify the imported js
-  jsMinify: false
+  jsMinify: true
   # parameter used to specify if you want to minify the imported css
-  cssMinify: false
+  cssMinify: true
   # parameter used to specify if you want to calculate the css integrity
   cssIntegrity: true
   # parameter used to specify if you want to calculate the js integrity

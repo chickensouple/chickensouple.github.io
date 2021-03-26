@@ -7,11 +7,11 @@
     
 <link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="../css/style.cd0a9ad63083f8bc410c7cfcb8c0f1a2bddcaca03e446551e99fcdde8442a24e.css" integrity="sha256-zQqa1jCD&#43;LxBDHz8uMDxor3crKA&#43;RGVR6Z/N3oRCok4=">
-<link rel="stylesheet" type="text/css" href="../css/monokai-sublime.9.15.8.min.91376415864fdd3a92be524052267afece4bdb1bb8c6c754f5e60c5ac28e93be.css" integrity="sha256-kTdkFYZP3TqSvlJAUiZ6/s5L2xu4xsdU9eYMWsKOk74=">
-<link rel="stylesheet" type="text/css" href="../css/icons.f72c0103ff9598115ab2a76351494b950570479ce3f1795fec13fc62e4185dcf.css" integrity="sha256-9ywBA/&#43;VmBFasqdjUUlLlQVwR5zj8Xlf7BP8YuQYXc8=">
-<link rel="stylesheet" type="text/css" href="../css/refresh.ccfd23f8053a1571a3e474a6877f42a6a1924c6bbf1b64c7704b49a0353b4650.css" integrity="sha256-zP0j&#43;AU6FXGj5HSmh39CpqGSTGu/G2THcEtJoDU7RlA=">
-<link rel="stylesheet" type="text/css" href="../css/devicon.min.149016fbf45c8bc157d6f55ce3ee875feaa3f90446bf7d151fbc16a9f21a8859.css" integrity="sha256-FJAW&#43;/Rci8FX1vVc4&#43;6HX&#43;qj&#43;QRGv30VH7wWqfIaiFk=">
+<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="../css/style.min.f262a78d45f49ef09d15d142086c13590445f037a703ae9b6bf3b773e5075bb9.css" integrity="sha256-8mKnjUX0nvCdFdFCCGwTWQRF8DenA66ba/O3c&#43;UHW7k=">
+<link rel="stylesheet" type="text/css" href="../css/monokai-sublime.9.15.8.min.min.3a5d282f03108101d715e80fd4c07b55502ec4673fc063f2b6e415d4def5b354.css" integrity="sha256-Ol0oLwMQgQHXFegP1MB7VVAuxGc/wGPytuQV1N71s1Q=">
+<link rel="stylesheet" type="text/css" href="../css/icons.min.ee23494515027c9d455d659dd0760f472e9c02e16079f933928bc4820d5b9e58.css" integrity="sha256-7iNJRRUCfJ1FXWWd0HYPRy6cAuFgefkzkovEgg1bnlg=">
+<link rel="stylesheet" type="text/css" href="../css/refresh.min.dc1f32b382057eb84921b684213bdba80b0d433fbe9de934059cf321c8fb4bac.css" integrity="sha256-3B8ys4IFfrhJIbaEITvbqAsNQz&#43;&#43;nek0BZzzIcj7S6w=">
+<link rel="stylesheet" type="text/css" href="../css/devicon.min.min.13fddf418611477a10293a87542de7703396184696bd8cf50642c4c72994c78a.css" integrity="sha256-E/3fQYYRR3oQKTqHVC3ncDOWGEaWvYz1BkLExymUx4o=">
     
 
   </head>
@@ -82,6 +82,63 @@
               <div class="section is-small">
                 <div class="columns">
                     <div class="column is-4"><div class="box">
+      <figure class="image is-3by2">
+        <a href="../posts/circlecircleintersection/">
+        
+          <img src="../images/default_summary_hu2be732aee21a2469ead3fe1f2df8caca_2088687_600x0_resize_q75_box.jpg" alt="">
+        
+        </a>
+      </figure>
+      <h3 class="title is-5 refresh-summary-title">
+        Circle-Circle Intersection Area
+      </h3>
+      <p class="refresh-summary">Introduction Figure 1: Area of intersection shown in orange. We look at computing the area of intersection of two circles (see Figure 1). This problem seems like it should be almost trivial. However, there are some corner cases to handle that are not immediately obvious (at least to me). Googling for this has brought me to several partial results that do not account for all the corner cases, so here is hopefully a post that is complete and can be referenced in the future to be able to quickly implement this computation. Hopefully, this post will not cause any further confusion.
+TODO: add table of contents
+Computing the Intersection Area There are some easy corner cases with the intersection of two circles:
+ No intersection area, the circles are too far apart One circle is completely inside the other (coincident circles are a special case of this), thus the intersection area is simply the area of the smaller circle. One intersection point, the circles are touching at one point and have no intersection area.  Finally, there is the &amp;ldquo;normal&amp;rdquo; case where the circle edges will intersect at two points as depicted in Figure 1. We can draw the line that contains the two intersection points, which is known as the radical axis. We can then look at computing the intersection areas on either side of the radical axis. A depiction of a possible case is shown in Figure 2.
+Figure 2: The total area will be the sum of the shaded areas. In this particular case, we simply need to compute the areas of the two &amp;ldquo;caps.&amp;rdquo; Each cap can be computed by subtracting a triangle from the arc area as shown in Figure 3.
+Figure 3: Cap area = Arc area - Triangle Area Just computing the area of the caps will not cover all cases. They represent the intersected area only when the radical axis is &amp;ldquo;in-between&amp;rdquo; the two centers of the circles. There is one more case when radical axis is not in-between the two centers of the circles. This can only happen when one circle is smaller than the other and is shown in Figure 4 (this is the case that I see most online sources miss).
+Figure 4: Radical axis is not in-between the circle centers. This case is still easy to deal with, as \( A_2 \) in Figure 4 is the &amp;ldquo;inverse&amp;rdquo; of the cap: the area of the smaller circle minus the area of the cap. Thus to compute the area of intersection for the case of two intersection points, we simply need to compute the area of the caps (and possibly &amp;ldquo;invert&amp;rdquo; them in the case of Figure 4). Thus, there are two cases we look at when determining the intersection area with two intersection points: The case where the radical axis is in-between the two circle centers, and the case where it is not.
+To compute the cap area, we need the arc area and triangle area. The arc area can be determined from the length of the chord because it will allow us to obtain the angle of the arc. The triangle area can also be determined by the length of the chord because we then have a base to an isoceles triangle. Thus we will look at computing the area of the chord. A helpful line to draw is the line connecting the two centers of the circles as shown in Figure 5.
+Figure 5: A helpful line and right triangles. It happens to be the case that the radical axis is perpendicular to the line connecting the circle centers [Art of Problem Solving: Radical Axis, Theorem 2]. This allows us to form right triangles as shown in Figure 5, where the hypotenuses are the radiuses of the respective circles. We can then use these right triangles to write down some geometric relationships to help us solve for the length of the chord along the radical axis. Before we write these relationships, we will now define some notation for the quantities we have been considering.
+Notation Figure 6: Notation. Figure 6 gives a visual guide to the various geometric quantities we will define. Note that while Figure 6 gives an example of how various geometric quantities can look, the relationships between them can change given depending on whether the radical axis is in-between the two circle centers or not. The quantities are defined as follows:
+ Each circle is defined with a center, \( \vec{p} = (p_x, p_y)\), and a radius, \( r \). We will subscript these variables to denote either circle 1 or circle 2, e.g. \( \vec{p}_1\) is the center of circle 1. The distance between the two centers is defined as \(D = || \vec{p}_1 - \vec{p}_2||_2\) The intersection of the radical axis and the line connecting the center of the circles is denoted as \( \vec{c} \) The distance between \(\vec{c} \) and one of the intersection points is denoted as \(h\) (Note that the triangles formed by the points \(\vec{p}_1\), \(\vec{c}\), and either intersection point is the same. Thus, the quantity, \(h\), is the same no matter which intersection point you choose). The distance between \(\vec{c} \) and \(\vec{p}_1\) is denoted as \(d_1\). The distance between \(\vec{c} \) and \(\vec{p}_2\) is denoted as \(d_2\).  The &amp;ldquo;Normal&amp;rdquo; Case Having defined the notation, we can start writing down geometric relationships. From the two right triangles shown in Figure 5, we can write down Pythagorean&amp;rsquo;s theorem
+$$ \begin{align} \color{#3f9b0b} r_1^2 \color{black} &amp;amp;= \color{#3f9b0b} d_1^2 \color{black} &#43; \color{red} h^2 \\ \color{#0504aa} r_2^2 \color{black} &amp;amp;= \color{#0504aa} d_2^2 \color{black} &#43; \color{red} h^2 \end{align} $$
+Next, one of the following equations must be true.
+$$ \begin{align} 1) \quad \color{#3f9b0b} d_1 \color{black} &#43; \color{#0504aa} d_2 \color{black} &amp;amp;= \color{red} D \\
+\color{black} 2) \color{#3f9b0b} \quad d_1 \color{black} &#43; \color{red} D \color{black} &amp;amp;= \color{#0504aa} d_2\\ \color{black} 3) \color{#0504aa} \quad d_2 \color{black} &#43; \color{red} D \color{black} &amp;amp;= \color{#3f9b0b} d_1 \end{align} $$
+ Case 1 corresponds to when the radical line is inbetween the circle centers as shown in Figure 2. Case 2 corresponds to when the radical line is not in between the circle centers (as shown in Figure 4) and circle 1 is the smaller circle Case 3 is the same as Case 2, but circle 2 is the smaller circle.  Combining the two equations from Pythagorean&amp;rsquo;s theorem and any one of the 3 cases, we get 3 equations and 3 unknowns (\(\color{#3f9b0b} d_1\), \(\color{#0504aa} d_2\), \(\color{red} h\)). For each scenario, we can solve for \(d_1\)
+$$\begin{align}1) \quad \color{#3f9b0b} d_1 \color{black} &amp;amp;= \frac{\color{#3f9b0b} r_1^2 \color{black} - \color{#0504aa} r_2^2 \color{black} &#43; \color{red} D^2} {2\color{red}D} \\
+2) \quad \color{#3f9b0b} d_1 \color{black} &amp;amp;= \frac{\color{#0504aa} r_2^2 \color{black} - \color{#3f9b0b} r_1^2 \color{black} - \color{red} D^2} {2\color{red}D} \\
+3) \quad \color{#3f9b0b} d_1 \color{black} &amp;amp;= \frac{\color{#3f9b0b} r_1^2 \color{black} - \color{#0504aa} r_2^2 \color{black} - \color{red} D^2 \color{black} &#43; 2\color{red}D} {2\color{red}D} \\
+\end{align}$$
+And then, solve for \(\color{red}h \) $$ \color{red}h \color{black} = \sqrt{\color{#3f9b0b}r_1^2 \color{black} - \color{#3f9b0b} d_1^2}$$
+Now, we can find the area for the caps as shown in Figure 3. For circle 1, we have $$ \begin{align} Cap Area &amp;amp;= Arc Area \quad &amp;amp;- \quad&amp;amp;Triangle Area\\
+&amp;amp;= \color{#3f9b0b} r_1^2\color{black} \arcsin(\frac{\color{red}h}{\color{#3f9b0b}r_1}) &amp;amp;- \quad&amp;amp;\color{red}h \color{#3f9b0b}d_1 \end{align}$$ Circle two is the same but with \(r_2\) and \(d_2\).
+To check if any of the caps have to be inverted, we can compute \(\color{#3f9b0b}d_1\) for each scenario, and it will be positive (valid) only in the scenario that is true. We do not actually have to compute whether or not the radical line is in between circle centers.
+With this, we can now compute the intersection area.
+Summary This section will be a succint summary of all the equations and conditions required to compute intersection area with no explanation. We use the notation introduced in Figure 6.
+$$\color{red}D \color{black} = || \color{#3f9b0b} \vec{p}_1 \color{black} - \color{#0504aa} \vec{p}_2 \color{black} ||_2$$
+$$\color{#3f9b0b} d_{1}^{(center)} \color{black} = \frac{\color{#3f9b0b} r_1^2 \color{black} - \color{#0504aa} r_2^2 \color{black} &#43; \color{red} D^2} {2\color{red}D}, % \quad \color{#0504aa} d_2^{(center)} \color{black} = \color{red} D\color{black} - \color{#3f9b0b} d_{1}^{(center)}, % \quad\color{red} h^{(center)} \color{black} = \sqrt{\color{#0504aa} r_1^2 \color{black} - \color{#0504aa} {d_1^{(center)}}^2\color{black}}$$
+$$ \color{#3f9b0b} d_{1}^{(circle1)} \color{black} = \frac{\color{#0504aa} r_2^2 \color{black} - \color{#3f9b0b} r_1^2 \color{black} - \color{red} D^2} {2\color{red}D}, % \quad \color{#0504aa} d_2^{(circle1)} \color{black} = \color{red} D\color{black} &#43; \color{#3f9b0b} d_{1}^{(circle1)} % \quad \color{red} h^{(circle1)} \color{black} = \sqrt{\color{#0504aa} r_1^2 \color{black} - \color{#0504aa} {d_1^{(circle1)}}^2\color{black}} $$
+$$ \color{#0504aa} d_{2}^{(circle2)} \color{black} = \frac{\color{#0504aa} r_2^2 \color{black} - \color{#3f9b0b} r_1^2 \color{black} - \color{red} D^2 \color{black}} {2\color{red}D}, % \quad \color{#3f9b0b} d_1^{(circle2)} \color{black} = \color{red} D \color{black} &#43; \color{#0504aa} d_{1}^{(circle2)} \color{black}, % \quad \color{red} h^{(circle2)} \color{black} = \sqrt{\color{#0504aa} r_1^2 \color{black} - \color{#0504aa} {d_1^{(circle2)}}^2\color{black}}$$
+$$ IntersectionArea(\color{#3f9b0b}\vec{p}_1\color{black}, \color{#3f9b0b}r_1\color{black}, \color{#0504aa}\vec{p}_2\color{black}, \color{#0504aa}r_2\color{black}) = \begin{cases} % no intersection 0, &amp;amp; \text{if } \color{red} D \color{black} &amp;gt; \color{#3f9b0b} r_1 &#43; \color{#0504aa} r_2\\
+% circle1 in circle2 \pi \color{#3f9b0b} r_1^2 &amp;amp; \text{if } \color{red} D \color{black} &#43; \color{#3f9b0b} r_1 \leq \color{#0504aa} r_2\\
+% circle2 in circle1 \pi \color{#0504aa} r_2^2 &amp;amp; \text{if } \color{red} D \color{black} &#43; \color{#0504aa} r_2 \leq \color{#3f9b0b} r_1 \\
+% normal case smaller circle1 \pi \color{#3f9b0b} r_1^2 \color{black} - (\color{#3f9b0b} r_1^2 \color{black} \arcsin(\frac{\color{red}h^{(circle1)}\color{black}}{\color{#3f9b0b}r_1\color{black}}) - \color{red}h^{(circle1)} \color{#3f9b0b}d_1^{(circle1)} \color{black}) &#43; \\ \qquad \color{#0504aa} r_2^2 \color{black} \arcsin(\frac{\color{red}h^{(circle1)}\color{black}}{\color{#0504aa}r_2\color{black}}) - \color{red}h^{(circle1)}\color{black} \color{#0504aa}d_2^{(circle1)} \color{black} &amp;amp; \text{if } \color{#3f9b0b} d_1^{(circle1)} \color{black} \geq 0 \\
+% normal case smaller circle2 \color{#3f9b0b} r_1^2 \color{black} \arcsin(\frac{\color{red}h^{(circle2)}\color{black}}{\color{#3f9b0b}r_1\color{black}}) - \color{red}h^{(circle2)} \color{#3f9b0b}d_1^{(circle2)} \color{black} &#43; \\ \qquad \pi \color{#0504aa} r_2^2 \color{black} - ( \color{#0504aa} r_2^2 \color{black} \arcsin(\frac{\color{red}h^{(circle2)}\color{black}}{\color{#0504aa}r_2\color{black}}) - \color{red}h^{(circle2)}\color{black} \color{#0504aa}d_2^{(circle2)} \color{black}) &amp;amp; \text{if } \color{#0504aa} d_2^{(circle2)} \color{black} \geq 0 \\
+% normal case \color{#3f9b0b} r_1^2 \color{black} \arcsin(\frac{\color{red}h^{(center)}\color{black}}{\color{#3f9b0b}r_1\color{black}}) - \color{red}h^{(center)} \color{#3f9b0b}d_1^{(center)} \color{black} &#43; \\ \qquad \color{#0504aa} r_2^2 \color{black} \arcsin(\frac{\color{red}h^{(center)}\color{black}}{\color{#0504aa}r_2\color{black}}) - \color{red}h^{(center)}\color{black} \color{#0504aa}d_2^{(center)} \color{black} &amp;amp; \text{otherwise} \\
+\end{cases} $$
+Widgets Work in Progress
+// set the pyodide files URL (packages.json, pyodide.asm.data etc)window.languagePluginUrl = &#39;https://cdn.jsdelivr.net/pyodide/v0.16.1/full/&#39;;1 2 3 4 5  class Circle(object): def __init__(self, center, radius): assert(len(center) == 2) self.center = np.array(center) self.radius = radius   def get_intersection_area(circle1, circle2): D = np.linalg.norm(circle1.center - circle2.center) if D &amp;gt;= (circle1.radius &amp;#43; circle2.radius): # no overlap return 0 elif D &amp;#43; circle1.radius &amp;lt;= circle2.radius: # circle1 is fully contained in circle2 return np.pi * circle1.radius**2 elif D &amp;#43; circle2.radius &amp;lt;= circle1.radius: return np.pi * circle2.radius**2 # intersection with two intersection points r1_sq = circle1.radius**2 r2_sq = circle2.radius**2 D_sq = D**2 invert_circle2 = False invert_circle1 = False d1 = (r2_sq - r1_sq - D_sq) / (2 * D) if d1 &amp;gt; 0: # The radical axis is not between the circle centers # and circle1 is the smaller circle d2 = D &amp;#43; d1 invert_circle1 = True else: d2 = (r1_sq - r2_sq - D_sq) / (2 * D) if d2 &amp;gt; 0: # The radical axis is not between the circle centers # and circle2 is the smaller circle d1 = D &amp;#43; d2 invert_circle2 = True else: # The radical axis is between the circle centers d1 = (r1_sq - r2_sq &amp;#43; D_sq) / (2*D) d2 = D - d1 h = np.sqrt(r1_sq - d1**2) area1 = (r1_sq * np.arcsin(h / circle1.radius)) - (h*d1) area2 = (r2_sq * np.arcsin(h / circle2.radius)) - (h*d2) if invert_circle2: area2 = np.pi * r2_sq - area2 elif invert_circle1: area1 = np.pi * r1_sq - area1 return area1 &amp;#43; area2 </p> 
+      <div class="action has-text-right">
+        <a href="../posts/circlecircleintersection/" class="button is-primary">
+                Read more
+            </a>
+      </div>
+    </div>
+  </div>
+<div class="column is-4"><div class="box">
       <figure class="image is-3by2">
         <a href="../posts/sufficiently_accurate/">
         
@@ -170,7 +227,10 @@ Ichter, Brian, James Harrison, and Marco Pavone. &amp;ldquo;Learning sampling di
       </div>
     </div>
   </div>
-<div class="column is-4"><div class="box">
+
+                          </div>
+                          <div class="columns">
+                            <div class="column is-4"><div class="box">
       <figure class="image is-3by2">
         <a href="../posts/constrained_wireless/">
         
@@ -209,10 +269,7 @@ Eisen, Mark, and Alejandro R. Ribeiro. &amp;ldquo;Optimal wireless resource allo
       </div>
     </div>
   </div>
-
-                          </div>
-                          <div class="columns">
-                            <div class="column is-4"><div class="box">
+<div class="column is-4"><div class="box">
       <figure class="image is-3by2">
         <a href="../posts/pyodide_test/">
         
@@ -360,35 +417,29 @@ Eisen, Mark, and Alejandro R. Ribeiro. &amp;ldquo;Optimal wireless resource allo
     </ul>
   </div>
 </div>
-<script src="../js/jquery-2.2.4.893e90f6230962e42231635df650f20544ad22affc3ee396df768eaa6bc5a6a2.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="></script>
-  <script src="../js/feather.4.22.0.1ab07abeb9975f283f6b5f29451981be680fbf77ea778f991d457511d210476a.js" integrity="sha256-GrB6vrmXXyg/a18pRRmBvmgPv3fqd4&#43;ZHUV1EdIQR2o="></script>
-  <script src="../js/modernizr-3.6.0.e013a1e54e3c19d83537ba42b900d34451e5e4b2e789be27a02ac9b152edb741.js" integrity="sha256-4BOh5U48Gdg1N7pCuQDTRFHl5LLnib4noCrJsVLtt0E="></script>
-  <script src="../js/refresh.62c1a9b7d85bcf4d944cd585a01dfa8fb15112a7d2cf9fb819db20493bfe7484.js" integrity="sha256-YsGpt9hbz02UTNWFoB36j7FREqfSz5&#43;4GdsgSTv&#43;dIQ="></script><script>
-  window.MathJax = {
-    loader: {
-      load: ['core', 'input/tex-base', 'output/chtml'],  
-      source: {
-        'core': '\/js\/mathjax\/core.d48fedf25c74c54fa6bf79646de92b02155872bdc4f5f7d0bbfc662523d8b4f5.js',
-        'input/tex-base': '\/js\/mathjax\/tex-base.1b68b8741dfc54e8f7222f88bea8ffcfc57ac54b2a2d8f4edf6800aa44d49441.js',
-        'output/chtml': '\/js\/mathjax\/chtml.926cd166e0f8c1f8a566a718d60c9c58a2b7142b156d30d5f02cec7c3b0ad60a.js',
-        'output/chtml/fonts/tex': '\/js\/mathjax\/tex_out.b8b2bb939c0dae84bf1390bfe6d32af13e83f647cdac01d544d2a7a517477e9d.js'
-      },
+<script src="../js/jquery-2.2.4.min.dead7ea11aa9f68488bfe2f9a1be00b7773bea3874f0a221cb898f5c4b041b6a.js" integrity="sha256-3q1&#43;oRqp9oSIv&#43;L5ob4At3c76jh08KIhy4mPXEsEG2o="></script>
+  <script src="../js/feather.4.22.0.min.df46a360906c5f1e61c5867bb42b1f7a8b0166f8351e175a1a4f2958f331e42e.js" integrity="sha256-30ajYJBsXx5hxYZ7tCsfeosBZvg1HhdaGk8pWPMx5C4="></script>
+  <script src="../js/modernizr-3.6.0.min.2f19d51e4b89c87bdabcdb05684b34f3c1ac6e5e3919ae1c067377c4f64f23cc.js" integrity="sha256-LxnVHkuJyHvavNsFaEs088Gsbl45Ga4cBnN3xPZPI8w="></script>
+  <script src="../js/refresh.min.58d0ebd018c8eacfa18b730fb90e94bc3e3d1b009ae12f99fb0f8f5f4bf6a581.js" integrity="sha256-WNDr0BjI6s&#43;hi3MPuQ6UvD49GwCa4S&#43;Z&#43;w&#43;PX0v2pYE="></script><script>
+  var mathjax_pagemacros = (typeof mathjax_pagemacros == 'undefined') ? [] : mathjax_pagemacros;
+
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      processEscapes: true,
     },
-    chtml: {
-      fontURL: '/fonts' 
+    svg: {
+      fontCache: 'global'
+    },
+    loader: {load: ['[tex]/color', '[tex]/configMacros']},
+    tex: {
+      packages: {'[+]': ['color', 'configMacros']},
+      macros: mathjax_pagemacros
     },
   };
-</script><script src="../js/mathjax/startup.234a2513e6bdbc1eee06ca19abceca30fe4034e82afb373c08274c1ba2feb1a6.js" integrity="sha256-I0olE&#43;a9vB7uBsoZq87KMP5ANOgq&#43;zc8CCdMG6L&#43;saY="></script>
-  <script src="../js/highlight.9.18.1.b1c58829c55afcc1f568022af4b08ed8976da404d2990b7535bd8e19c0e3310c.js" integrity="sha256-scWIKcVa/MH1aAIq9LCO2JdtpATSmQt1Nb2OGcDjMQw="></script>
-  <script src="../js/highlightjs-line-numbers.2.7.0.min.ddfe282e07b7ec1ed069c23f92c7c8216ddb3f1879c4e962d37fd52adbd15a05.js" integrity="sha256-3f4oLge37B7QacI/ksfIIW3bPxh5xOli03/VKtvRWgU="></script><script>
-  hljs.initHighlightingOnLoad();
-  hljs.initLineNumbersOnLoad();
-  document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('.codeinline').forEach((block) => {
-      hljs.highlightBlock(block);
-    });
-  });
+  
 </script>
-
-</body>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script></body>
 </html>
