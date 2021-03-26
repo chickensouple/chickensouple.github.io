@@ -126,7 +126,7 @@ $$\color{#3f9b0b} d_{1}^{(center)} \color{black} =
  %
  \quad \color{#0504aa} d_2^{(center)} \color{black} = \color{red} D\color{black} - \color{#3f9b0b} d_{1}^{(center)}, 
  %
- \quad\color{red} h^{(center)} \color{black} = \sqrt{\color{#0504aa} r_1^2 \color{black} - \color{#0504aa} {d_1^{(center)}}^2\color{black}}$$
+ \quad\color{red} h^{(center)} \color{black} = \sqrt{\color{#3f9b0b} r_1^2 \color{black} - \color{#3f9b0b} {d_1^{(center)}}^2\color{black}}$$
 
 $$ \color{#3f9b0b} d_{1}^{(circle1)} \color{black} = 
     \frac{\color{#0504aa} r_2^2 \color{black} - \color{#3f9b0b} r_1^2 \color{black} - \color{red} D^2}
@@ -134,7 +134,7 @@ $$ \color{#3f9b0b} d_{1}^{(circle1)} \color{black} =
 %
  \quad \color{#0504aa} d_2^{(circle1)} \color{black} = \color{red} D\color{black} + \color{#3f9b0b} d_{1}^{(circle1)}
 %
-\quad \color{red} h^{(circle1)} \color{black} = \sqrt{\color{#0504aa} r_1^2 \color{black} - \color{#0504aa} {d_1^{(circle1)}}^2\color{black}} $$
+\quad \color{red} h^{(circle1)} \color{black} = \sqrt{\color{#3f9b0b} r_1^2 \color{black} - \color{#3f9b0b} {d_1^{(circle1)}}^2\color{black}} $$
 
 $$ \color{#0504aa} d_{2}^{(circle2)} \color{black} = 
     \frac{\color{#3f9b0b} r_1^2 \color{black} - \color{#0504aa} r_2^2 \color{black} - \color{red} D^2 \color{black}}
@@ -142,7 +142,7 @@ $$ \color{#0504aa} d_{2}^{(circle2)} \color{black} =
 %
  \quad \color{#3f9b0b} d_1^{(circle2)} \color{black} = \color{red} D \color{black} + \color{#0504aa} d_{2}^{(circle2)} \color{black},
  %
-\quad \color{red} h^{(circle2)} \color{black} = \sqrt{\color{#0504aa} r_1^2 \color{black} - \color{#0504aa} {d_1^{(circle2)}}^2\color{black}}$$
+\quad \color{red} h^{(circle2)} \color{black} = \sqrt{\color{#3f9b0b} r_1^2 \color{black} - \color{#3f9b0b} {d_1^{(circle2)}}^2\color{black}}$$
 
 
 $$
