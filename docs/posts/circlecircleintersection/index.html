@@ -85,7 +85,7 @@
         <section class="section content has-text-justified">
           <h1 id="introduction">Introduction</h1>
 <figure display="table">
-  <img src="images/main.png" style="height:200px !important;"/>
+  <img src="images/main.png" style="width:45% !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 1: Area of intersection shown in orange. </i></figcaption>
 </figure>
 <p>We look at computing the area of intersection of two circles (see Figure 1). This problem seems like it should be almost trivial. However, there are some corner cases to handle that are not immediately obvious (at least to me). Googling for this has brought me to several partial results that do not account for all the corner cases, so here is hopefully a post that is complete and can be referenced in the future to be able to quickly implement this computation. Hopefully, this post will not <a href="https://xkcd.com/927/" target="_blank"> cause any further confusion</a>.</p>
@@ -99,29 +99,29 @@
 </ol>
 <p>Finally, there is the &ldquo;normal&rdquo; case where the circle edges will intersect at two points as depicted in Figure 1. We can draw the line that contains the two intersection points, which is known as the <a href="https://en.wikipedia.org/wiki/Radical_axis" target="_blank">radical axis</a>. We can then look at computing the intersection areas on either side of the radical axis. A depiction of a possible case is shown in Figure 2.</p>
 <figure display="table">
-  <img src="images/caps.png" style="height:200px !important;"/>
+  <img src="images/caps.png" style="width:33% !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 2: The total area will be the sum of the shaded areas. </i></figcaption>
 </figure>
 <p>In this particular case, we simply need to compute the areas of the two &ldquo;caps.&rdquo; Each cap can be computed by subtracting a triangle from the arc area as shown in Figure 3.</p>
 <figure display="table">
-  <img src="images/caps_subtraction.png" height="200"/>
+  <img src="images/caps_subtraction.png" style="width:50% !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 3: Cap area = Arc area - Triangle Area </i></figcaption>
 </figure>
 <p>Just computing the area of the caps will not cover all cases. They represent the intersected area only when the radical axis is &ldquo;in-between&rdquo; the two centers of the circles. There is one more case when radical axis is not in-between the two centers of the circles. This can only happen when one circle is smaller than the other and is shown in Figure 4 (this is the case that I see most online sources miss).</p>
 <figure display="table">
-  <img src="images/caps2.png" style="height:200px !important;"/>
+  <img src="images/caps2.png" style="width:33% !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 4: Radical axis is not in-between the circle centers. </i></figcaption>
 </figure>
 <p>This case is still easy to deal with, as \( A_2 \) in Figure 4 is the &ldquo;inverse&rdquo; of the cap: the area of the smaller circle minus the area of the cap. Thus to compute the area of intersection for the case of two intersection points, we simply need to compute the area of the caps (and possibly &ldquo;invert&rdquo; them in the case of Figure 4). Thus, there are two cases we look at when determining the intersection area with two intersection points: The case where the radical axis is in-between the two circle centers, and the case where it is not.</p>
 <p>To compute the cap area, we need the arc area and triangle area. The arc area can be determined from the length of the chord because it will allow us to obtain the angle of the arc. The triangle area can also be determined by the length of the chord because we then have a base to an isoceles triangle. Thus we will look at computing the area of the chord. A helpful line to draw is the line connecting the two centers of the circles as shown in Figure 5.</p>
 <figure display="table">
-  <img src="images/right_angle.png" style="height:200px !important;"/>
+  <img src="images/right_angle.png" style="width:33% !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 5: A helpful line and right triangles. </i></figcaption>
 </figure>
 <p>It happens to be the case that the radical axis is perpendicular to the line connecting the circle centers <a href="https://artofproblemsolving.com/wiki/index.php/Radical_axis" target="_blank">[Art of Problem Solving: Radical Axis, Theorem 2]</a>. This allows us to form right triangles as shown in Figure 5, where the hypotenuses are the radiuses of the respective circles. We can then use these right triangles to write down some geometric relationships to help us solve for the length of the chord along the radical axis. Before we write these relationships, we will now define some notation for the quantities we have been considering.</p>
 <h4 id="notation">Notation</h4>
 <figure display="table">
-  <img src="images/notation.png" style="height:200px !important;"/>
+  <img src="images/notation.png" style="width:50% !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 6: Notation. </i></figcaption>
 </figure>
 <p>Figure 6 gives a visual guide to the various geometric quantities we will define. Note that while Figure 6 gives an example of how various geometric quantities can look, the relationships between them can change given depending on whether the radical axis is in-between the two circle centers or not. The quantities are defined as follows:</p>
@@ -276,6 +276,11 @@ def get_intersection_area(p1, r1, p2, r2):
 </div>
 <h1 id="widgets">Widgets</h1>
 <p>Work in Progress</p>
+<img id="widget-output"/> 
+<!-- <div id="load-widget-div">
+Click the button to load widgets. Warning, this can lag the webpage while loading.
+<button type="button" id="load-widget-button">Click </button>
+</div> -->
 <script type="text/javascript">
     // set the pyodide files URL (packages.json, pyodide.asm.data etc)
     window.languagePluginUrl = 'https://cdn.jsdelivr.net/pyodide/v0.16.1/full/';
@@ -287,87 +292,35 @@ crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-python.min.js" integrity="sha512-2Ke4vMGrMfYRM55pT1aA5bw7Pl82Sc7K5Hg8XZYZu+EQrb0AO1mNYTagwZm+MFVAImYS9Mlnm73zcgc01wPXxA==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js" integrity="sha512-S4i/WUGRs22+8rjUVu4kBjfNuBNp8GVsgcK2lbaFdws4q6TF3Nd00LxqnHhuxS9iVDfNcUh0h6OxFUMP5DBD+g==" crossorigin="anonymous"></script>
-<!-- 
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Circle</span>(object):
-    <span style="color:#66d9ef">def</span> __init__(self, center, radius):
-        <span style="color:#66d9ef">assert</span>(len(center) <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>)
-        self<span style="color:#f92672">.</span>center <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(center)
-        self<span style="color:#f92672">.</span>radius <span style="color:#f92672">=</span> radius</code></pre></td></tr></table>
-</div>
-</div>
-
-<div id="circle-editor">
-
-def get_intersection_area(p1, r1, p2, r2):
-    &#34;&#34;&#34;
-    Computes the area of intersection between two circles.
-
-    p1 and p2 are length 2 np.arrays that represent the circle center locations.
-    r1 and r2 are their respective radiuses.
-    &#34;&#34;&#34;
-    D = np.linalg.norm(p1 - p2)
-    if D &gt;= (r1 &#43; r2):
-        # no overlap
-        return 0
-    elif D &#43; r1 &lt;= r2:
-        # circle1 is fully contained in circle2
-        return np.pi * r1**2
-    elif D &#43; r2 &lt;= r1:
-        # circle2 is fully contained in circle1
-        return np.pi * r2**2
-    
-    # intersection with two intersection points
-    r1_sq = r1**2
-    r2_sq = r2**2
-    D_sq = D**2
-
-    invert_circle1 = False
-    invert_circle2 = False
-
-    d1 = (r2_sq - r1_sq - D_sq) / (2 * D)
-    if d1 &gt; 0:
-        # The radical axis is not between the circle centers
-        # and circle1 is the smaller circle
-        d2 = D &#43; d1
-        invert_circle1 = True
-    else:
-        d2 = (r1_sq - r2_sq - D_sq) / (2 * D)
-        if d2 &gt; 0:
-            # The radical axis is not between the circle centers
-            # and circle2 is the smaller circle
-            d1 = D &#43; d2
-            invert_circle2 = True
-        else:
-            # The radical axis is between the circle centers
-            d1 = (r1_sq - r2_sq &#43; D_sq) / (2*D)
-            d2 = D - d1
-    
-    h = np.sqrt(r1_sq - d1**2)
-    area1 = (r1_sq * np.arcsin(h / r1)) - (h*d1)
-    area2 = (r2_sq * np.arcsin(h / r2)) - (h*d2)
-    if invert_circle2:
-        area2 = np.pi * r2_sq - area2
-    elif invert_circle1:
-        area1 = np.pi * r1_sq - area1
-    
-    return area1 &#43; area2
-
-
-
-</div>
-
-<img id="widget-output"/> -->
 <script src="resources/script.js"></script>
 <link rel="stylesheet" href="resources/style.css">
+<!-- Math Jax -->
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      processEscapes: true,
+    },
+    svg: {
+      fontCache: 'global'
+    },
+    loader: {load: ['[tex]/color', '[tex]/configMacros']},
+    tex: {
+      packages: {'[+]': ['color', 'configMacros']},
+    },
+    startup:{
+       ready: () => {
+         MathJax.startup.defaultReady();
+         MathJax.startup.promise.then(() => {
+           resize_mathjax();
+         });
+       }
+    }
+  };
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
 
         </section>
       </div>
@@ -503,26 +456,5 @@ def get_intersection_area(p1, r1, p2, r2):
 <script src="../../js/jquery-2.2.4.min.dead7ea11aa9f68488bfe2f9a1be00b7773bea3874f0a221cb898f5c4b041b6a.js" integrity="sha256-3q1&#43;oRqp9oSIv&#43;L5ob4At3c76jh08KIhy4mPXEsEG2o="></script>
   <script src="../../js/feather.4.22.0.min.df46a360906c5f1e61c5867bb42b1f7a8b0166f8351e175a1a4f2958f331e42e.js" integrity="sha256-30ajYJBsXx5hxYZ7tCsfeosBZvg1HhdaGk8pWPMx5C4="></script>
   <script src="../../js/modernizr-3.6.0.min.2f19d51e4b89c87bdabcdb05684b34f3c1ac6e5e3919ae1c067377c4f64f23cc.js" integrity="sha256-LxnVHkuJyHvavNsFaEs088Gsbl45Ga4cBnN3xPZPI8w="></script>
-  <script src="../../js/refresh.min.58d0ebd018c8eacfa18b730fb90e94bc3e3d1b009ae12f99fb0f8f5f4bf6a581.js" integrity="sha256-WNDr0BjI6s&#43;hi3MPuQ6UvD49GwCa4S&#43;Z&#43;w&#43;PX0v2pYE="></script><script>
-  var mathjax_pagemacros = (typeof mathjax_pagemacros == 'undefined') ? [] : mathjax_pagemacros;
-
-  MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      processEscapes: true,
-    },
-    svg: {
-      fontCache: 'global'
-    },
-    loader: {load: ['[tex]/color', '[tex]/configMacros']},
-    tex: {
-      packages: {'[+]': ['color', 'configMacros']},
-      macros: mathjax_pagemacros
-    },
-  };
-  
-</script>
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-</script></body>
+  <script src="../../js/refresh.min.58d0ebd018c8eacfa18b730fb90e94bc3e3d1b009ae12f99fb0f8f5f4bf6a581.js" integrity="sha256-WNDr0BjI6s&#43;hi3MPuQ6UvD49GwCa4S&#43;Z&#43;w&#43;PX0v2pYE="></script></body>
 </html>

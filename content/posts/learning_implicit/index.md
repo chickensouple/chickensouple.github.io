@@ -7,6 +7,27 @@ keepImageRatio: true
 # summary: Work done in learning sampling distributions for Sampling based motion planners.
 ---
 
+<!-- Math Jax -->
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      processEscapes: true,
+    },
+    svg: {
+      fontCache: 'global'
+    },
+    loader: {load: ['[tex]/color', '[tex]/configMacros']},
+    tex: {
+      packages: {'[+]': ['color', 'configMacros']},
+    },
+
+  };
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
 
 # Introduction
 Robot motion planning is a problem that has been studied for many decades. For quite a while, sampling based planning approaches such as [Rapidly Exploring Random Trees (RRT)](http://msl.cs.uiuc.edu/~lavalle/papers/LavKuf01.pdf), [Expansive Space Trees (EST)](http://ftp.cs.stanford.edu/cs/robotics/dyhsu/papers/icra97.pdf), were quite popular in academia have been used with great success in some problem domains. 
@@ -116,4 +137,6 @@ in configuration space,” arXiv preprint arXiv:1109.3145, 2011.</a>
 <a name="zlatan2019" href="https://arxiv.org/pdf/1906.02789.pdf" target="_blank">Zlatan Ajanovic, Halil Beglerovic, Bakir Lacevic. "A novel approach to model exploration for value function learning." RSS 2019 workshop. </a>
 
 <a name="ichter2018" href="https://arxiv.org/pdf/1709.05448.pdf" target="_blank">Ichter, Brian, James Harrison, and Marco Pavone. "Learning sampling distributions for robot motion planning." 2018 IEEE International Conference on Robotics and Automation (ICRA). IEEE, 2018.</a>
+
+
 

@@ -6,8 +6,26 @@ summaryImage: "images/main.png"
 keepImageRatio: true
 ---
 
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript" crossorigin="anonymous"></script>
+<!-- Math Jax -->
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      processEscapes: true,
+    },
+    svg: {
+      fontCache: 'global'
+    },
+    loader: {load: ['[tex]/color', '[tex]/configMacros']},
+    tex: {
+      packages: {'[+]': ['color', 'configMacros']},
+    },
 
+  };
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
 
 # Introduction
 This work looks at learning dynamics model for planning and control. Planners require a model of the system to work with. This model will inform the planner what happens when you take an action at some specific state. In <a href="../learning_implicit"> previous work </a>, we had applied machine learning to learn heuristics for planning. This work addresses learning the model for planning. A paper containing some results is available [here](#zhang2021).
@@ -68,4 +86,3 @@ A model learned using our objective is better able to compensate for the greater
 
 <a name="todorov2005" href="http://maeresearch.ucsd.edu/skelton/publications/weiwei_ilqg_CDC43.pdf" target="_blank">Todorov, Emanuel, and Weiwei Li. "A generalized iterative LQG method for locally-optimal feedback control of constrained nonlinear stochastic systems." Proceedings of the 2005, American Control Conference, 2005.. IEEE, 2005.
 </a>
-

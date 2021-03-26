@@ -9,7 +9,7 @@ keepImageRatio: true
 
 # Introduction
 <figure display="table">
-  <img src="images/main.png" style="height:200px !important;"/>
+  <img src="images/main.png" style="width:45% !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 1: Area of intersection shown in orange. </i></figcaption>
 </figure>
 
@@ -29,21 +29,21 @@ There are some easy corner cases with the intersection of two circles:
 
 Finally, there is the "normal" case where the circle edges will intersect at two points as depicted in Figure 1. We can draw the line that contains the two intersection points, which is known as the <a href="https://en.wikipedia.org/wiki/Radical_axis" target="_blank">radical axis</a>. We can then look at computing the intersection areas on either side of the radical axis. A depiction of a possible case is shown in Figure 2.
 <figure display="table">
-  <img src="images/caps.png" style="height:200px !important;"/>
+  <img src="images/caps.png" style="width:33% !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 2: The total area will be the sum of the shaded areas. </i></figcaption>
 </figure>
 
 In this particular case, we simply need to compute the areas of the two "caps." Each cap can be computed by subtracting a triangle from the arc area as shown in Figure 3.
 
 <figure display="table">
-  <img src="images/caps_subtraction.png" height="200"/>
+  <img src="images/caps_subtraction.png" style="width:50% !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 3: Cap area = Arc area - Triangle Area </i></figcaption>
 </figure>
 
 Just computing the area of the caps will not cover all cases. They represent the intersected area only when the radical axis is "in-between" the two centers of the circles. There is one more case when radical axis is not in-between the two centers of the circles. This can only happen when one circle is smaller than the other and is shown in Figure 4 (this is the case that I see most online sources miss).
 
 <figure display="table">
-  <img src="images/caps2.png" style="height:200px !important;"/>
+  <img src="images/caps2.png" style="width:33% !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 4: Radical axis is not in-between the circle centers. </i></figcaption>
 </figure>
 
@@ -52,7 +52,7 @@ This case is still easy to deal with, as \\( A_2 \\) in Figure 4 is the "inverse
 To compute the cap area, we need the arc area and triangle area. The arc area can be determined from the length of the chord because it will allow us to obtain the angle of the arc. The triangle area can also be determined by the length of the chord because we then have a base to an isoceles triangle. Thus we will look at computing the area of the chord. A helpful line to draw is the line connecting the two centers of the circles as shown in Figure 5.
 
 <figure display="table">
-  <img src="images/right_angle.png" style="height:200px !important;"/>
+  <img src="images/right_angle.png" style="width:33% !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 5: A helpful line and right triangles. </i></figcaption>
 </figure>
 
@@ -60,7 +60,7 @@ It happens to be the case that the radical axis is perpendicular to the line con
 
 #### Notation
 <figure display="table">
-  <img src="images/notation.png" style="height:200px !important;"/>
+  <img src="images/notation.png" style="width:50% !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 6: Notation. </i></figcaption>
 </figure>
 
@@ -180,6 +180,14 @@ Concretely in python:
 # Widgets
 Work in Progress
 
+<img id="widget-output"/> 
+
+
+
+<!-- <div id="load-widget-div">
+Click the button to load widgets. Warning, this can lag the webpage while loading.
+<button type="button" id="load-widget-button">Click </button>
+</div> -->
 
 <script type="text/javascript">
     // set the pyodide files URL (packages.json, pyodide.asm.data etc)
@@ -193,16 +201,38 @@ crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-python.min.js" integrity="sha512-2Ke4vMGrMfYRM55pT1aA5bw7Pl82Sc7K5Hg8XZYZu+EQrb0AO1mNYTagwZm+MFVAImYS9Mlnm73zcgc01wPXxA==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js" integrity="sha512-S4i/WUGRs22+8rjUVu4kBjfNuBNp8GVsgcK2lbaFdws4q6TF3Nd00LxqnHhuxS9iVDfNcUh0h6OxFUMP5DBD+g==" crossorigin="anonymous"></script>
 
-<!-- 
-{{< highlight python "linenos=table" >}}
-{{< include-script "resources/circle_pyodide.py" >}}
-{{< / highlight >}}
 
-<div id="circle-editor">
-{{< include-script "resources/intersection_pyodide.py" >}}
-</div>
-
-<img id="widget-output"/> -->
 
 <script src="resources/script.js"></script>
 <link rel="stylesheet" href="resources/style.css">
+
+
+<!-- Math Jax -->
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      processEscapes: true,
+    },
+    svg: {
+      fontCache: 'global'
+    },
+    loader: {load: ['[tex]/color', '[tex]/configMacros']},
+    tex: {
+      packages: {'[+]': ['color', 'configMacros']},
+    },
+    startup:{
+       ready: () => {
+         MathJax.startup.defaultReady();
+         MathJax.startup.promise.then(() => {
+           resize_mathjax();
+         });
+       }
+    }
+  };
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+

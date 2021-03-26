@@ -6,6 +6,29 @@ summaryImage: "images/cap_lambd.png"
 keepImageRatio: true
 ---
 
+
+<!-- Math Jax -->
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      processEscapes: true,
+    },
+    svg: {
+      fontCache: 'global'
+    },
+    loader: {load: ['[tex]/color', '[tex]/configMacros']},
+    tex: {
+      packages: {'[+]': ['color', 'configMacros']},
+    },
+
+  };
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+
 # Introduction
 This post introduces some work done in collaboration with Mark Eisen about solving optimization problems of the form
 
@@ -48,7 +71,5 @@ This work shows that there is some promise in using Reinforcement Learning to op
 <a name="sutton" href="http://incompleteideas.net/book/the-book-2nd.html" target="_blank">Sutton, R. S., Barto, A. G. (2018 ). Reinforcement Learning: An Introduction. The MIT Press.</a>
 
 <a name="eisen2020" href="https://arxiv.org/pdf/1909.01865.pdf" target="_blank">Eisen, Mark, and Alejandro R. Ribeiro. "Optimal wireless resource allocation with random edge graph neural networks." IEEE Transactions on Signal Processing (2020).</a>
-
-
 
 

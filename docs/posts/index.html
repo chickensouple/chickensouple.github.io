@@ -134,7 +134,7 @@ $$ IntersectionArea(\color{#3f9b0b}\vec{p}_1\color{black}, \color{#3f9b0b}r_1\co
 \end{cases} $$
 Concretely in python:
 def get_intersection_area(p1, r1, p2, r2): &amp;#34;&amp;#34;&amp;#34; Computes the area of intersection between two circles. p1 and p2 are length 2 np.arrays that represent the circle center locations. r1 and r2 are their respective radiuses. &amp;#34;&amp;#34;&amp;#34; D = np.linalg.norm(p1 - p2) if D &amp;gt;= (r1 &amp;#43; r2): # no overlap return 0 elif D &amp;#43; r1 &amp;lt;= r2: # circle1 is fully contained in circle2 return np.pi * r1**2 elif D &amp;#43; r2 &amp;lt;= r1: # circle2 is fully contained in circle1 return np.pi * r2**2 # intersection with two intersection points r1_sq = r1**2 r2_sq = r2**2 D_sq = D**2 invert_circle1 = False invert_circle2 = False d1 = (r2_sq - r1_sq - D_sq) / (2 * D) if d1 &amp;gt; 0: # The radical axis is not between the circle centers # and circle1 is the smaller circle d2 = D &amp;#43; d1 invert_circle1 = True else: d2 = (r1_sq - r2_sq - D_sq) / (2 * D) if d2 &amp;gt; 0: # The radical axis is not between the circle centers # and circle2 is the smaller circle d1 = D &amp;#43; d2 invert_circle2 = True else: # The radical axis is between the circle centers d1 = (r1_sq - r2_sq &amp;#43; D_sq) / (2*D) d2 = D - d1 h = np.sqrt(r1_sq - d1**2) area1 = (r1_sq * np.arcsin(h / r1)) - (h*d1) area2 = (r2_sq * np.arcsin(h / r2)) - (h*d2) if invert_circle2: area2 = np.pi * r2_sq - area2 elif invert_circle1: area1 = np.pi * r1_sq - area1 return area1 &amp;#43; area2 Widgets Work in Progress
-// set the pyodide files URL (packages.json, pyodide.asm.data etc)window.languagePluginUrl = &#39;https://cdn.jsdelivr.net/pyodide/v0.16.1/full/&#39;;1 2 3 4 5  class Circle(object): def __init__(self, center, radius): assert(len(center) == 2) self.center = np.array(center) self.radius = radius  def get_intersection_area(p1, r1, p2, r2): &amp;#34;&amp;#34;&amp;#34; Computes the area of intersection between two circles. p1 and p2 are length 2 np.arrays that represent the circle center locations. r1 and r2 are their respective radiuses. &amp;#34;&amp;#34;&amp;#34; D = np.linalg.norm(p1 - p2) if D &amp;gt;= (r1 &amp;#43; r2): # no overlap return 0 elif D &amp;#43; r1 &amp;lt;= r2: # circle1 is fully contained in circle2 return np.pi * r1**2 elif D &amp;#43; r2 &amp;lt;= r1: # circle2 is fully contained in circle1 return np.pi * r2**2 # intersection with two intersection points r1_sq = r1**2 r2_sq = r2**2 D_sq = D**2 invert_circle1 = False invert_circle2 = False d1 = (r2_sq - r1_sq - D_sq) / (2 * D) if d1 &amp;gt; 0: # The radical axis is not between the circle centers # and circle1 is the smaller circle d2 = D &amp;#43; d1 invert_circle1 = True else: d2 = (r1_sq - r2_sq - D_sq) / (2 * D) if d2 &amp;gt; 0: # The radical axis is not between the circle centers # and circle2 is the smaller circle d1 = D &amp;#43; d2 invert_circle2 = True else: # The radical axis is between the circle centers d1 = (r1_sq - r2_sq &amp;#43; D_sq) / (2*D) d2 = D - d1 h = np.sqrt(r1_sq - d1**2) area1 = (r1_sq * np.arcsin(h / r1)) - (h*d1) area2 = (r2_sq * np.arcsin(h / r2)) - (h*d2) if invert_circle2: area2 = np.pi * r2_sq - area2 elif invert_circle1: area1 = np.pi * r1_sq - area1 return area1 &amp;#43; area2 --</p> 
+Click the button to load widgets. Warning, this can lag the webpage while loading.Click  --// set the pyodide files URL (packages.json, pyodide.asm.data etc)window.languagePluginUrl = &#39;https://cdn.jsdelivr.net/pyodide/v0.16.1/full/&#39;;MathJax = {tex: {inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]],processEscapes: true,},svg: {fontCache: &#39;global&#39;},loader: {load: [&#39;[tex]/color&#39;, &#39;[tex]/configMacros&#39;]},tex: {packages: {&#39;[&#43;]&#39;: [&#39;color&#39;, &#39;configMacros&#39;]},},startup:{ready: () = {MathJax.startup.defaultReady();MathJax.startup.promise.then(() = {resize_mathjax();});}}};</p> 
       <div class="action has-text-right">
         <a href="../posts/circlecircleintersection/" class="button is-primary">
                 Read more
@@ -157,7 +157,7 @@ def get_intersection_area(p1, r1, p2, r2): &amp;#34;&amp;#34;&amp;#34; Computes 
       <h3 class="title is-5 refresh-summary-title">
         Sufficiently Accurate Model Learning
       </h3>
-      <p class="refresh-summary"> Introduction This work looks at learning dynamics model for planning and control. Planners require a model of the system to work with. This model will inform the planner what happens when you take an action at some specific state. In previous work , we had applied machine learning to learn heuristics for planning. This work addresses learning the model for planning. A paper containing some results is available here.
+      <p class="refresh-summary"> MathJax = { tex: { inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]], processEscapes: true, }, svg: { fontCache: &#39;global&#39; }, loader: {load: [&#39;[tex]/color&#39;, &#39;[tex]/configMacros&#39;]}, tex: { packages: {&#39;[&#43;]&#39;: [&#39;color&#39;, &#39;configMacros&#39;]}, }, };   Introduction This work looks at learning dynamics model for planning and control. Planners require a model of the system to work with. This model will inform the planner what happens when you take an action at some specific state. In previous work , we had applied machine learning to learn heuristics for planning. This work addresses learning the model for planning. A paper containing some results is available here.
 Background Planners require a model of the world that will tell us how it will evolve with certain actions. This can be expressed as a differential equation
 $$\dot{x} = f(x, u)$$
 or as a discrete time function
@@ -201,7 +201,7 @@ Todorov, Emanuel, and Weiwei Li. &amp;ldquo;A generalized iterative LQG method f
       <h3 class="title is-5 refresh-summary-title">
         Learning Implicit Sampling Distributions
       </h3>
-      <p class="refresh-summary">Introduction Robot motion planning is a problem that has been studied for many decades. For quite a while, sampling based planning approaches such as Rapidly Exploring Random Trees (RRT), Expansive Space Trees (EST), were quite popular in academia have been used with great success in some problem domains. This post introduces work I have done in collaboration with Jinwook Huh and Daniel D. Lee about speeding up such motion planning approaches by learning a better sampling distribution to draw from. This work is available here. While many more modern planners for robots such as autonomous vehicles no longer have a basis in these sampling based planners, perhaps similar ideas in how to integrate machine learning into an existing planning framework can be useful.
+      <p class="refresh-summary"> MathJax = { tex: { inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]], processEscapes: true, }, svg: { fontCache: &#39;global&#39; }, loader: {load: [&#39;[tex]/color&#39;, &#39;[tex]/configMacros&#39;]}, tex: { packages: {&#39;[&#43;]&#39;: [&#39;color&#39;, &#39;configMacros&#39;]}, }, };   Introduction Robot motion planning is a problem that has been studied for many decades. For quite a while, sampling based planning approaches such as Rapidly Exploring Random Trees (RRT), Expansive Space Trees (EST), were quite popular in academia have been used with great success in some problem domains. This post introduces work I have done in collaboration with Jinwook Huh and Daniel D. Lee about speeding up such motion planning approaches by learning a better sampling distribution to draw from. This work is available here. While many more modern planners for robots such as autonomous vehicles no longer have a basis in these sampling based planners, perhaps similar ideas in how to integrate machine learning into an existing planning framework can be useful.
 Background We can discuss a bare-bones planning problem. You have a map of the environment that can be represented maybe as a point cloud or occupancy map or collection of polygons, or a signed distance function, etc. You have a goal state and a starting state, and you would like to find a set of actions for a robot that will take you from start to goal.
 Fig. 1: An example of a planning problem. The green dot is the start, while the red is the goal.  For sampling-based planners, the general idea is to explore a continuous state space with random samples. The prototypical sampling based planner, RRT, roughly works as follows.
  Initialize a tree with a node that represents the starting state Sample a point in the entire state space Find the closest node in your tree to the sample From the closest point, move towards the random sample and add the new state as a node in the tree Repeat steps 2-4 until the goal is included in the tree.  This process will grow the tree to cover the space and hopefully find a path from the start to the goal. You can check out Steven LaValle&amp;rsquo;s website (The guy who invented RRT&amp;rsquo;s) for cool pictures of RRT in action and what it looks like while the algorithm is running.
@@ -249,7 +249,7 @@ Ichter, Brian, James Harrison, and Marco Pavone. &amp;ldquo;Learning sampling di
       <h3 class="title is-5 refresh-summary-title">
         Constrained Learning for Wireless Systems
       </h3>
-      <p class="refresh-summary">Introduction This post introduces some work done in collaboration with Mark Eisen about solving optimization problems of the form
+      <p class="refresh-summary"> MathJax = { tex: { inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]], processEscapes: true, }, svg: { fontCache: &#39;global&#39; }, loader: {load: [&#39;[tex]/color&#39;, &#39;[tex]/configMacros&#39;]}, tex: { packages: {&#39;[&#43;]&#39;: [&#39;color&#39;, &#39;configMacros&#39;]}, }, };   Introduction This post introduces some work done in collaboration with Mark Eisen about solving optimization problems of the form
 $$min_\theta \text{ } E_h[l(h, f_\theta(h))] \
 s.t. E_h[g(h, f_\theta(h))] \leq 0$$
 where \( l \) is a smooth loss function, and \(g\) is a smooth constraint function. In particular, this optimization has to be done where \(l\) and \(g\) may be unknown or hard to measure. This is the case for wireless power allocation. One goal is to maximize throughput while under power constraints. The throughput is affected by the environment (how the waves bounce around, other wireless interference, etc.) which can be changing over time. The characterstics of the environment can be measured, but not so easily, and it can change quite fast. Thus, Reinforcement Learning (RL) seems to be a good candidate solution. However, most Reinforcement learning algorithms do not optimize with constraints in mind. This work will extend common methods into constrained versions. Our paper is available here.
@@ -424,26 +424,5 @@ Eisen, Mark, and Alejandro R. Ribeiro. &amp;ldquo;Optimal wireless resource allo
 <script src="../js/jquery-2.2.4.min.dead7ea11aa9f68488bfe2f9a1be00b7773bea3874f0a221cb898f5c4b041b6a.js" integrity="sha256-3q1&#43;oRqp9oSIv&#43;L5ob4At3c76jh08KIhy4mPXEsEG2o="></script>
   <script src="../js/feather.4.22.0.min.df46a360906c5f1e61c5867bb42b1f7a8b0166f8351e175a1a4f2958f331e42e.js" integrity="sha256-30ajYJBsXx5hxYZ7tCsfeosBZvg1HhdaGk8pWPMx5C4="></script>
   <script src="../js/modernizr-3.6.0.min.2f19d51e4b89c87bdabcdb05684b34f3c1ac6e5e3919ae1c067377c4f64f23cc.js" integrity="sha256-LxnVHkuJyHvavNsFaEs088Gsbl45Ga4cBnN3xPZPI8w="></script>
-  <script src="../js/refresh.min.58d0ebd018c8eacfa18b730fb90e94bc3e3d1b009ae12f99fb0f8f5f4bf6a581.js" integrity="sha256-WNDr0BjI6s&#43;hi3MPuQ6UvD49GwCa4S&#43;Z&#43;w&#43;PX0v2pYE="></script><script>
-  var mathjax_pagemacros = (typeof mathjax_pagemacros == 'undefined') ? [] : mathjax_pagemacros;
-
-  MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      processEscapes: true,
-    },
-    svg: {
-      fontCache: 'global'
-    },
-    loader: {load: ['[tex]/color', '[tex]/configMacros']},
-    tex: {
-      packages: {'[+]': ['color', 'configMacros']},
-      macros: mathjax_pagemacros
-    },
-  };
-  
-</script>
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-</script></body>
+  <script src="../js/refresh.min.58d0ebd018c8eacfa18b730fb90e94bc3e3d1b009ae12f99fb0f8f5f4bf6a581.js" integrity="sha256-WNDr0BjI6s&#43;hi3MPuQ6UvD49GwCa4S&#43;Z&#43;w&#43;PX0v2pYE="></script></body>
 </html>
