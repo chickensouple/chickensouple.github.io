@@ -132,8 +132,8 @@ def draw_main(ax, circle1, circle2):
     circle2_patch = plot_circle(ax, circle2, fill=False, edgecolor=circle2_color, linewidth=2)
     intersect_patch = draw_intersection(ax, circle1, circle2, color="red", alpha=0.5)
 
-    plt.xlim([-5, 5])
-    plt.ylim([-5, 5])
+    plt.xlim([-3, 3])
+    plt.ylim([-3, 3])
     ax.set_aspect('equal', 'box')
 
     return circle1_patch, circle2_patch, intersect_patch
@@ -145,7 +145,7 @@ ax = fig1.gca()
 # Initial Drawing of the circle
 circle1_patch, circle2_patch, intersect_patch = draw_main(ax, circle1, circle2)
 ax.grid()
-plt_text = ax.text(-4, -4.5, "Intersection Area: {}".format(get_intersection_area(circle1.center, circle1.radius, circle2.center, circle2.radius)))
+plt_text = ax.text(-2, -2.5, "Intersection Area: {}".format(get_intersection_area(circle1.center, circle1.radius, circle2.center, circle2.radius)))
 
 # setup for webasm canvas backend
 def create_root_element2(self):
@@ -169,6 +169,7 @@ def redraw(event):
     intersect_patch = draw_intersection(fig1.gca(), circle1, circle2, color="red", alpha=0.5)
 
     plt_text.set_text("Intersection Area: {}".format(get_intersection_area(circle1.center, circle1.radius, circle2.center, circle2.radius)))
+    fig1.canvas.draw()
 
 def redraw_text():
     global fig1
@@ -176,7 +177,7 @@ def redraw_text():
     global plt_text
 
     plt_text.set_text("Intersection Area: {}".format(get_intersection_area(circle1.center, circle1.radius, circle2.center, circle2.radius)))
-
+    fig1.canvas.draw()
 
 fig1.canvas.mpl_connect("button_press_event", redraw)    
 fig1.canvas.show()
