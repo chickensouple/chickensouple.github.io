@@ -9,13 +9,13 @@ keepImageRatio: true
 
 # Introduction
 <figure display="table">
-  <img src="images/main.png" style="height:400px !important;"/>
+  <img src="images/main.png" style="height:200px !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 1: Area of intersection shown in orange. </i></figcaption>
 </figure>
 
 We look at computing the area of intersection of two circles (see Figure 1). This problem seems like it should be almost trivial. However, there are some corner cases to handle that are not immediately obvious (at least to me). Googling for this has brought me to several partial results that do not account for all the corner cases, so here is hopefully a post that is complete and can be referenced in the future to be able to quickly implement this computation. Hopefully, this post will not <a href="https://xkcd.com/927/" target="_blank"> cause any further confusion</a>.
 
-TODO: add table of contents
+If you are not interested in the reading everything and just want the formulas, go to the <a href="#summary">summary</a>.
 
 
 # Computing the Intersection Area
@@ -29,21 +29,21 @@ There are some easy corner cases with the intersection of two circles:
 
 Finally, there is the "normal" case where the circle edges will intersect at two points as depicted in Figure 1. We can draw the line that contains the two intersection points, which is known as the <a href="https://en.wikipedia.org/wiki/Radical_axis" target="_blank">radical axis</a>. We can then look at computing the intersection areas on either side of the radical axis. A depiction of a possible case is shown in Figure 2.
 <figure display="table">
-  <img src="images/caps.png" style="height:300px !important;"/>
+  <img src="images/caps.png" style="height:200px !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 2: The total area will be the sum of the shaded areas. </i></figcaption>
 </figure>
 
 In this particular case, we simply need to compute the areas of the two "caps." Each cap can be computed by subtracting a triangle from the arc area as shown in Figure 3.
 
 <figure display="table">
-  <img src="images/caps_subtraction.png" height="320"/>
+  <img src="images/caps_subtraction.png" height="200"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 3: Cap area = Arc area - Triangle Area </i></figcaption>
 </figure>
 
 Just computing the area of the caps will not cover all cases. They represent the intersected area only when the radical axis is "in-between" the two centers of the circles. There is one more case when radical axis is not in-between the two centers of the circles. This can only happen when one circle is smaller than the other and is shown in Figure 4 (this is the case that I see most online sources miss).
 
 <figure display="table">
-  <img src="images/caps2.png" style="height:300px !important;"/>
+  <img src="images/caps2.png" style="height:200px !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 4: Radical axis is not in-between the circle centers. </i></figcaption>
 </figure>
 
@@ -52,7 +52,7 @@ This case is still easy to deal with, as \\( A_2 \\) in Figure 4 is the "inverse
 To compute the cap area, we need the arc area and triangle area. The arc area can be determined from the length of the chord because it will allow us to obtain the angle of the arc. The triangle area can also be determined by the length of the chord because we then have a base to an isoceles triangle. Thus we will look at computing the area of the chord. A helpful line to draw is the line connecting the two centers of the circles as shown in Figure 5.
 
 <figure display="table">
-  <img src="images/right_angle.png" style="height:320px !important;"/>
+  <img src="images/right_angle.png" style="height:200px !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 5: A helpful line and right triangles. </i></figcaption>
 </figure>
 
@@ -60,7 +60,7 @@ It happens to be the case that the radical axis is perpendicular to the line con
 
 #### Notation
 <figure display="table">
-  <img src="images/notation.png" style="height:500px !important;"/>
+  <img src="images/notation.png" style="height:200px !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 6: Notation. </i></figcaption>
 </figure>
 
@@ -116,7 +116,7 @@ To check if any of the caps have to be inverted, we can compute \\(\color{#3f9b0
 With this, we can now compute the intersection area.
 
 
-# Summary
+<h1 id="summary"> Summary </h1>
 This section will be a succint summary of all the equations and conditions required to compute intersection area with no explanation. We use the notation introduced in Figure 6. 
 
 $$\color{red}D \color{black} = || \color{#3f9b0b} \vec{p}_1 \color{black} - \color{#0504aa} \vec{p}_2 \color{black} ||_2$$

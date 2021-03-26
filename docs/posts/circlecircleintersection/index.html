@@ -85,11 +85,11 @@
         <section class="section content has-text-justified">
           <h1 id="introduction">Introduction</h1>
 <figure display="table">
-  <img src="images/main.png" style="height:400px !important;"/>
+  <img src="images/main.png" style="height:200px !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 1: Area of intersection shown in orange. </i></figcaption>
 </figure>
 <p>We look at computing the area of intersection of two circles (see Figure 1). This problem seems like it should be almost trivial. However, there are some corner cases to handle that are not immediately obvious (at least to me). Googling for this has brought me to several partial results that do not account for all the corner cases, so here is hopefully a post that is complete and can be referenced in the future to be able to quickly implement this computation. Hopefully, this post will not <a href="https://xkcd.com/927/" target="_blank"> cause any further confusion</a>.</p>
-<p>TODO: add table of contents</p>
+<p>If you are not interested in the reading everything and just want the formulas, go to the <a href="#summary">summary</a>.</p>
 <h1 id="computing-the-intersection-area">Computing the Intersection Area</h1>
 <p>There are some easy corner cases with the intersection of two circles:</p>
 <ol>
@@ -99,29 +99,29 @@
 </ol>
 <p>Finally, there is the &ldquo;normal&rdquo; case where the circle edges will intersect at two points as depicted in Figure 1. We can draw the line that contains the two intersection points, which is known as the <a href="https://en.wikipedia.org/wiki/Radical_axis" target="_blank">radical axis</a>. We can then look at computing the intersection areas on either side of the radical axis. A depiction of a possible case is shown in Figure 2.</p>
 <figure display="table">
-  <img src="images/caps.png" style="height:300px !important;"/>
+  <img src="images/caps.png" style="height:200px !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 2: The total area will be the sum of the shaded areas. </i></figcaption>
 </figure>
 <p>In this particular case, we simply need to compute the areas of the two &ldquo;caps.&rdquo; Each cap can be computed by subtracting a triangle from the arc area as shown in Figure 3.</p>
 <figure display="table">
-  <img src="images/caps_subtraction.png" height="320"/>
+  <img src="images/caps_subtraction.png" height="200"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 3: Cap area = Arc area - Triangle Area </i></figcaption>
 </figure>
 <p>Just computing the area of the caps will not cover all cases. They represent the intersected area only when the radical axis is &ldquo;in-between&rdquo; the two centers of the circles. There is one more case when radical axis is not in-between the two centers of the circles. This can only happen when one circle is smaller than the other and is shown in Figure 4 (this is the case that I see most online sources miss).</p>
 <figure display="table">
-  <img src="images/caps2.png" style="height:300px !important;"/>
+  <img src="images/caps2.png" style="height:200px !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 4: Radical axis is not in-between the circle centers. </i></figcaption>
 </figure>
 <p>This case is still easy to deal with, as \( A_2 \) in Figure 4 is the &ldquo;inverse&rdquo; of the cap: the area of the smaller circle minus the area of the cap. Thus to compute the area of intersection for the case of two intersection points, we simply need to compute the area of the caps (and possibly &ldquo;invert&rdquo; them in the case of Figure 4). Thus, there are two cases we look at when determining the intersection area with two intersection points: The case where the radical axis is in-between the two circle centers, and the case where it is not.</p>
 <p>To compute the cap area, we need the arc area and triangle area. The arc area can be determined from the length of the chord because it will allow us to obtain the angle of the arc. The triangle area can also be determined by the length of the chord because we then have a base to an isoceles triangle. Thus we will look at computing the area of the chord. A helpful line to draw is the line connecting the two centers of the circles as shown in Figure 5.</p>
 <figure display="table">
-  <img src="images/right_angle.png" style="height:320px !important;"/>
+  <img src="images/right_angle.png" style="height:200px !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 5: A helpful line and right triangles. </i></figcaption>
 </figure>
 <p>It happens to be the case that the radical axis is perpendicular to the line connecting the circle centers <a href="https://artofproblemsolving.com/wiki/index.php/Radical_axis" target="_blank">[Art of Problem Solving: Radical Axis, Theorem 2]</a>. This allows us to form right triangles as shown in Figure 5, where the hypotenuses are the radiuses of the respective circles. We can then use these right triangles to write down some geometric relationships to help us solve for the length of the chord along the radical axis. Before we write these relationships, we will now define some notation for the quantities we have been considering.</p>
 <h4 id="notation">Notation</h4>
 <figure display="table">
-  <img src="images/notation.png" style="height:500px !important;"/>
+  <img src="images/notation.png" style="height:200px !important;"/>
   <figcaption display="table-caption" caption-side="bottom"><i>Figure 6: Notation. </i></figcaption>
 </figure>
 <p>Figure 6 gives a visual guide to the various geometric quantities we will define. Note that while Figure 6 gives an example of how various geometric quantities can look, the relationships between them can change given depending on whether the radical axis is in-between the two circle centers or not. The quantities are defined as follows:</p>
@@ -166,8 +166,8 @@ Cap Area &amp;= Arc Area \quad &amp;- \quad&amp;Triangle Area\\<br>
 Circle two is the same but with \(r_2\) and \(d_2\).</p>
 <p>To check if any of the caps have to be inverted, we can compute \(\color{#3f9b0b}d_1\) for each scenario, and it will be positive (valid) only in the scenario that is true. We do not actually have to compute whether or not the radical line is in between circle centers.</p>
 <p>With this, we can now compute the intersection area.</p>
-<h1 id="summary">Summary</h1>
-<p>This section will be a succint summary of all the equations and conditions required to compute intersection area with no explanation. We use the notation introduced in Figure 6.</p>
+<h1 id="summary"> Summary </h1>
+This section will be a succint summary of all the equations and conditions required to compute intersection area with no explanation. We use the notation introduced in Figure 6. 
 <p>$$\color{red}D \color{black} = || \color{#3f9b0b} \vec{p}_1 \color{black} - \color{#0504aa} \vec{p}_2 \color{black} ||_2$$</p>
 <p>$$\color{#3f9b0b} d_{1}^{(center)} \color{black} = 
 \frac{\color{#3f9b0b} r_1^2 \color{black} - \color{#0504aa} r_2^2 \color{black} + \color{red} D^2}
