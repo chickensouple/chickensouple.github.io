@@ -116,6 +116,7 @@ With this, we can now compute the intersection area.
 
 
 <h1 id="summary"> Summary </h1>
+
 This section will be a succint summary of all the equations and conditions required to compute intersection area with no explanation. We use the notation introduced in Figure 6. 
 
 $$\color{red}D \color{black} = || \color{#3f9b0b} \vec{p}_1 \color{black} - \color{#0504aa} \vec{p}_2 \color{black} ||_2$$
@@ -170,6 +171,12 @@ IntersectionArea(\color{#3f9b0b}\vec{p}_1\color{black}, \color{#3f9b0b}r_1\color
 \end{cases}
 $$
 
+Concretely in python:
+
+<div id="circle-editor">
+{{< include-script "resources/intersection_pyodide.py" >}}
+</div>
+
 # Widgets
 Work in Progress
 
@@ -186,7 +193,7 @@ crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-python.min.js" integrity="sha512-2Ke4vMGrMfYRM55pT1aA5bw7Pl82Sc7K5Hg8XZYZu+EQrb0AO1mNYTagwZm+MFVAImYS9Mlnm73zcgc01wPXxA==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js" integrity="sha512-S4i/WUGRs22+8rjUVu4kBjfNuBNp8GVsgcK2lbaFdws4q6TF3Nd00LxqnHhuxS9iVDfNcUh0h6OxFUMP5DBD+g==" crossorigin="anonymous"></script>
 
-
+<!-- 
 {{< highlight python "linenos=table" >}}
 {{< include-script "resources/circle_pyodide.py" >}}
 {{< / highlight >}}
@@ -195,8 +202,7 @@ crossorigin="anonymous"></script>
 {{< include-script "resources/intersection_pyodide.py" >}}
 </div>
 
-<img id="widget-output"/>
+<img id="widget-output"/> -->
 
 <script src="resources/script.js"></script>
-
 <link rel="stylesheet" href="resources/style.css">

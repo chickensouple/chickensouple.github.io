@@ -1,21 +1,28 @@
-def get_intersection_area(circle1, circle2):
-    D = np.linalg.norm(circle1.center - circle2.center)
-    if D >= (circle1.radius + circle2.radius):
+def get_intersection_area(p1, r1, p2, r2):
+    """
+    Computes the area of intersection between two circles.
+
+    p1 and p2 are length 2 np.arrays that represent the circle center locations.
+    r1 and r2 are their respective radiuses.
+    """
+    D = np.linalg.norm(p1 - p2)
+    if D >= (r1 + r2):
         # no overlap
         return 0
-    elif D + circle1.radius <= circle2.radius:
+    elif D + r1 <= r2:
         # circle1 is fully contained in circle2
-        return np.pi * circle1.radius**2
-    elif D + circle2.radius <= circle1.radius:
-        return np.pi * circle2.radius**2
+        return np.pi * r1**2
+    elif D + r2 <= r1:
+        # circle2 is fully contained in circle1
+        return np.pi * r2**2
     
     # intersection with two intersection points
-    r1_sq = circle1.radius**2
-    r2_sq = circle2.radius**2
+    r1_sq = r1**2
+    r2_sq = r2**2
     D_sq = D**2
 
-    invert_circle2 = False
     invert_circle1 = False
+    invert_circle2 = False
 
     d1 = (r2_sq - r1_sq - D_sq) / (2 * D)
     if d1 > 0:
@@ -36,8 +43,8 @@ def get_intersection_area(circle1, circle2):
             d2 = D - d1
     
     h = np.sqrt(r1_sq - d1**2)
-    area1 = (r1_sq * np.arcsin(h / circle1.radius)) - (h*d1)
-    area2 = (r2_sq * np.arcsin(h / circle2.radius)) - (h*d2)
+    area1 = (r1_sq * np.arcsin(h / r1)) - (h*d1)
+    area2 = (r2_sq * np.arcsin(h / r2)) - (h*d2)
     if invert_circle2:
         area2 = np.pi * r2_sq - area2
     elif invert_circle1:
