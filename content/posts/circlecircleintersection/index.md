@@ -19,12 +19,12 @@ If you are not interested in the reading everything and just want the formulas, 
 
 
 # Computing the Intersection Area
-
+We consider two circles defined by their centers, \\( \vec{p}_1, \vec{p}_2\\) and their radiuses \\(r_1, r_2\\).
 There are some easy corner cases with the intersection of two circles:
 
-1. No intersection area, the circles are too far apart
-2. One circle is completely inside the other (coincident circles are a special case of this), thus the intersection area is simply the area of the smaller circle.
-3. One intersection point, the circles are touching at one point and have no intersection area.
+1. No intersection area, the circles are too far apart: \\( || \vec{p}_1 - \vec{p}_2 ||_2 > r_1 + r_2\\)
+2. One circle is completely inside the other (coincident circles are a special case of this), thus the intersection area is simply the area of the smaller circle \\( || \vec{p}_1 - \vec{p}_2 ||_2 < \|r_1 - r_2\| \\)
+3. One intersection point, the circles are touching at one point and have no intersection area: \\( || \vec{p}_1 - \vec{p}_2 ||_2 = r_1 + r_2\\)
 
 
 Finally, there is the "normal" case where the circle edges will intersect at two points as depicted in Figure 1. We can draw the line that contains the two intersection points, which is known as the <a href="https://en.wikipedia.org/wiki/Radical_axis" target="_blank">radical axis</a>. We can then look at computing the intersection areas on either side of the radical axis. A depiction of a possible case is shown in Figure 2.
@@ -180,9 +180,11 @@ Concretely in python:
 <br>
 <div id="editor-io-div">
 <button type="button" id="editor-button1"> Submit </button>
-<textarea readonly id="editor-outputarea">
-</textarea>
+<div class="alert" id="editor-outputarea">
+  This is an alert box.
 </div>
+</div>
+
 
 # Widget
 <div id="load-widget-div">
@@ -194,8 +196,7 @@ Click the button to load the widget. Warning, this can lag the webpage while loa
 <div id="loaded-widget-div">
 
 This widget allows you to change and execute the python code shown in the previous section.
-You can click around the plot to change the location of the smaller circle. The output of the code above will be displayed as text at the bottom of the plot. Note that the visualization of the intersection area is unaffected by the code above.
-
+They python code allows you to change the intersection area calculation (the output is displayed in text at the bottom of the plot) as well as the circle radiuses. You can click around the plot to change the location of the blue circle. Note that the visualization of the red intersection area will be unaffected by the code above.
 To change the code, simply type in the code textbox, and press the submit button under it.
 </div>
 

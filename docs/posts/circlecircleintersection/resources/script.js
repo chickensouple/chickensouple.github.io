@@ -12,7 +12,7 @@ function setup_pyodide(editor_text) {
                     $("#load-widget-div").css("visibility", "hidden");
                     $("#editor-io-div").css("visibility", "visible");
                     $("#loaded-widget-div").css("visibility", "visible");
-                    $("#editor-outputarea").val(">>> Ready");
+                    $("#editor-outputarea").text("Ready");
                 })
                 .catch((err)=>{console.log(err);});
         });
@@ -43,18 +43,29 @@ $(document).ready(() => {
             console.log("Pyodide not loaded yet.")
         } else {
             var editor_code = editor.getSession().getValue();
-            $("#editor-outputarea").val(">>> Running Code");
 
+            $("#editor-outputarea").text("Running Code");
+            $("#editor-outputarea").css("background-color", "yellow");
 
             try {
-            pyodide.runPythonAsync(editor_code + "\n" + "redraw_text()")
-                .then((output)=>{
-                    console.log(output);
-                    $("#editor-outputarea").val(">>> Sucessfully Submitted");
-                });
-            } catch (error) {
-                $("#editor-outputarea").val(">>> " + error);
+                pyodide.runPython(editor_code + "\n" + "redraw_pyodide_cb();\n");
+                $("#editor-outputarea").text("Sucessfully Submitted Code");
+                
+                $("#editor-outputarea").css("background-color", "green");
+            } catch (err) {
+                $("#editor-outputarea").text(err);
+                $("#editor-outputarea").css("background-color", "red");
             }
+
+            // pyodide.runPythonAsync(editor_code + "\n" + "redraw_pyodide_cb();\n")
+            //     .then((output)=>{
+            //         console.log(output);
+            //         $("#editor-outputarea").val(">>> Sucessfully Submitted");
+            //     })
+            //     .catch((err)=>{
+            //         $("#editor-outputarea").val(err);
+            //     });
+            
         }
     });
 

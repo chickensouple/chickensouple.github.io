@@ -1,17 +1,34 @@
 #circle-editor {
     position: relative;
-    width: 550px;
-    height: 600px;
+    width: 600px;
+    height: 900px;
+    margin: 0 auto;
 }
 #editor-io-div {
     visibility: hidden;
+    margin: 0 auto;
+}
+#editor-button1 {
+    width: 50%;
+    margin: 0 auto;
 }
 #editor-outputarea {
     position: relative;
-    width: 550px;
-    height: 100px;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
 }
 
 #loaded-widget-div{
     visibility:hidden
+}
+
+/* The alert message box */
+.alert {
+padding: 20px;
+background-color: green;
+color: white;
+margin-bottom: 15px;
+height: auto;
+width: auto;
 }

@@ -1,3 +1,9 @@
+# circle 1 radius
+r1 = 1.0
+
+# circle 2 radius
+r2 = 0.7
+
 def get_intersection_area(p1, r1, p2, r2):
     """
     Computes the area of intersection between two circles.
