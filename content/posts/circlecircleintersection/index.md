@@ -73,7 +73,7 @@ Figure 6 gives a visual guide to the various geometric quantities we will define
 5. The distance between \\(\vec{c} \\) and \\(\vec{p}_1\\) is denoted as \\(d_1\\). The distance between \\(\vec{c} \\) and \\(\vec{p}_2\\) is denoted as \\(d_2\\). 
 
 #### The "Normal" Case
-Having defined the notation, we can start writing down geometric relationships. From the two right triangles shown in Figure 5, we can write down Pythagorean's theorem
+Having defined the notation, we can start writing down geometric relationships. From the two right triangles shown in Figure 5, we can write down the Pythagorean theorem
 
 $$ \begin{align}  \color{#3f9b0b}  r_1^2 \color{black} &=  \color{#3f9b0b} d_1^2  \color{black} + \color{red} h^2  \\\\ 
 \color{#0504aa} r_2^2 \color{black} &= \color{#0504aa}  d_2^2 \color{black} + \color{red} h^2 \end{align} $$
@@ -88,7 +88,7 @@ $$ \begin{align} 1) \quad \color{#3f9b0b} d_1 \color{black} + \color{#0504aa} d_
 2. Case 2 corresponds to when the radical line is not in between the circle centers (as shown in Figure 4) and circle 1 is the smaller circle
 3. Case 3 is the same as Case 2, but circle 2 is the smaller circle.
 
-Combining the two equations from Pythagorean's theorem and any one of the 3 cases, we get 3 equations and 3 unknowns (\\(\color{#3f9b0b} d_1\\), \\(\color{#0504aa} d_2\\), \\(\color{red} h\\)). For each scenario, we can solve for \\(d_1\\)
+Combining the two equations from Pythagorean theorem and any one of the 3 cases, we get 3 equations and 3 unknowns (\\(\color{#3f9b0b} d_1\\), \\(\color{#0504aa} d_2\\), \\(\color{red} h\\)). For each scenario, we can solve for \\(d_1\\)
 
 $$\begin{align}1) \quad \color{#3f9b0b} d_1 \color{black} &= 
     \frac{\color{#3f9b0b} r_1^2 \color{black} - \color{#0504aa} r_2^2 \color{black} + \color{red} D^2}
