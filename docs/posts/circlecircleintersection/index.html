@@ -134,7 +134,7 @@ There are some easy corner cases with the intersection of two circles:</p>
 <li>The distance between \(\vec{c} \) and \(\vec{p}_1\) is denoted as \(d_1\). The distance between \(\vec{c} \) and \(\vec{p}_2\) is denoted as \(d_2\).</li>
 </ol>
 <h4 id="the-normal-case">The &ldquo;Normal&rdquo; Case</h4>
-<p>Having defined the notation, we can start writing down geometric relationships. From the two right triangles shown in Figure 5, we can write down Pythagorean&rsquo;s theorem</p>
+<p>Having defined the notation, we can start writing down geometric relationships. From the two right triangles shown in Figure 5, we can write down the Pythagorean theorem</p>
 <p>$$ \begin{align}  \color{#3f9b0b}  r_1^2 \color{black} &amp;=  \color{#3f9b0b} d_1^2  \color{black} + \color{red} h^2  \\ 
 \color{#0504aa} r_2^2 \color{black} &amp;= \color{#0504aa}  d_2^2 \color{black} + \color{red} h^2 \end{align} $$</p>
 <p>Next, one of the following equations must be true.</p>
@@ -146,7 +146,7 @@ There are some easy corner cases with the intersection of two circles:</p>
 <li>Case 2 corresponds to when the radical line is not in between the circle centers (as shown in Figure 4) and circle 1 is the smaller circle</li>
 <li>Case 3 is the same as Case 2, but circle 2 is the smaller circle.</li>
 </ol>
-<p>Combining the two equations from Pythagorean&rsquo;s theorem and any one of the 3 cases, we get 3 equations and 3 unknowns (\(\color{#3f9b0b} d_1\), \(\color{#0504aa} d_2\), \(\color{red} h\)). For each scenario, we can solve for \(d_1\)</p>
+<p>Combining the two equations from Pythagorean theorem and any one of the 3 cases, we get 3 equations and 3 unknowns (\(\color{#3f9b0b} d_1\), \(\color{#0504aa} d_2\), \(\color{red} h\)). For each scenario, we can solve for \(d_1\)</p>
 <p>$$\begin{align}1) \quad \color{#3f9b0b} d_1 \color{black} &amp;= 
 \frac{\color{#3f9b0b} r_1^2 \color{black} - \color{#0504aa} r_2^2 \color{black} + \color{red} D^2}
 {2\color{red}D} \\<br>
@@ -294,8 +294,9 @@ Click the button to load the widget. Warning, this can lag the webpage while loa
 </div>
 <div id="loaded-widget-div">
 <p>This widget allows you to change and execute the python code shown in the previous section.
-They python code allows you to change the intersection area calculation (the output is displayed in text at the bottom of the plot) as well as the circle radiuses. You can click around the plot to change the location of the blue circle. Note that the visualization of the red intersection area will be unaffected by the code above.
+They python code allows you to change the intersection area calculation (the output is displayed in text at the bottom of the plot) as well as the circle radiuses. You can click around the plot to change the location of the blue circle. The visualization of the red intersection area will be unaffected by the code above.
 To change the code, simply type in the code textbox, and press the submit button under it.</p>
+<p>Pyodide seems not to work well on mobile browsers or safari.</p>
 </div>
 <div id="widget-output">
 </div>
