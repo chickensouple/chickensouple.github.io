@@ -19,7 +19,7 @@ function setup_pyodide(editor_text) {
 }
 
 function resize_mathjax() {
-    var fontSize = Math.min(Math.max($(window).width() / 12, 70), 120);  
+    var fontSize = Math.min(Math.max($(window).width() / 12, 80), 120);  
     var fontSizeStr = String(fontSize) + "%";
 
     jQuery('.MathJax').each(function(ii, obj) {
@@ -38,6 +38,16 @@ $(document).ready(() => {
         setup_pyodide(editor_text);
     });
 
+
+    $("#collapse-button1").click(()=> {
+        if ($("#collapse-content1").css("display") == "none") {
+            $("#collapse-content1").css("display", "block");
+        } else {
+            $("#collapse-content1").css("display", "none");
+        }
+    });
+
+
     $("#editor-button1").click(() => {
         if ($("#load-widget-div").css("visibility") == "visible"){
             console.log("Pyodide not loaded yet.")
@@ -55,22 +65,9 @@ $(document).ready(() => {
             } catch (err) {
                 $("#editor-outputarea").text(err);
                 $("#editor-outputarea").css("background-color", "red");
-            }
-
-            // pyodide.runPythonAsync(editor_code + "\n" + "redraw_pyodide_cb();\n")
-            //     .then((output)=>{
-            //         console.log(output);
-            //         $("#editor-outputarea").val(">>> Sucessfully Submitted");
-            //     })
-            //     .catch((err)=>{
-            //         $("#editor-outputarea").val(err);
-            //     });
-            
+            }     
         }
     });
-
-    // console.log($("#load-widget-div").css("visibility"))
-    // console.log(editor.getSession().getValue());
 
     $("#widget-output").click((event) => {
         console.log(event.offsetX + ", " + event.offsetY);

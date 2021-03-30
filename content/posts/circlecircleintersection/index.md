@@ -90,6 +90,26 @@ $$ \begin{align} 1) \quad \color{#3f9b0b} d_1 \color{black} + \color{#0504aa} d_
 
 Combining the two equations from Pythagorean theorem and any one of the 3 cases, we get 3 equations and 3 unknowns (\\(\color{#3f9b0b} d_1\\), \\(\color{#0504aa} d_2\\), \\(\color{red} h\\)). For each scenario, we can solve for \\(d_1\\)
 
+<div id="collapse-div1">
+<button type="button" class="collapse-button" id="collapse-button1">Click to open derivation details</button>
+<div class="collapse-content" id="collapse-content1">
+  Looking at the two expression from the Pythagorean Theorem, we can write
+  $$ r_1^2 - d_1^2 = r_2^2 - d_2^2$$
+  Looking scenario 
+  $$ d_1 + d_2 = D $$
+  we can write
+  $$ \begin{align}
+  r_1^2 - d_1^2 &= r_2^2 - (D - d_1)^2 \\\\
+  (D - d_1)^2 - d_1^2 &= r_2^2 - r_1^2\\\\
+  D^2 - 2 D d_1 &= r_2^2 - r_1^2 \\\\
+  d_1 &= \frac{r_1^2 - r_2^2 + D^2}{2 D}
+  \end{align}$$
+
+The other two scenarios can use a similar set of steps.
+</div>
+</div>
+
+
 $$\begin{align}1) \quad \color{#3f9b0b} d_1 \color{black} &= 
     \frac{\color{#3f9b0b} r_1^2 \color{black} - \color{#0504aa} r_2^2 \color{black} + \color{red} D^2}
       {2\color{red}D} \\\\
