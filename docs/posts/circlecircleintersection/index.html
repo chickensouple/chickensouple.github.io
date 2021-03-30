@@ -150,17 +150,17 @@ There are some easy corner cases with the intersection of two circles:</p>
 <div id="collapse-div1">
 <button type="button" class="collapse-button" id="collapse-button1">Click to open derivation details</button>
 <div class="collapse-content" id="collapse-content1">
-  Looking at the two expression from the Pythagorean Theorem, we can write
-  $$ r_1^2 - d_1^2 = r_2^2 - d_2^2$$
-  Looking scenario 
-  $$ d_1 + d_2 = D $$
-  we can write
-  $$ \begin{align}
-  r_1^2 - d_1^2 &= r_2^2 - (D - d_1)^2 \\\\
-  (D - d_1)^2 - d_1^2 &= r_2^2 - r_1^2\\\\
-  D^2 - 2 D d_1 &= r_2^2 - r_1^2 \\\\
-  d_1 &= \frac{r_1^2 - r_2^2 + D^2}{2 D}
-  \end{align}$$
+<p>Looking at the two expression from the Pythagorean Theorem, we can write</p>
+<p>$$ r_1^2 - d_1^2 = r_2^2 - d_2^2$$</p>
+<p>Looking scenario</p>
+<p>$$ d_1 + d_2 = D $$</p>
+<p>we can write</p>
+<p>$$ \begin{align}
+r_1^2 - d_1^2 &amp;= r_2^2 - (D - d_1)^2 \\<br>
+(D - d_1)^2 - d_1^2 &amp;= r_2^2 - r_1^2\\<br>
+D^2 - 2 D d_1 &amp;= r_2^2 - r_1^2 \\<br>
+d_1 &amp;= \frac{r_1^2 - r_2^2 + D^2}{2 D}
+\end{align}$$</p>
 <p>The other two scenarios can use a similar set of steps.</p>
 </div>
 </div>
@@ -250,7 +250,7 @@ def get_intersection_area(p1, r1, p2, r2):
     if D &gt;= (r1 &#43; r2):
         # no overlap
         return 0
-    elif D &lt;= abs(r1 - r2):
+    elif D &lt; abs(r1 - r2):
         # one circle is fully within the other
         rad = np.minimum(r1, r2)
         return np.pi * rad**2

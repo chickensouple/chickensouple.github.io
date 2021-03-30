@@ -15,7 +15,7 @@ def get_intersection_area(p1, r1, p2, r2):
     if D >= (r1 + r2):
         # no overlap
         return 0
-    elif D <= abs(r1 - r2):
+    elif D < abs(r1 - r2):
         # one circle is fully within the other
         rad = np.minimum(r1, r2)
         return np.pi * rad**2

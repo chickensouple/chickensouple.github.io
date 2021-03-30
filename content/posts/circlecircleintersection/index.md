@@ -93,11 +93,17 @@ Combining the two equations from Pythagorean theorem and any one of the 3 cases,
 <div id="collapse-div1">
 <button type="button" class="collapse-button" id="collapse-button1">Click to open derivation details</button>
 <div class="collapse-content" id="collapse-content1">
+
   Looking at the two expression from the Pythagorean Theorem, we can write
+
   $$ r_1^2 - d_1^2 = r_2^2 - d_2^2$$
+  
   Looking scenario 
+  
   $$ d_1 + d_2 = D $$
+  
   we can write
+  
   $$ \begin{align}
   r_1^2 - d_1^2 &= r_2^2 - (D - d_1)^2 \\\\
   (D - d_1)^2 - d_1^2 &= r_2^2 - r_1^2\\\\
@@ -106,6 +112,7 @@ Combining the two equations from Pythagorean theorem and any one of the 3 cases,
   \end{align}$$
 
 The other two scenarios can use a similar set of steps.
+
 </div>
 </div>
 
