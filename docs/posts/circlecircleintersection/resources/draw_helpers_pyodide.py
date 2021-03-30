@@ -68,7 +68,7 @@ def get_angles_from_intersection(p, r, intersection_pts, smaller_area=True):
     return angles
 
 def draw_intersection(ax, p1, r1, p2, r2, **kwargs):
-    def get_pts(center, radius, theta1, theta2, resolution=30):
+    def get_pts(center, radius, theta1, theta2, resolution=18):
         theta = np.linspace(theta1, theta2, resolution)
         points = np.vstack((radius*np.cos(theta) + center[0], 
                             radius*np.sin(theta) + center[1]))
