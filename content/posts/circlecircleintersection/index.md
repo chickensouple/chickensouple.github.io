@@ -221,10 +221,10 @@ Click the button to load the widget. Warning, this can lag the webpage while loa
 <div id="loaded-widget-div">
 
 This widget allows you to change and execute the python code shown in the previous section.
-They python code allows you to change the intersection area calculation (the output is displayed in text at the bottom of the plot) as well as the circle radiuses. You can click around the plot to change the location of the blue circle. The visualization of the red intersection area will be unaffected by the code above.
+The python code allows you to change the intersection area calculation (the output is displayed in text at the bottom of the plot) as well as the circle radiuses. You can click around the plot to change the location of the blue circle. The visualization of the red intersection area will be unaffected by the code above.
 To change the code, simply type in the code textbox, and press the submit button under it.
 
-Pyodide seems not to work well on mobile browsers or safari.
+Note: this widget may not work well in some mobile browsers and Safari.
 
 </div>
 
