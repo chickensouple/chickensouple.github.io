@@ -170,7 +170,7 @@ $$
 IntersectionArea(\color{#3f9b0b}\vec{p}_1\color{black}, \color{#3f9b0b}r_1\color{black}, \color{#0504aa}\vec{p}_2\color{black}, \color{#0504aa}r_2\color{black}) = 
 \begin{cases}
 % no intersection
-0, & \text{if } \color{red} D \color{black} > \color{#3f9b0b} r_1 + \color{#0504aa} r_2\\\\
+0, & \text{if } \color{red} D \color{black} > \color{#3f9b0b} r_1 \color{black}+ \color{#0504aa} r_2\\\\
 % one circle is smaller than the other
 \pi \min\\{\color{#3f9b0b} r_1^2\color{black}, \color{#0504aa} r_2^2\color{black}\\} & \text{if } \color{red} D \color{black} \leq |\color{#3f9b0b} r_1 \color{black} - \color{#0504aa} r_2| \\\\
   % normal case smaller circle1
