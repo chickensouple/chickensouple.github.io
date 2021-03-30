@@ -213,10 +213,8 @@ IntersectionArea(\color{#3f9b0b}\vec{p}_1\color{black}, \color{#3f9b0b}r_1\color
 \begin{cases}
 % no intersection
 0, &amp; \text{if } \color{red} D \color{black} &gt; \color{#3f9b0b} r_1 + \color{#0504aa} r_2\\<br>
-% circle1 in circle2
-\pi  \color{#3f9b0b} r_1^2 &amp; \text{if } \color{red} D \color{black} + \color{#3f9b0b} r_1 \leq \color{#0504aa} r_2\\<br>
-% circle2 in circle1
-\pi  \color{#0504aa} r_2^2 &amp; \text{if } \color{red} D \color{black} + \color{#0504aa} r_2 \leq \color{#3f9b0b} r_1 \\<br>
+% one circle is smaller than the other
+\pi \min{\color{#3f9b0b} r_1^2\color{black}, \color{#0504aa} r_2^2\color{black}} &amp; \text{if } \color{red} D \color{black} \leq |\color{#3f9b0b} r_1 \color{black} - \color{#0504aa} r_2| \\<br>
 % normal case smaller circle1
 \pi \color{#3f9b0b} r_1^2 \color{black} - (\color{#3f9b0b} r_1^2 \color{black} \arcsin(\frac{\color{red}h^{(circle1)}\color{black}}{\color{#3f9b0b}r_1\color{black}}) - \color{red}h^{(circle1)} \color{#3f9b0b}d_1^{(circle1)} \color{black}) + \\ \qquad 
 \color{#0504aa} r_2^2 \color{black} \arcsin(\frac{\color{red}h^{(circle1)}\color{black}}{\color{#0504aa}r_2\color{black}}) - \color{red}h^{(circle1)}\color{black} \color{#0504aa}d_2^{(circle1)} \color{black}
@@ -252,12 +250,10 @@ def get_intersection_area(p1, r1, p2, r2):
     if D &gt;= (r1 &#43; r2):
         # no overlap
         return 0
-    elif D &#43; r1 &lt;= r2:
-        # circle1 is fully contained in circle2
-        return np.pi * r1**2
-    elif D &#43; r2 &lt;= r1:
-        # circle2 is fully contained in circle1
-        return np.pi * r2**2
+    elif D &lt;= abs(r1 - r2):
+        # one circle is fully within the other
+        rad = np.minimum(r1, r2)
+        return np.pi * rad**2
     
     # intersection with two intersection points
     r1_sq = r1**2

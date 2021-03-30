@@ -15,12 +15,10 @@ def get_intersection_area(p1, r1, p2, r2):
     if D >= (r1 + r2):
         # no overlap
         return 0
-    elif D + r1 <= r2:
-        # circle1 is fully contained in circle2
-        return np.pi * r1**2
-    elif D + r2 <= r1:
-        # circle2 is fully contained in circle1
-        return np.pi * r2**2
+    elif D <= abs(r1 - r2):
+        # one circle is fully within the other
+        rad = np.minimum(r1, r2)
+        return np.pi * rad**2
     
     # intersection with two intersection points
     r1_sq = r1**2

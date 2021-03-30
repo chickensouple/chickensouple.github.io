@@ -15,10 +15,11 @@ def get_intersection_pts(p1, r1, p2, r2):
     if dist >= (r1 + r2):
         # circles are too far apart
         return [], CircleIntersectionType.TOO_FAR
-    elif dist + r1 <= r2:
-        return [], CircleIntersectionType.CIRCLE1_IN_CIRCLE2
-    elif dist + r2 <= r1:
-        return [], CircleIntersectionType.CIRCLE2_IN_CIRCLE1
+    elif dist <= abs(r1 - r2):
+        if r1 < r2:
+            return [], CircleIntersectionType.CIRCLE1_IN_CIRCLE2
+        else:
+            return [], CircleIntersectionType.CIRCLE2_IN_CIRCLE1
     else:
         # two intersection pts
         r1_sq = r1**2
@@ -83,7 +84,7 @@ def draw_intersection(ax, p1, r1, p2, r2, **kwargs):
         return circle_patch
     
     if intersect_type == CircleIntersectionType.CIRCLE2_IN_CIRCLE1:
-        circle_patch = plot_circle(ax, p1, r1, **kwargs)
+        circle_patch = plot_circle(ax, p2, r2, **kwargs)
         return circle_patch
 
     if intersect_type == CircleIntersectionType.RADIAL_AXIS_CENTERED:
