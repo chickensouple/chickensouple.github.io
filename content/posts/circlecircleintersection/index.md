@@ -172,7 +172,7 @@ IntersectionArea(\color{#3f9b0b}\vec{p}_1\color{black}, \color{#3f9b0b}r_1\color
 % no intersection
 0, & \text{if } \color{red} D \color{black} > \color{#3f9b0b} r_1 + \color{#0504aa} r_2\\\\
 % one circle is smaller than the other
-\pi \min\{\color{#3f9b0b} r_1^2\color{black}, \color{#0504aa} r_2^2\color{black}\} & \text{if } \color{red} D \color{black} \leq |\color{#3f9b0b} r_1 \color{black} - \color{#0504aa} r_2| \\\\
+\pi \min\\{\color{#3f9b0b} r_1^2\color{black}, \color{#0504aa} r_2^2\color{black}\\} & \text{if } \color{red} D \color{black} \leq |\color{#3f9b0b} r_1 \color{black} - \color{#0504aa} r_2| \\\\
   % normal case smaller circle1
 \pi \color{#3f9b0b} r_1^2 \color{black} - (\color{#3f9b0b} r_1^2 \color{black} \arcsin(\frac{\color{red}h^{(circle1)}\color{black}}{\color{#3f9b0b}r_1\color{black}}) - \color{red}h^{(circle1)} \color{#3f9b0b}d_1^{(circle1)} \color{black}) + \\\\ \qquad 
   \color{#0504aa} r_2^2 \color{black} \arcsin(\frac{\color{red}h^{(circle1)}\color{black}}{\color{#0504aa}r_2\color{black}}) - \color{red}h^{(circle1)}\color{black} \color{#0504aa}d_2^{(circle1)} \color{black}
