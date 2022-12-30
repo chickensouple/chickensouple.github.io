@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><link rel="icon" href="../../images/chicken.png"><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" /><meta property="og:url"  content="/posts/einstein_notation/" />
+    <meta property="og:type" content="article" /><meta property="og:title" content="Einstein Notation" /><meta property="og:description" content="" /><meta property="og:image:width"  content="600" />
+        <meta property="og:image:height" content="400" /><meta property="og:image" content="/images/default_summary_hu2be732aee21a2469ead3fe1f2df8caca_2088687_600x0_resize_q75_box.jpg" /><title>Clark Zhang - Einstein Notation</title>
+
+    
+<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="../../css/style.min.fd8404bc9563664fb2e4d7e8277f357361b1f697aface37acfe6ec5e83fa02e0.css" integrity="sha256-/YQEvJVjZk&#43;y5NfoJ381c2Gx9pevrON6z&#43;bsXoP6AuA=">
+<link rel="stylesheet" type="text/css" href="../../css/monokai-sublime.9.15.8.min.min.3a5d282f03108101d715e80fd4c07b55502ec4673fc063f2b6e415d4def5b354.css" integrity="sha256-Ol0oLwMQgQHXFegP1MB7VVAuxGc/wGPytuQV1N71s1Q=">
+<link rel="stylesheet" type="text/css" href="../../css/icons.min.6dc06ab2f3698408961127b959a0f87ba0426dfa1df4cb25a55fa434db7222c5.css" integrity="sha256-bcBqsvNphAiWESe5WaD4e6BCbfod9MslpV&#43;kNNtyIsU=">
+<link rel="stylesheet" type="text/css" href="../../css/refresh.min.14cd467648af8c16a7b0d152412f3c595bf4210380516c0acc67c776fa1c0c60.css" integrity="sha256-FM1GdkivjBansNFSQS88WVv0IQOAUWwKzGfHdvocDGA=">
+<link rel="stylesheet" type="text/css" href="../../css/devicon.min.min.13fddf418611477a10293a87542de7703396184696bd8cf50642c4c72994c78a.css" integrity="sha256-E/3fQYYRR3oQKTqHVC3ncDOWGEaWvYz1BkLExymUx4o=">
+    
+
+  </head>
+  <body>
+     
+
+    <div id="preloader">
+      <div id="status"></div>
+    </div><nav class="navbar is-fresh is-transparent no-shadow" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+
+      
+      
+      
+      <a class="navbar-item">
+        <div class="menu-icon-wrapper left-menu-icon-wrapper" style="visibility: visible;">
+          <svg width="1000px" height="1000px">
+            <path class="path1" d="M 300 400 L 700 400 C 900 400 900 750 600 850 A 400 400 0 0 1 200 200 L 800 800"></path>
+            <path class="path2" d="M 300 500 L 700 500"></path>
+            <path class="path3" d="M 700 600 L 300 600 C 100 600 100 200 400 150 A 400 380 0 1 1 200 800 L 800 200"></path>
+          </svg>
+          <button id="menu-icon-trigger" class="menu-icon-trigger"></button>
+        </div>
+        <div class="navbar-item left-menu-icon-wrapper">
+          Menu
+        </div>
+      </a>
+
+      
+    </div></div>
+</nav>
+<nav id="navbar-clone" class="navbar is-fresh is-transparent" role="navigation" aria-label="main navigation">
+  <div class="container">
+      <div class="navbar-brand">
+  
+        
+        
+        
+        <a class="navbar-item">
+          <div class="menu-icon-wrapper left-menu-icon-wrapper" style="visibility: visible;">
+            <svg width="1000px" height="1000px">
+              <path class="path1" d="M 300 400 L 700 400 C 900 400 900 750 600 850 A 400 400 0 0 1 200 200 L 800 800"></path>
+              <path class="path2" d="M 300 500 L 700 500"></path>
+              <path class="path3" d="M 700 600 L 300 600 C 100 600 100 200 400 150 A 400 380 0 1 1 200 800 L 800 200"></path>
+            </svg>
+            <button id="menu-icon-trigger" class="menu-icon-trigger"></button>
+          </div>
+          <div class="navbar-item left-menu-icon-wrapper">
+            Menu
+          </div>
+        </a>
+  
+        
+      </div>
+  
+      
+
+    </div>
+  </nav>
+<section class="section is-medium">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-centered-tablet-portrait">
+        <h1 class="title is-2 section-title">Einstein Notation</h1>
+        <h5 class="subtitle is-5 is-muted"></h5>
+        <div class="divider"></div>
+        
+        <section class="section content has-text-justified">
+          <h1 id="introduction">Introduction</h1>
+<p>This post is written with the intention of serving as an easy reminder of how Einstein notation works for me and perhaps others who might find it useful.
+This is geared towards people (like myself) who want to ignore differential geometry and want to use it mainly as a simple way of expressing relatively simple computations (things like multiplying N matrices with N other matrices, perhaps summation over particular indices but not others, etc.).</p>
+<p>First, a brief description of what Einstein notation is:</p>
+<blockquote>
+<p>&ldquo;a notational convention that implies summation over a set of indexed terms in a formula, thus achieving brevity&rdquo;  (#wiki)</p>
+</blockquote>
+<p>First, if you try to search up &ldquo;einstein</p>
+<h1 id="numpy-explicit-einstein-notation">Numpy-explicit Einstein Notation</h1>
+<h1 id="examples">Examples</h1>
+<h1 id="references">References</h1>
+<p><a name="youtube" href="https://www.youtube.com/watch?v=CLrTj7D2fLM&ab_channel=FacultyofKhan" target="_blank">[Youtube Video] Einstein Summation Convention: an Introduction. Faculty of Khan.</a>
+<a name="wiki" href="https://en.wikipedia.org/wiki/Einstein_notation" target="_blank">[Wikipedia] Einstein Notation.</a>
+<a name="numpy" href="https://numpy.org/doc/stable/reference/generated/numpy.einsum.html" target="_blank">[Numpy] einsum documentation.</a></p>
+
+        </section>
+      </div>
+    </div>
+  </div>  
+  <div class="container">
+    <div class="columns">
+      <div class="column has-text-right is-family-monospace is-centered-tablet-portrait">
+        Last modified:&nbsp;29 December 2022</div>
+    </div>
+  </div></section>
+<footer class="footer footer-dark">
+  <div class="container">
+    <div class="columns">
+
+
+      <div class="column">
+        <div class="column">
+          <div class="footer-column">
+            <ul class="link-list">
+              <li>
+                Contact Information:
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="column">
+          <div class="footer-column">
+            <ul class="link-list">  
+              
+              <li>
+                <a href="mailto:clarkjzhang%20%28at%29%20gmail.com" target="_blank">
+                  <span class="icon"><i class="fa fa-envelope"></i></span>
+                  
+                    clarkjzhang (at) gmail.com
+                  
+                </a>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="column">
+          <div class="footer-column">
+            <ul class="link-list">
+              
+              <li>
+                <a href="https://www.linkedin.com/in/clark-zhang-2207a774" target="_blank">
+                  <span class="icon"><i class="fa fa-linkedin"></i></span>
+                  
+                    LinkedIn
+                  
+                </a>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    <div class="column">
+      <div class="column">
+        <div class="footer-column">
+          <ul class="link-list">
+            
+            <li>
+              <a href="https://github.com/chickensouple" target="_blank">
+                <span class="icon"><i class="fa fa-github"></i></span>
+                
+                  Github
+                
+              </a>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </div>
+</footer>
+    <div id="backtotop"><a href="#"></a></div><div class="sidebar scroll">
+  <div class="sidebar-header">
+    
+    <img src="../../images/chicken.png" alt="">
+    <a class="sidebar-close" href="javascript:void(0);">
+      <i data-feather="x"></i>
+    </a>
+    
+  </div>
+  <div class="inner">
+    <ul class="sidebar-menu">
+      <li class="no-children"><a href="../../"><div class="columns">
+          <table width="100%">  
+            <tr>
+              <td class="">
+                <span class="icon"><i class="fa fa-caret-right"></i></span>
+                Home
+              </td>
+              <td class="has-text-right" >
+                  
+              </td>
+            </tr>
+          </table>
+        </div>
+      </a>
+      </li>
+      <li class="no-children"><a href="../../posts/"><div class="columns">
+          <table width="100%">  
+            <tr>
+              <td class="">
+                <span class="icon"><i class="fa fa-caret-right"></i></span>
+                Posts
+              </td>
+              <td class="has-text-right" >
+                  
+              </td>
+            </tr>
+          </table>
+        </div>
+      </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<script src="../../js/jquery-2.2.4.min.9905f735619722ceaee707531dbce48d85dc03730eeec5377e640ad222fc7564.js" integrity="sha256-mQX3NWGXIs6u5wdTHbzkjYXcA3MO7sU3fmQK0iL8dWQ="></script>
+<script src="../../js/feather.4.22.0.min.60f99c81ecaf159163820d5a01c6a3341afc02fbb64a51d21b685c79a3130217.js" integrity="sha256-YPmcgeyvFZFjgg1aAcajNBr8Avu2SlHSG2hceaMTAhc="></script>
+<script src="../../js/modernizr-3.6.0.min.7d44f7a93c82d33b0fe07bdb55abc91922e5c7644a5977c358ab47cc54d5d08f.js" integrity="sha256-fUT3qTyC0zsP4HvbVavJGSLlx2RKWXfDWKtHzFTV0I8="></script>
+<script src="../../js/refresh.62c1a9b7d85bcf4d944cd585a01dfa8fb15112a7d2cf9fb819db20493bfe7484.js" integrity="sha256-YsGpt9hbz02UTNWFoB36j7FREqfSz5&#43;4GdsgSTv&#43;dIQ="></script></body>
+</html>

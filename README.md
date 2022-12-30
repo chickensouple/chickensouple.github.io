@@ -20,3 +20,8 @@ hugo server
 
 # Adjust main page
 Content at docs/index.html
+
+
+# MathJax 
+use $$ $$ for centered equations on a new line.
+use \\( \\) for inline expressions.
