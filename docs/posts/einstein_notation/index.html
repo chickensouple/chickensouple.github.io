@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" /><meta property="og:url"  content="/posts/einstein_notation/" />
     <meta property="og:type" content="article" /><meta property="og:title" content="Einstein Notation" /><meta property="og:description" content="" /><meta property="og:image:width"  content="600" />
-        <meta property="og:image:height" content="400" /><meta property="og:image" content="/images/default_summary_hu2be732aee21a2469ead3fe1f2df8caca_2088687_600x0_resize_q75_box.jpg" /><title>Clark Zhang - Einstein Notation</title>
+        <meta property="og:image:height" content="600" /><meta property="og:image" content="/posts/einstein_notation/images/main_huf2f7777e55a1481846cad107d8083f58_15378_600x0_resize_box_3.png" /><title>Clark Zhang - Einstein Notation</title>
 
     
 <link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
@@ -88,15 +88,118 @@
 This is geared towards people (like myself) who want to ignore differential geometry and want to use it mainly as a simple way of expressing relatively simple computations (things like multiplying N matrices with N other matrices, perhaps summation over particular indices but not others, etc.).</p>
 <p>First, a brief description of what Einstein notation is:</p>
 <blockquote>
-<p>&ldquo;a notational convention that implies summation over a set of indexed terms in a formula, thus achieving brevity&rdquo;  (#wiki)</p>
+<p>&ldquo;a notational convention that implies summation over a set of indexed terms in a formula, thus achieving brevity&rdquo;  <a href="#wiki">[wikipedia]</a></p>
 </blockquote>
-<p>First, if you try to search up &ldquo;einstein</p>
-<h1 id="numpy-explicit-einstein-notation">Numpy-explicit Einstein Notation</h1>
+<p>Many operations like matrix multiplication, dot products, can all be thought up as &ldquo;multiplying two terms from two objects and summing the multiplication up across some axes&rdquo; and Einstein notation can be used to express it in a simple and compact way.</p>
+<p>If you search up what this means you may get results like <a href="#wiki">wikipedia</a> and <a href="#youtube">youtube videos</a> that can be confusing as it tries to explain this in more general terms with respect to some concepts in differential geometry which may not apply to your use case. Most notably, they have superscripts and subscripts to distinguish between &ldquo;tangent&rdquo; and &ldquo;cotangent&rdquo; spaces. For our purposes, we can just imagine everything is a subscript that tell us which element to look at in a multidimensional array. To add complexity to the matter, many <a href="#blog1">blogposts</a> you find will try to explain this with respect to the numpy function <a href="#numpy">einsum</a> which is Numpy&rsquo;s implementation of taking an Einstein notation formula and executing it. However, there are some differences between numpy&rsquo;s implementation and how it is defined elsewhere (notably, <em>explicit</em> mode &ndash; as noted in the numpy documentation &ndash; has slightly different rules). For example, one main rule you will see for &ldquo;classical&rdquo; Einstein notation is that &ldquo;an index can not repeat more than twice&rdquo; &ndash; this rule is not true for numpy explicit mode.</p>
+<p>This post will focus on defining a simple set of rules for which <em>numpy explicit mode</em> obeys. The reason for this is because I personally think it is easier to reason about and tools exist to parse this notation such as numpy einsum and tensorflow/pytorch einsum.</p>
+<h1 id="einstein-notation-numpy-explicit-mode">Einstein Notation (numpy explicit mode)</h1>
+<p>The rules for <em>numpy explicit mode</em> evaluation of einstein notation is not documented well (in my opinion) from the <a href="#numpy">numpy website</a>. This section will try to detail my understanding of it (obtained through experimentation and consolidation of other explanations). If any part of this is wrong, please reach out to me so that I can correct my understanding.</p>
+<p>At its core, einstein notation (numpy explicit mode) can describe operations of the following form:
+$$ A_{\color{red} \text{free indices}} = \sum_{\color{blue} \text{summation indices}} B_{\color{green}\text{b indices}} * C_{\color{violet} \text{c indices}} * &hellip; $$</p>
+<p>For example, matrix multiplication is:
+$$ A_{\color{red}ik} = \sum_{\color{blue}j} B_{\color{green}ij} * C_{\color{violet}jk}$$</p>
+<p>We define an output, \( A \), by noting how each element of it (\( i, k \)  for matrix multiplication case) is computed with respect to entries in \( B, C, &hellip;\).
+We will call \( j \) a &ldquo;summation&rdquo; index as it is summed across and \( (i, k) \)  as &ldquo;free&rdquo; indices to denote they are the indices that define what the output is and is &ldquo;free&rdquo; to vary over the output.
+Note: this definition of &ldquo;summation&rdquo; and &ldquo;free&rdquo; indices is very close to the wikipedia definition, but we are using it to define numpy explicit mode rules.
+The notation for numpy einstein notation will be:</p>
+<p>$$ {\color{green}\text{&lt;b indices&gt;}}\text{,} {\color{violet}\text{&lt;c indices&gt;}} \rightarrow {\color{red}\text{&lt;free indices&gt;}}$$</p>
+<p>For example, matrix multiplication will be expressed as</p>
+<p>$$ {\color{green}\text{ij}}\text{,} {\color{violet}\text{jk}} \rightarrow {\color{red}\text{ik}}$$</p>
+<p>Note that the specific letters chosen to represent an index \(i, j, k\) are arbitrary but must be consistent in the expression, so an exactly equal expression for matrix multiplication can be</p>
+<p>$$ {\color{green}\text{bc}}\text{,} {\color{violet}\text{ca}} \rightarrow {\color{red}\text{ba}}$$</p>
+<p>Here are some basic rules to remember this notation:</p>
+<ul>
+<li>Free indices are explicitly defined after the arrow (-&gt;).</li>
+<li>Summation indices are defined implicitly by all indices that are not a free.</li>
+<li>Any time a summation index appears multiple times, the notation will multiply the values together and sum across those axes.
+<ul>
+<li>Thus, any axes addressed by the same index, say i, must have the same length.</li>
+</ul>
+</li>
+</ul>
+<p>Some additional caveats to remember:</p>
+<ul>
+<li>If there are no summation indices, there is no sum in the resulting expression. This allows an expression like &ldquo;ij-&gt;ji&rdquo; to express transposition.</li>
+<li>If the output is a scalar, there is nothing to write after the arrow. An expression like &ldquo;ij-&gt;&rdquo; will simply sum up all the elements in a matrix.</li>
+</ul>
+<p>Note: Numpy explicit mode happens when an arrow &ldquo;-&gt;&rdquo; is in the expression. If it is not, these rules do not apply. I would recommend always using numpy explicit mode.</p>
 <h1 id="examples">Examples</h1>
+<h4 id="matrix-matrix-multiplication">Matrix-Matrix Multiplication</h4>
+<p>Math expression: \( A_{ik} = \sum_{j} B_{ij} * C_{jk} \)</p>
+<p>Einstein notation (numpy explicit mode): &ldquo;ij,jk-&gt;ik&rdquo;</p>
+<h4 id="matrix-hadamard-multiplication">Matrix Hadamard Multiplication</h4>
+<p>Math expression: \( A_{ij} =  B_{ij} * C_{ij} \)</p>
+<p>Einstein notation (numpy explicit mode): &ldquo;ij,ij-&gt;ij&rdquo;</p>
+<h4 id="matrix-vector-multiplication">Matrix-Vector Multiplication</h4>
+<p>Math expression: \( A_{ik} = \sum_{j} B_{ij} * C_{j} \)</p>
+<p>Einstein notation (numpy explicit mode): &ldquo;ij,j-&gt;i&rdquo;</p>
+<h4 id="vector-dot-product">Vector Dot Product</h4>
+<p>Math expression: \( A = \sum_{i} B_{i} * C_{i} \)</p>
+<p>Einstein notation (numpy explicit mode): &ldquo;i,i-&gt;&rdquo;</p>
+<h4 id="sum-all-elements-in-matrix">Sum all elements in Matrix</h4>
+<p>Math expression: \( A = \sum_{ij} B_{ij} \)</p>
+<p>Einstein notation (numpy explicit mode): &ldquo;ij-&gt;&rdquo;</p>
+<h4 id="obtain-the-diagonal-vector-from-a-matrix">Obtain the diagonal vector from a matrix</h4>
+<p>Math expression: \( A_i =  B_{ii} \)</p>
+<p>Einstein notation (numpy explicit mode): &ldquo;ii-&gt;i&rdquo;</p>
+<h4 id="matrix-trace">Matrix Trace</h4>
+<p>Math expression: \( A =  \sum_{i} B_{ii} \)</p>
+<p>Einstein notation (numpy explicit mode): &ldquo;ii-&gt;&rdquo;</p>
+<h4 id="matrix-transpose">Matrix Transpose</h4>
+<p>Math expression: \( A_{ji} = B_{ij} \)</p>
+<p>Einstein notation (numpy explicit mode): &ldquo;ij-&gt;ji&rdquo;</p>
+<h4 id="batch-matrix-multiplication">Batch Matrix Multiplication</h4>
+<p>I have a stack (size B) of matrices (each of size (N, M)) represented by a multidimensional array (B, N, M).
+I have a second stack (size B) of matrices (each of size (M, K)) represented by a multidimensional array (B, M, K).
+I want to compute an output stack (B, N, K) where the i&rsquo;th matrix of shape (N, K) is computed from multiplying the i&rsquo;th matrix in the first stack by the i&rsquo;th matrix in the second stack.</p>
+<p>Math expression: \( A_{bnk} = \sum_{m} B_{bnm} * C_{bmk} \)</p>
+<p>Einstein notation (numpy explicit mode): &ldquo;bnm,bmk-&gt;bnk&rdquo;</p>
 <h1 id="references">References</h1>
-<p><a name="youtube" href="https://www.youtube.com/watch?v=CLrTj7D2fLM&ab_channel=FacultyofKhan" target="_blank">[Youtube Video] Einstein Summation Convention: an Introduction. Faculty of Khan.</a>
-<a name="wiki" href="https://en.wikipedia.org/wiki/Einstein_notation" target="_blank">[Wikipedia] Einstein Notation.</a>
-<a name="numpy" href="https://numpy.org/doc/stable/reference/generated/numpy.einsum.html" target="_blank">[Numpy] einsum documentation.</a></p>
+<p><a name="youtube" href="https://www.youtube.com/watch?v=CLrTj7D2fLM&ab_channel=FacultyofKhan" target="_blank">[Youtube Video] Einstein Summation Convention: an Introduction. Faculty of Khan.</a></p>
+<p><a name="wiki" href="https://en.wikipedia.org/wiki/Einstein_notation" target="_blank">[Wikipedia] Einstein Notation.</a></p>
+<p><a name="numpy" href="https://numpy.org/doc/stable/reference/generated/numpy.einsum.html" target="_blank">[Numpy] einsum documentation.</a></p>
+<p><a name="blog1" href="https://rockt.github.io/2018/04/30/einsum" target="_blank">[Blog Post] EINSUM IS ALL YOU NEED - EINSTEIN SUMMATION IN DEEP LEARNING. TIM ROCKTÄSCHEL</a></p>
+<script type="text/javascript">
+    // set the pyodide files URL (packages.json, pyodide.asm.data etc)
+    window.languagePluginUrl = 'https://cdn.jsdelivr.net/pyodide/v0.16.1/full/';
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" 
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-python.min.js" integrity="sha512-2Ke4vMGrMfYRM55pT1aA5bw7Pl82Sc7K5Hg8XZYZu+EQrb0AO1mNYTagwZm+MFVAImYS9Mlnm73zcgc01wPXxA==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js" integrity="sha512-S4i/WUGRs22+8rjUVu4kBjfNuBNp8GVsgcK2lbaFdws4q6TF3Nd00LxqnHhuxS9iVDfNcUh0h6OxFUMP5DBD+g==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.16.1/full/pyodide.js"></script>
+<script src="resources/script.js"></script>
+<link rel="stylesheet" href="resources/style.css">
+<!-- Math Jax -->
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      processEscapes: true,
+    },
+    svg: {
+      fontCache: 'global'
+    },
+    loader: {load: ['[tex]/color', '[tex]/configMacros']},
+    tex: {
+      packages: {'[+]': ['color', 'configMacros']},
+    },
+    startup:{
+       ready: () => {
+         MathJax.startup.defaultReady();
+         MathJax.startup.promise.then(() => {
+           resize_mathjax();
+         });
+       }
+    }
+  };
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
 
         </section>
       </div>

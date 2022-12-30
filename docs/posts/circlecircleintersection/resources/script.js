@@ -3,26 +3,26 @@
 function setup_pyodide(editor_text) {
     var imports_script = "import numpy as np; import matplotlib.pyplot as plt; import matplotlib.patches as mpatches; from js import document; import io; import base64;\n";
 
-    jQuery.get("resources/draw_helpers_pyodide.py", 
+    jQuery.get("resources/draw_helpers_pyodide.py",
         (text) => {
             var script = imports_script + editor_text + "\n" + text;
             pyodide.runPythonAsync(script)
-                .then((output)=>{
+                .then((output) => {
                     console.log("Done");
                     $("#load-widget-div").css("visibility", "hidden");
                     $("#editor-io-div").css("visibility", "visible");
                     $("#loaded-widget-div").css("visibility", "visible");
                     $("#editor-outputarea").text("Ready");
                 })
-                .catch((err)=>{console.log(err);});
+                .catch((err) => { console.log(err); });
         });
 }
 
 function resize_mathjax() {
-    var fontSize = Math.min(Math.max($(window).width() / 12, 80), 120);  
+    var fontSize = Math.min(Math.max($(window).width() / 12, 80), 120);
     var fontSizeStr = String(fontSize) + "%";
 
-    jQuery('.MathJax').each(function(ii, obj) {
+    jQuery('.MathJax').each(function (ii, obj) {
         obj.style.fontSize = fontSizeStr;
     });
 }
@@ -39,7 +39,7 @@ $(document).ready(() => {
     });
 
 
-    $("#collapse-button1").click(()=> {
+    $("#collapse-button1").click(() => {
         if ($("#collapse-content1").css("display") == "none") {
             $("#collapse-content1").css("display", "block");
         } else {
@@ -49,7 +49,7 @@ $(document).ready(() => {
 
 
     $("#editor-button1").click(() => {
-        if ($("#load-widget-div").css("visibility") == "visible"){
+        if ($("#load-widget-div").css("visibility") == "visible") {
             console.log("Pyodide not loaded yet.")
         } else {
             var editor_code = editor.getSession().getValue();
@@ -60,12 +60,12 @@ $(document).ready(() => {
             try {
                 pyodide.runPython(editor_code + "\n" + "redraw_pyodide_cb();\n");
                 $("#editor-outputarea").text("Sucessfully Submitted Code");
-                
+
                 $("#editor-outputarea").css("background-color", "green");
             } catch (err) {
                 $("#editor-outputarea").text(err);
                 $("#editor-outputarea").css("background-color", "red");
-            }     
+            }
         }
     });
 
@@ -73,7 +73,7 @@ $(document).ready(() => {
         console.log(event.offsetX + ", " + event.offsetY);
     });
 
-    window.addEventListener("resize", function() {
-        resize_mathjax();  
+    window.addEventListener("resize", function () {
+        resize_mathjax();
     });
 });
