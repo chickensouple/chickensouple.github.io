@@ -19,11 +19,12 @@ If you search up what this means you may get results like [wikipedia](#wiki) and
 
 This post will focus on defining a simple set of rules for which *numpy explicit mode* obeys. The reason for this is because I personally think it is easier to reason about and tools exist to parse this notation such as numpy einsum and tensorflow/pytorch einsum.
 
-# Einstein Notation (numpy explicit mode)
+# Einstein Notation (numpy explicit mode) basics
 The rules for *numpy explicit mode* evaluation of einstein notation is not documented well (in my opinion) from the [numpy website](#numpy). This section will try to detail my understanding of it (obtained through experimentation and consolidation of other explanations). If any part of this is wrong, please reach out to me so that I can correct my understanding.
 
 At its core, einstein notation (numpy explicit mode) can describe operations of the following form:
 $$ A_{\color{red} \text{free indices}} = \sum_{\color{blue} \text{summation indices}} B_{\color{green}\text{b indices}} * C_{\color{violet} \text{c indices}} * ... $$
+We will call this equation the "Core Notation Equation" as we will be thinking of how to express operations in this form.
 
 For example, matrix multiplication is:
 $$ A_{\color{red}ik} = \sum_{\color{blue}j} B_{\color{green}ij} * C_{\color{violet}jk}$$
@@ -44,6 +45,7 @@ Note that the specific letters chosen to represent an index \\(i, j, k\\) are ar
 
 $$ {\color{green}\text{bc}}\text{,} {\color{violet}\text{ca}} \rightarrow {\color{red}\text{ba}}$$
 
+Note: Numpy explicit mode happens when an arrow "->" is in the expression. If it is not, these rules do not apply. I would recommend always using numpy explicit mode.
 
 Here are some basic rules to remember this notation:
 - Free indices are explicitly defined after the arrow (->).
@@ -51,12 +53,40 @@ Here are some basic rules to remember this notation:
 - Any time a summation index appears multiple times, the notation will multiply the values together and sum across those axes.
     - Thus, any axes addressed by the same index, say i, must have the same length.
 
-Some additional caveats to remember:
-- If there are no summation indices, there is no sum in the resulting expression. This allows an expression like "ij->ji" to express transposition.
-- If the output is a scalar, there is nothing to write after the arrow. An expression like "ij->" will simply sum up all the elements in a matrix.
+
+# Einstein Notation Extra Information
+This section contains some additional information that may be helpful. Again, this applies to numpy explicit mode evaluation.
+
+If every index is free (every index to the left of "->" is also to the right of "->") then there is no summation indices to sum over.
+This allows an expression like "ij->ji" to express transposition. In the "Core Notation Equation" we will get something like
+$$ A_{ji} = B_{ij}$$ 
+where the sum drops away because there are no summation indices.
+
+Similarily, we can extract the diagonal of a matrix into a vector with an expression like "ii->i". The "Core Notation Equation" to think of is
+$$ A_{i} = B_{ii} $$
+where, again, the sum drops away because there are no summation indices.
 
 
-Note: Numpy explicit mode happens when an arrow "->" is in the expression. If it is not, these rules do not apply. I would recommend always using numpy explicit mode.
+If every index is summed over, then there will be no indices to the right of the "->". This indicates we are summing over all indices.
+For example, an expression like "ij->" will simply sum up all the elements in the matrix. The "Core Notation Equation" here is
+$$ A = \sum_{ij} B_ij  $$
+
+
+One extra feature of numpy einstein notation is to indicate broadcasting via ellipsis. A "..." indicates all the remaining indices positionally.
+For example, for an N dimensional array
+- "i...": the "..." refers to the last (N-1) dimensions
+- "ij...": the "..." refers to the last (N-2) dimensions
+- "...i": the "..." refers to the first (N-1) dimensions
+- "i...j": the "..." refers to the middle (N-2) dimensions
+
+This is very useful when dealing with operations where the core operation is only happening in a few dimensions and every other dimension is more for "structure."
+A common example is say to multiply a batch of data by a single matrix (useful for lots of neural networks) of size (N_in, N_out).
+
+The expression "...ij,jk->...ik" will work for all of the following shapes for the data:
+- (A, N_in) : which is just singular piece of data
+- (B, A, N_in) : a batch of B data each of shape (A, N_in)
+- (B_1, B_2, A, N_in): a batch of (B_1*B_2) data each of shape (A, N_in) where the batch is spread over a 2d grid.
+
 
 # Examples
 

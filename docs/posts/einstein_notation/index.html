@@ -93,10 +93,11 @@ This is geared towards people (like myself) who want to ignore differential geom
 <p>Many operations like matrix multiplication, dot products, can all be thought up as &ldquo;multiplying two terms from two objects and summing the multiplication up across some axes&rdquo; and Einstein notation can be used to express it in a simple and compact way.</p>
 <p>If you search up what this means you may get results like <a href="#wiki">wikipedia</a> and <a href="#youtube">youtube videos</a> that can be confusing as it tries to explain this in more general terms with respect to some concepts in differential geometry which may not apply to your use case. Most notably, they have superscripts and subscripts to distinguish between &ldquo;tangent&rdquo; and &ldquo;cotangent&rdquo; spaces. For our purposes, we can just imagine everything is a subscript that tell us which element to look at in a multidimensional array. To add complexity to the matter, many <a href="#blog1">blogposts</a> you find will try to explain this with respect to the numpy function <a href="#numpy">einsum</a> which is Numpy&rsquo;s implementation of taking an Einstein notation formula and executing it. However, there are some differences between numpy&rsquo;s implementation and how it is defined elsewhere (notably, <em>explicit</em> mode &ndash; as noted in the numpy documentation &ndash; has slightly different rules). For example, one main rule you will see for &ldquo;classical&rdquo; Einstein notation is that &ldquo;an index can not repeat more than twice&rdquo; &ndash; this rule is not true for numpy explicit mode.</p>
 <p>This post will focus on defining a simple set of rules for which <em>numpy explicit mode</em> obeys. The reason for this is because I personally think it is easier to reason about and tools exist to parse this notation such as numpy einsum and tensorflow/pytorch einsum.</p>
-<h1 id="einstein-notation-numpy-explicit-mode">Einstein Notation (numpy explicit mode)</h1>
+<h1 id="einstein-notation-numpy-explicit-mode-basics">Einstein Notation (numpy explicit mode) basics</h1>
 <p>The rules for <em>numpy explicit mode</em> evaluation of einstein notation is not documented well (in my opinion) from the <a href="#numpy">numpy website</a>. This section will try to detail my understanding of it (obtained through experimentation and consolidation of other explanations). If any part of this is wrong, please reach out to me so that I can correct my understanding.</p>
 <p>At its core, einstein notation (numpy explicit mode) can describe operations of the following form:
-$$ A_{\color{red} \text{free indices}} = \sum_{\color{blue} \text{summation indices}} B_{\color{green}\text{b indices}} * C_{\color{violet} \text{c indices}} * &hellip; $$</p>
+$$ A_{\color{red} \text{free indices}} = \sum_{\color{blue} \text{summation indices}} B_{\color{green}\text{b indices}} * C_{\color{violet} \text{c indices}} * &hellip; $$
+We will call this equation the &ldquo;Core Notation Equation&rdquo; as we will be thinking of how to express operations in this form.</p>
 <p>For example, matrix multiplication is:
 $$ A_{\color{red}ik} = \sum_{\color{blue}j} B_{\color{green}ij} * C_{\color{violet}jk}$$</p>
 <p>We define an output, \( A \), by noting how each element of it (\( i, k \)  for matrix multiplication case) is computed with respect to entries in \( B, C, &hellip;\).
@@ -108,6 +109,7 @@ The notation for numpy einstein notation will be:</p>
 <p>$$ {\color{green}\text{ij}}\text{,} {\color{violet}\text{jk}} \rightarrow {\color{red}\text{ik}}$$</p>
 <p>Note that the specific letters chosen to represent an index \(i, j, k\) are arbitrary but must be consistent in the expression, so an exactly equal expression for matrix multiplication can be</p>
 <p>$$ {\color{green}\text{bc}}\text{,} {\color{violet}\text{ca}} \rightarrow {\color{red}\text{ba}}$$</p>
+<p>Note: Numpy explicit mode happens when an arrow &ldquo;-&gt;&rdquo; is in the expression. If it is not, these rules do not apply. I would recommend always using numpy explicit mode.</p>
 <p>Here are some basic rules to remember this notation:</p>
 <ul>
 <li>Free indices are explicitly defined after the arrow (-&gt;).</li>
@@ -118,12 +120,34 @@ The notation for numpy einstein notation will be:</p>
 </ul>
 </li>
 </ul>
-<p>Some additional caveats to remember:</p>
+<h1 id="einstein-notation-extra-information">Einstein Notation Extra Information</h1>
+<p>This section contains some additional information that may be helpful. Again, this applies to numpy explicit mode evaluation.</p>
+<p>If every index is free (every index to the left of &ldquo;-&gt;&rdquo; is also to the right of &ldquo;-&gt;&quot;) then there is no summation indices to sum over.
+This allows an expression like &ldquo;ij-&gt;ji&rdquo; to express transposition. In the &ldquo;Core Notation Equation&rdquo; we will get something like
+$$ A_{ji} = B_{ij}$$
+where the sum drops away because there are no summation indices.</p>
+<p>Similarily, we can extract the diagonal of a matrix into a vector with an expression like &ldquo;ii-&gt;i&rdquo;. The &ldquo;Core Notation Equation&rdquo; to think of is
+$$ A_{i} = B_{ii} $$
+where, again, the sum drops away because there are no summation indices.</p>
+<p>If every index is summed over, then there will be no indices to the right of the &ldquo;-&gt;&rdquo;. This indicates we are summing over all indices.
+For example, an expression like &ldquo;ij-&gt;&rdquo; will simply sum up all the elements in the matrix. The &ldquo;Core Notation Equation&rdquo; here is
+$$ A = \sum_{ij} B_ij  $$</p>
+<p>One extra feature of numpy einstein notation is to indicate broadcasting via ellipsis. A &ldquo;&hellip;&rdquo; indicates all the remaining indices positionally.
+For example, for an N dimensional array</p>
 <ul>
-<li>If there are no summation indices, there is no sum in the resulting expression. This allows an expression like &ldquo;ij-&gt;ji&rdquo; to express transposition.</li>
-<li>If the output is a scalar, there is nothing to write after the arrow. An expression like &ldquo;ij-&gt;&rdquo; will simply sum up all the elements in a matrix.</li>
+<li>&ldquo;i&hellip;&quot;: the &ldquo;&hellip;&rdquo; refers to the last (N-1) dimensions</li>
+<li>&ldquo;ij&hellip;&quot;: the &ldquo;&hellip;&rdquo; refers to the last (N-2) dimensions</li>
+<li>&ldquo;&hellip;i&rdquo;: the &ldquo;&hellip;&rdquo; refers to the first (N-1) dimensions</li>
+<li>&ldquo;i&hellip;j&rdquo;: the &ldquo;&hellip;&rdquo; refers to the middle (N-2) dimensions</li>
 </ul>
-<p>Note: Numpy explicit mode happens when an arrow &ldquo;-&gt;&rdquo; is in the expression. If it is not, these rules do not apply. I would recommend always using numpy explicit mode.</p>
+<p>This is very useful when dealing with operations where the core operation is only happening in a few dimensions and every other dimension is more for &ldquo;structure.&rdquo;
+A common example is say to multiply a batch of data by a single matrix (useful for lots of neural networks) of size (N_in, N_out).</p>
+<p>The expression &ldquo;&hellip;ij,jk-&gt;&hellip;ik&rdquo; will work for all of the following shapes for the data:</p>
+<ul>
+<li>(A, N_in) : which is just singular piece of data</li>
+<li>(B, A, N_in) : a batch of B data each of shape (A, N_in)</li>
+<li>(B_1, B_2, A, N_in): a batch of (B_1*B_2) data each of shape (A, N_in) where the batch is spread over a 2d grid.</li>
+</ul>
 <h1 id="examples">Examples</h1>
 <h4 id="matrix-matrix-multiplication">Matrix-Matrix Multiplication</h4>
 <p>Math expression: \( A_{ik} = \sum_{j} B_{ij} * C_{jk} \)</p>
