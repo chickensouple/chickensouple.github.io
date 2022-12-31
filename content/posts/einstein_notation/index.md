@@ -13,14 +13,14 @@ This is geared towards people (like myself) who want to ignore differential geom
 First, a brief description of what Einstein notation is:
 > "a notational convention that implies summation over a set of indexed terms in a formula, thus achieving brevity"  [[wikipedia]](#wiki)
 
-Many operations like matrix multiplication, dot products, can all be thought up as "multiplying two terms from two objects and summing the multiplication up across some axes" and Einstein notation can be used to express it in a simple and compact way.
+Many operations like matrix multiplication, dot products, can all be thought up as "multiplying two terms from two objects and summing the result up across some axes" and Einstein notation can be used to express it in a simple and compact way.
 
-If you search up what this means you may get results like [wikipedia](#wiki) and [youtube videos](#youtube) that can be confusing as it tries to explain this in more general terms with respect to some concepts in differential geometry which may not apply to your use case. Most notably, they have superscripts and subscripts to distinguish between "tangent" and "cotangent" spaces. For our purposes, we can just imagine everything is a subscript that tell us which element to look at in a multidimensional array. To add complexity to the matter, many [blogposts](#blog1) you find will try to explain this with respect to the numpy function [einsum](#numpy) which is Numpy's implementation of taking an Einstein notation formula and executing it. However, there are some differences between numpy's implementation and how it is defined elsewhere (notably, *explicit* mode -- as noted in the numpy documentation -- has slightly different rules). For example, one main rule you will see for "classical" Einstein notation is that "an index can not repeat more than twice" -- this rule is not true for numpy explicit mode. 
+If you search up "einstein notation", you may get results like [wikipedia](#wiki) and [youtube videos](#youtube) which can be confusing as they try to explain this in more general terms with respect to some concepts in differential geometry (which may not apply to your use case). Most notably, they have superscripts and subscripts to distinguish between "tangent" and "cotangent" spaces. For our purposes, we can just imagine everything is a subscript that tells us which element to look at in a multidimensional array. To add complexity to the matter, many [blogposts](#blog1) you may find will try to explain this with respect to the numpy function [einsum](#numpy) which is Numpy's implementation of taking an Einstein notation formula and executing it. However, there are some differences between numpy's implementation and how it is defined elsewhere (notably, *explicit* mode -- as noted in the numpy documentation -- has slightly different rules). For example, one main rule you will see for "classical" Einstein notation is that "an index can not repeat more than twice" -- this rule is not true for numpy explicit mode. 
 
-This post will focus on defining a simple set of rules for which *numpy explicit mode* obeys. The reason for this is because I personally think it is easier to reason about and tools exist to parse this notation such as numpy einsum and tensorflow/pytorch einsum.
+This post will focus on defining a simple set of rules for which *numpy explicit mode* obeys. The reason for focusing on "numpy explicit mode" rather than "classical" einstein notation is because I personally think it is easier to reason about and tools exist to parse this notation such as numpy einsum and tensorflow/pytorch einsum.
 
 # Einstein Notation (numpy explicit mode) basics
-The rules for *numpy explicit mode* evaluation of einstein notation is not documented well (in my opinion) from the [numpy website](#numpy). This section will try to detail my understanding of it (obtained through experimentation and consolidation of other explanations). If any part of this is wrong, please reach out to me so that I can correct my understanding.
+The rules for *numpy explicit mode* evaluation of einstein notation is not documented well (in my opinion) from the [numpy website](#numpy). This section will try to detail my understanding of it (obtained through experimentation and consolidation of other explanations found on the web). If any part of this is wrong, please reach out to me so that I can correct my understanding.
 
 At its core, einstein notation (numpy explicit mode) can describe operations of the following form:
 $$ A_{\color{red} \text{free indices}} = \sum_{\color{blue} \text{summation indices}} B_{\color{green}\text{b indices}} * C_{\color{violet} \text{c indices}} * ... $$
@@ -34,7 +34,7 @@ We will call \\( j \\) a "summation" index as it is summed across and \\( (i, k)
 Note: this definition of "summation" and "free" indices is very close to the wikipedia definition, but we are using it to define numpy explicit mode rules. 
 The notation for numpy einstein notation will be:
 
-$$ {\color{green}\text{\<b indices\>}}\text{,} {\color{violet}\text{\<c indices\>}} \rightarrow {\color{red}\text{\<free indices\>}}$$
+$$ {\color{green}\text{\<b indices\>}}\text{,} {\color{violet}\text{\<c indices\>}}\text{, ...} \rightarrow {\color{red}\text{\<free indices\>}}$$
 
 For example, matrix multiplication will be expressed as
 
