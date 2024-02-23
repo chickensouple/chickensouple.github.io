@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head><link rel="icon" href="../../images/chicken.png"><meta charset="utf-8" />
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><link rel="icon" href="//localhost:1313/images/chicken.png"><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta http-equiv="x-ua-compatible" content="ie=edge" /><meta property="og:url"  content="/posts/einstein_notation/" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" /><meta property="og:url"  content="//localhost:1313/posts/einstein_notation/" />
     <meta property="og:type" content="article" /><meta property="og:title" content="Einstein Notation" /><meta property="og:description" content="" /><meta property="og:image:width"  content="600" />
-        <meta property="og:image:height" content="600" /><meta property="og:image" content="/posts/einstein_notation/images/main_huf2f7777e55a1481846cad107d8083f58_15378_600x0_resize_box_3.png" /><title>Clark Zhang - Einstein Notation</title>
+        <meta property="og:image:height" content="600" /><meta property="og:image" content="//localhost:1313/posts/einstein_notation/images/main_huf2f7777e55a1481846cad107d8083f58_15378_600x0_resize_box_3.png" /><title>Clark Zhang - Einstein Notation</title>
 
     
 <link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="../../css/style.min.fd8404bc9563664fb2e4d7e8277f357361b1f697aface37acfe6ec5e83fa02e0.css" integrity="sha256-/YQEvJVjZk&#43;y5NfoJ381c2Gx9pevrON6z&#43;bsXoP6AuA=">
-<link rel="stylesheet" type="text/css" href="../../css/monokai-sublime.9.15.8.min.min.3a5d282f03108101d715e80fd4c07b55502ec4673fc063f2b6e415d4def5b354.css" integrity="sha256-Ol0oLwMQgQHXFegP1MB7VVAuxGc/wGPytuQV1N71s1Q=">
-<link rel="stylesheet" type="text/css" href="../../css/icons.min.6dc06ab2f3698408961127b959a0f87ba0426dfa1df4cb25a55fa434db7222c5.css" integrity="sha256-bcBqsvNphAiWESe5WaD4e6BCbfod9MslpV&#43;kNNtyIsU=">
-<link rel="stylesheet" type="text/css" href="../../css/refresh.min.14cd467648af8c16a7b0d152412f3c595bf4210380516c0acc67c776fa1c0c60.css" integrity="sha256-FM1GdkivjBansNFSQS88WVv0IQOAUWwKzGfHdvocDGA=">
-<link rel="stylesheet" type="text/css" href="../../css/devicon.min.min.13fddf418611477a10293a87542de7703396184696bd8cf50642c4c72994c78a.css" integrity="sha256-E/3fQYYRR3oQKTqHVC3ncDOWGEaWvYz1BkLExymUx4o=">
+<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="//localhost:1313/css/style.min.ab200c588a3c12be0b149f7adfe8755368291af11e1f1ddc84b7fecb5980ffcd.css" integrity="sha256-qyAMWIo8Er4LFJ963&#43;h1U2gpGvEeHx3chLf&#43;y1mA/80=">
+<link rel="stylesheet" type="text/css" href="//localhost:1313/css/monokai-sublime.9.15.8.min.min.3a5d282f03108101d715e80fd4c07b55502ec4673fc063f2b6e415d4def5b354.css" integrity="sha256-Ol0oLwMQgQHXFegP1MB7VVAuxGc/wGPytuQV1N71s1Q=">
+<link rel="stylesheet" type="text/css" href="//localhost:1313/css/icons.min.6dc06ab2f3698408961127b959a0f87ba0426dfa1df4cb25a55fa434db7222c5.css" integrity="sha256-bcBqsvNphAiWESe5WaD4e6BCbfod9MslpV&#43;kNNtyIsU=">
+<link rel="stylesheet" type="text/css" href="//localhost:1313/css/refresh.min.14cd467648af8c16a7b0d152412f3c595bf4210380516c0acc67c776fa1c0c60.css" integrity="sha256-FM1GdkivjBansNFSQS88WVv0IQOAUWwKzGfHdvocDGA=">
+<link rel="stylesheet" type="text/css" href="//localhost:1313/css/devicon.min.min.13fddf418611477a10293a87542de7703396184696bd8cf50642c4c72994c78a.css" integrity="sha256-E/3fQYYRR3oQKTqHVC3ncDOWGEaWvYz1BkLExymUx4o=">
     
 
   </head>
@@ -90,11 +90,11 @@ This is geared towards people (like myself) who want to ignore differential geom
 <blockquote>
 <p>&ldquo;a notational convention that implies summation over a set of indexed terms in a formula, thus achieving brevity&rdquo;  <a href="#wiki">[wikipedia]</a></p>
 </blockquote>
-<p>Many operations like matrix multiplication, dot products, can all be thought up as &ldquo;multiplying two terms from two objects and summing the multiplication up across some axes&rdquo; and Einstein notation can be used to express it in a simple and compact way.</p>
-<p>If you search up what this means you may get results like <a href="#wiki">wikipedia</a> and <a href="#youtube">youtube videos</a> that can be confusing as it tries to explain this in more general terms with respect to some concepts in differential geometry which may not apply to your use case. Most notably, they have superscripts and subscripts to distinguish between &ldquo;tangent&rdquo; and &ldquo;cotangent&rdquo; spaces. For our purposes, we can just imagine everything is a subscript that tell us which element to look at in a multidimensional array. To add complexity to the matter, many <a href="#blog1">blogposts</a> you find will try to explain this with respect to the numpy function <a href="#numpy">einsum</a> which is Numpy&rsquo;s implementation of taking an Einstein notation formula and executing it. However, there are some differences between numpy&rsquo;s implementation and how it is defined elsewhere (notably, <em>explicit</em> mode &ndash; as noted in the numpy documentation &ndash; has slightly different rules). For example, one main rule you will see for &ldquo;classical&rdquo; Einstein notation is that &ldquo;an index can not repeat more than twice&rdquo; &ndash; this rule is not true for numpy explicit mode.</p>
-<p>This post will focus on defining a simple set of rules for which <em>numpy explicit mode</em> obeys. The reason for this is because I personally think it is easier to reason about and tools exist to parse this notation such as numpy einsum and tensorflow/pytorch einsum.</p>
+<p>Many operations like matrix multiplication, dot products, can all be thought up as &ldquo;multiplying two terms from two objects and summing the result up across some axes&rdquo; and Einstein notation can be used to express it in a simple and compact way.</p>
+<p>If you search up &ldquo;einstein notation&rdquo;, you may get results like <a href="#wiki">wikipedia</a> and <a href="#youtube">youtube videos</a> which can be confusing as they try to explain this in more general terms with respect to some concepts in differential geometry (which may not apply to your use case). Most notably, they have superscripts and subscripts to distinguish between &ldquo;tangent&rdquo; and &ldquo;cotangent&rdquo; spaces. For our purposes, we can just imagine everything is a subscript that tells us which element to look at in a multidimensional array. To add complexity to the matter, many <a href="#blog1">blogposts</a> you may find will try to explain this with respect to the numpy function <a href="#numpy">einsum</a> which is Numpy&rsquo;s implementation of taking an Einstein notation formula and executing it. However, there are some differences between numpy&rsquo;s implementation and how it is defined elsewhere (notably, <em>explicit</em> mode &ndash; as noted in the numpy documentation &ndash; has slightly different rules). For example, one main rule you will see for &ldquo;classical&rdquo; Einstein notation is that &ldquo;an index can not repeat more than twice&rdquo; &ndash; this rule is not true for numpy explicit mode.</p>
+<p>This post will focus on defining a simple set of rules for which <em>numpy explicit mode</em> obeys. The reason for focusing on &ldquo;numpy explicit mode&rdquo; rather than &ldquo;classical&rdquo; einstein notation is because I personally think it is easier to reason about and tools exist to parse this notation such as numpy einsum and tensorflow/pytorch einsum.</p>
 <h1 id="einstein-notation-numpy-explicit-mode-basics">Einstein Notation (numpy explicit mode) basics</h1>
-<p>The rules for <em>numpy explicit mode</em> evaluation of einstein notation is not documented well (in my opinion) from the <a href="#numpy">numpy website</a>. This section will try to detail my understanding of it (obtained through experimentation and consolidation of other explanations). If any part of this is wrong, please reach out to me so that I can correct my understanding.</p>
+<p>The rules for <em>numpy explicit mode</em> evaluation of einstein notation is not documented well (in my opinion) from the <a href="#numpy">numpy website</a>. This section will try to detail my understanding of it (obtained through experimentation and consolidation of other explanations found on the web). If any part of this is wrong, please reach out to me so that I can correct my understanding.</p>
 <p>At its core, einstein notation (numpy explicit mode) can describe operations of the following form:
 $$ A_{\color{red} \text{free indices}} = \sum_{\color{blue} \text{summation indices}} B_{\color{green}\text{b indices}} * C_{\color{violet} \text{c indices}} * &hellip; $$
 We will call this equation the &ldquo;Core Notation Equation&rdquo; as we will be thinking of how to express operations in this form.</p>
@@ -104,7 +104,7 @@ $$ A_{\color{red}ik} = \sum_{\color{blue}j} B_{\color{green}ij} * C_{\color{viol
 We will call \( j \) a &ldquo;summation&rdquo; index as it is summed across and \( (i, k) \)  as &ldquo;free&rdquo; indices to denote they are the indices that define what the output is and is &ldquo;free&rdquo; to vary over the output.
 Note: this definition of &ldquo;summation&rdquo; and &ldquo;free&rdquo; indices is very close to the wikipedia definition, but we are using it to define numpy explicit mode rules.
 The notation for numpy einstein notation will be:</p>
-<p>$$ {\color{green}\text{&lt;b indices&gt;}}\text{,} {\color{violet}\text{&lt;c indices&gt;}} \rightarrow {\color{red}\text{&lt;free indices&gt;}}$$</p>
+<p>$$ {\color{green}\text{&lt;b indices&gt;}}\text{,} {\color{violet}\text{&lt;c indices&gt;}}\text{, &hellip;} \rightarrow {\color{red}\text{&lt;free indices&gt;}}$$</p>
 <p>For example, matrix multiplication will be expressed as</p>
 <p>$$ {\color{green}\text{ij}}\text{,} {\color{violet}\text{jk}} \rightarrow {\color{red}\text{ik}}$$</p>
 <p>Note that the specific letters chosen to represent an index \(i, j, k\) are arbitrary but must be consistent in the expression, so an exactly equal expression for matrix multiplication can be</p>
@@ -122,7 +122,7 @@ The notation for numpy einstein notation will be:</p>
 </ul>
 <h1 id="einstein-notation-extra-information">Einstein Notation Extra Information</h1>
 <p>This section contains some additional information that may be helpful. Again, this applies to numpy explicit mode evaluation.</p>
-<p>If every index is free (every index to the left of &ldquo;-&gt;&rdquo; is also to the right of &ldquo;-&gt;&quot;) then there is no summation indices to sum over.
+<p>If every index is free (every index to the left of &ldquo;-&gt;&rdquo; is also to the right of &ldquo;-&gt;&rdquo;) then there is no summation indices to sum over.
 This allows an expression like &ldquo;ij-&gt;ji&rdquo; to express transposition. In the &ldquo;Core Notation Equation&rdquo; we will get something like
 $$ A_{ji} = B_{ij}$$
 where the sum drops away because there are no summation indices.</p>
@@ -135,8 +135,8 @@ $$ A = \sum_{ij} B_ij  $$</p>
 <p>One extra feature of numpy einstein notation is to indicate broadcasting via ellipsis. A &ldquo;&hellip;&rdquo; indicates all the remaining indices positionally.
 For example, for an N dimensional array</p>
 <ul>
-<li>&ldquo;i&hellip;&quot;: the &ldquo;&hellip;&rdquo; refers to the last (N-1) dimensions</li>
-<li>&ldquo;ij&hellip;&quot;: the &ldquo;&hellip;&rdquo; refers to the last (N-2) dimensions</li>
+<li>&ldquo;i&hellip;&rdquo;: the &ldquo;&hellip;&rdquo; refers to the last (N-1) dimensions</li>
+<li>&ldquo;ij&hellip;&rdquo;: the &ldquo;&hellip;&rdquo; refers to the last (N-2) dimensions</li>
 <li>&ldquo;&hellip;i&rdquo;: the &ldquo;&hellip;&rdquo; refers to the first (N-1) dimensions</li>
 <li>&ldquo;i&hellip;j&rdquo;: the &ldquo;&hellip;&rdquo; refers to the middle (N-2) dimensions</li>
 </ul>
@@ -356,8 +356,8 @@ crossorigin="anonymous"></script>
     </ul>
   </div>
 </div>
-<script src="../../js/jquery-2.2.4.min.9905f735619722ceaee707531dbce48d85dc03730eeec5377e640ad222fc7564.js" integrity="sha256-mQX3NWGXIs6u5wdTHbzkjYXcA3MO7sU3fmQK0iL8dWQ="></script>
-<script src="../../js/feather.4.22.0.min.60f99c81ecaf159163820d5a01c6a3341afc02fbb64a51d21b685c79a3130217.js" integrity="sha256-YPmcgeyvFZFjgg1aAcajNBr8Avu2SlHSG2hceaMTAhc="></script>
-<script src="../../js/modernizr-3.6.0.min.7d44f7a93c82d33b0fe07bdb55abc91922e5c7644a5977c358ab47cc54d5d08f.js" integrity="sha256-fUT3qTyC0zsP4HvbVavJGSLlx2RKWXfDWKtHzFTV0I8="></script>
-<script src="../../js/refresh.62c1a9b7d85bcf4d944cd585a01dfa8fb15112a7d2cf9fb819db20493bfe7484.js" integrity="sha256-YsGpt9hbz02UTNWFoB36j7FREqfSz5&#43;4GdsgSTv&#43;dIQ="></script></body>
+<script src="//localhost:1313/js/jquery-2.2.4.min.898178b2b8349176dc0875b73ba5bd6ba5b24bdbc1dee5b7b2bd44a566cac891.js" integrity="sha256-iYF4srg0kXbcCHW3O6W9a6WyS9vB3uW3sr1EpWbKyJE="></script>
+  <script src="//localhost:1313/js/feather.4.22.0.min.d13140c98a9977fcbb1887a4122f3e5bf70cf4ff97788f2825a10e3fb2725d47.js" integrity="sha256-0TFAyYqZd/y7GIekEi8&#43;W/cM9P&#43;XeI8oJaEOP7JyXUc="></script>
+  <script src="//localhost:1313/js/modernizr-3.6.0.min.d29ee2eb2abe17b505ca2a2239bf5458dbc0136aa93cdc1041a434b9c17cacec.js" integrity="sha256-0p7i6yq&#43;F7UFyioiOb9UWNvAE2qpPNwQQaQ0ucF8rOw="></script>
+  <script src="//localhost:1313/js/refresh.min.aa9223d82746d0d3993b5365b0ae8059aef4f02a76cf889f905a2548af58c3db.js" integrity="sha256-qpIj2CdG0NOZO1NlsK6AWa708Cp2z4ifkFolSK9Yw9s="></script></body>
 </html>
