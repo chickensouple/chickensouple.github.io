@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><link rel="icon" href="//localhost:1313/images/chicken.png"><meta charset="utf-8" />
+  <head><link rel="icon" href="../../images/chicken.png"><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta http-equiv="x-ua-compatible" content="ie=edge" /><meta property="og:url"  content="//localhost:1313/posts/einstein_notation/" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" /><meta property="og:url"  content="/posts/einstein_notation/" />
     <meta property="og:type" content="article" /><meta property="og:title" content="Einstein Notation" /><meta property="og:description" content="" /><meta property="og:image:width"  content="600" />
-        <meta property="og:image:height" content="600" /><meta property="og:image" content="//localhost:1313/posts/einstein_notation/images/main_huf2f7777e55a1481846cad107d8083f58_15378_600x0_resize_box_3.png" /><title>Clark Zhang - Einstein Notation</title>
+        <meta property="og:image:height" content="600" /><meta property="og:image" content="/posts/einstein_notation/images/main_hu_32255869907c7842.png" /><title>Clark Zhang - Einstein Notation</title>
 
     
 <link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="//localhost:1313/css/style.min.ab200c588a3c12be0b149f7adfe8755368291af11e1f1ddc84b7fecb5980ffcd.css" integrity="sha256-qyAMWIo8Er4LFJ963&#43;h1U2gpGvEeHx3chLf&#43;y1mA/80=">
-<link rel="stylesheet" type="text/css" href="//localhost:1313/css/monokai-sublime.9.15.8.min.min.3a5d282f03108101d715e80fd4c07b55502ec4673fc063f2b6e415d4def5b354.css" integrity="sha256-Ol0oLwMQgQHXFegP1MB7VVAuxGc/wGPytuQV1N71s1Q=">
-<link rel="stylesheet" type="text/css" href="//localhost:1313/css/icons.min.6dc06ab2f3698408961127b959a0f87ba0426dfa1df4cb25a55fa434db7222c5.css" integrity="sha256-bcBqsvNphAiWESe5WaD4e6BCbfod9MslpV&#43;kNNtyIsU=">
-<link rel="stylesheet" type="text/css" href="//localhost:1313/css/refresh.min.14cd467648af8c16a7b0d152412f3c595bf4210380516c0acc67c776fa1c0c60.css" integrity="sha256-FM1GdkivjBansNFSQS88WVv0IQOAUWwKzGfHdvocDGA=">
-<link rel="stylesheet" type="text/css" href="//localhost:1313/css/devicon.min.min.13fddf418611477a10293a87542de7703396184696bd8cf50642c4c72994c78a.css" integrity="sha256-E/3fQYYRR3oQKTqHVC3ncDOWGEaWvYz1BkLExymUx4o=">
+<link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet"><link rel="stylesheet" type="text/css" href="../../css/style.min.fd8404bc9563664fb2e4d7e8277f357361b1f697aface37acfe6ec5e83fa02e0.css" integrity="sha256-/YQEvJVjZk&#43;y5NfoJ381c2Gx9pevrON6z&#43;bsXoP6AuA=">
+<link rel="stylesheet" type="text/css" href="../../css/monokai-sublime.9.15.8.min.min.3a5d282f03108101d715e80fd4c07b55502ec4673fc063f2b6e415d4def5b354.css" integrity="sha256-Ol0oLwMQgQHXFegP1MB7VVAuxGc/wGPytuQV1N71s1Q=">
+<link rel="stylesheet" type="text/css" href="../../css/icons.min.6dc06ab2f3698408961127b959a0f87ba0426dfa1df4cb25a55fa434db7222c5.css" integrity="sha256-bcBqsvNphAiWESe5WaD4e6BCbfod9MslpV&#43;kNNtyIsU=">
+<link rel="stylesheet" type="text/css" href="../../css/refresh.min.14cd467648af8c16a7b0d152412f3c595bf4210380516c0acc67c776fa1c0c60.css" integrity="sha256-FM1GdkivjBansNFSQS88WVv0IQOAUWwKzGfHdvocDGA=">
+<link rel="stylesheet" type="text/css" href="../../css/devicon.min.min.13fddf418611477a10293a87542de7703396184696bd8cf50642c4c72994c78a.css" integrity="sha256-E/3fQYYRR3oQKTqHVC3ncDOWGEaWvYz1BkLExymUx4o=">
     
 
   </head>
@@ -88,8 +88,7 @@
 This is geared towards people (like myself) who want to ignore differential geometry and want to use it mainly as a simple way of expressing relatively simple computations (things like multiplying N matrices with N other matrices, perhaps summation over particular indices but not others, etc.).</p>
 <p>First, a brief description of what Einstein notation is:</p>
 <blockquote>
-<p>&ldquo;a notational convention that implies summation over a set of indexed terms in a formula, thus achieving brevity&rdquo;  <a href="#wiki">[wikipedia]</a></p>
-</blockquote>
+<p>&ldquo;a notational convention that implies summation over a set of indexed terms in a formula, thus achieving brevity&rdquo;  <a href="#wiki">[wikipedia]</a></p></blockquote>
 <p>Many operations like matrix multiplication, dot products, can all be thought up as &ldquo;multiplying two terms from two objects and summing the result up across some axes&rdquo; and Einstein notation can be used to express it in a simple and compact way.</p>
 <p>If you search up &ldquo;einstein notation&rdquo;, you may get results like <a href="#wiki">wikipedia</a> and <a href="#youtube">youtube videos</a> which can be confusing as they try to explain this in more general terms with respect to some concepts in differential geometry (which may not apply to your use case). Most notably, they have superscripts and subscripts to distinguish between &ldquo;tangent&rdquo; and &ldquo;cotangent&rdquo; spaces. For our purposes, we can just imagine everything is a subscript that tells us which element to look at in a multidimensional array. To add complexity to the matter, many <a href="#blog1">blogposts</a> you may find will try to explain this with respect to the numpy function <a href="#numpy">einsum</a> which is Numpy&rsquo;s implementation of taking an Einstein notation formula and executing it. However, there are some differences between numpy&rsquo;s implementation and how it is defined elsewhere (notably, <em>explicit</em> mode &ndash; as noted in the numpy documentation &ndash; has slightly different rules). For example, one main rule you will see for &ldquo;classical&rdquo; Einstein notation is that &ldquo;an index can not repeat more than twice&rdquo; &ndash; this rule is not true for numpy explicit mode.</p>
 <p>This post will focus on defining a simple set of rules for which <em>numpy explicit mode</em> obeys. The reason for focusing on &ldquo;numpy explicit mode&rdquo; rather than &ldquo;classical&rdquo; einstein notation is because I personally think it is easier to reason about and tools exist to parse this notation such as numpy einsum and tensorflow/pytorch einsum.</p>
@@ -356,8 +355,8 @@ crossorigin="anonymous"></script>
     </ul>
   </div>
 </div>
-<script src="//localhost:1313/js/jquery-2.2.4.min.898178b2b8349176dc0875b73ba5bd6ba5b24bdbc1dee5b7b2bd44a566cac891.js" integrity="sha256-iYF4srg0kXbcCHW3O6W9a6WyS9vB3uW3sr1EpWbKyJE="></script>
-  <script src="//localhost:1313/js/feather.4.22.0.min.d13140c98a9977fcbb1887a4122f3e5bf70cf4ff97788f2825a10e3fb2725d47.js" integrity="sha256-0TFAyYqZd/y7GIekEi8&#43;W/cM9P&#43;XeI8oJaEOP7JyXUc="></script>
-  <script src="//localhost:1313/js/modernizr-3.6.0.min.d29ee2eb2abe17b505ca2a2239bf5458dbc0136aa93cdc1041a434b9c17cacec.js" integrity="sha256-0p7i6yq&#43;F7UFyioiOb9UWNvAE2qpPNwQQaQ0ucF8rOw="></script>
-  <script src="//localhost:1313/js/refresh.min.aa9223d82746d0d3993b5365b0ae8059aef4f02a76cf889f905a2548af58c3db.js" integrity="sha256-qpIj2CdG0NOZO1NlsK6AWa708Cp2z4ifkFolSK9Yw9s="></script></body>
+<script src="../../js/jquery-2.2.4.min.c73a5ea94a24d76db8d784e46aefd1555fa305639f5a2f25ec6f0a7603f02b41.js" integrity="sha256-xzpeqUok122414Tkau/RVV&#43;jBWOfWi8l7G8KdgPwK0E="></script>
+  <script src="../../js/feather.4.22.0.min.d13140c98a9977fcbb1887a4122f3e5bf70cf4ff97788f2825a10e3fb2725d47.js" integrity="sha256-0TFAyYqZd/y7GIekEi8&#43;W/cM9P&#43;XeI8oJaEOP7JyXUc="></script>
+  <script src="../../js/modernizr-3.6.0.min.d29ee2eb2abe17b505ca2a2239bf5458dbc0136aa93cdc1041a434b9c17cacec.js" integrity="sha256-0p7i6yq&#43;F7UFyioiOb9UWNvAE2qpPNwQQaQ0ucF8rOw="></script>
+  <script src="../../js/refresh.min.aa9223d82746d0d3993b5365b0ae8059aef4f02a76cf889f905a2548af58c3db.js" integrity="sha256-qpIj2CdG0NOZO1NlsK6AWa708Cp2z4ifkFolSK9Yw9s="></script></body>
 </html>
