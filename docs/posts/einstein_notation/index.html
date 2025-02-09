@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" /><meta property="og:url"  content="/posts/einstein_notation/" />
     <meta property="og:type" content="article" /><meta property="og:title" content="Einstein Notation" /><meta property="og:description" content="" /><meta property="og:image:width"  content="600" />
-        <meta property="og:image:height" content="600" /><meta property="og:image" content="/posts/einstein_notation/images/main_hu_32255869907c7842.png" /><title>Clark Zhang - Einstein Notation</title>
+        <meta property="og:image:height" content="600" /><meta property="og:image" content="/posts/einstein_notation/images/main_huf2f7777e55a1481846cad107d8083f58_15378_600x0_resize_box_3.png" /><title>Clark Zhang - Einstein Notation</title>
 
     
 <link href="https://fonts.googleapis.com/css?family=Open&#43;Sans" rel="stylesheet">
@@ -88,7 +88,8 @@
 This is geared towards people (like myself) who want to ignore differential geometry and want to use it mainly as a simple way of expressing relatively simple computations (things like multiplying N matrices with N other matrices, perhaps summation over particular indices but not others, etc.).</p>
 <p>First, a brief description of what Einstein notation is:</p>
 <blockquote>
-<p>&ldquo;a notational convention that implies summation over a set of indexed terms in a formula, thus achieving brevity&rdquo;  <a href="#wiki">[wikipedia]</a></p></blockquote>
+<p>&ldquo;a notational convention that implies summation over a set of indexed terms in a formula, thus achieving brevity&rdquo;  <a href="#wiki">[wikipedia]</a></p>
+</blockquote>
 <p>Many operations like matrix multiplication, dot products, can all be thought up as &ldquo;multiplying two terms from two objects and summing the result up across some axes&rdquo; and Einstein notation can be used to express it in a simple and compact way.</p>
 <p>If you search up &ldquo;einstein notation&rdquo;, you may get results like <a href="#wiki">wikipedia</a> and <a href="#youtube">youtube videos</a> which can be confusing as they try to explain this in more general terms with respect to some concepts in differential geometry (which may not apply to your use case). Most notably, they have superscripts and subscripts to distinguish between &ldquo;tangent&rdquo; and &ldquo;cotangent&rdquo; spaces. For our purposes, we can just imagine everything is a subscript that tells us which element to look at in a multidimensional array. To add complexity to the matter, many <a href="#blog1">blogposts</a> you may find will try to explain this with respect to the numpy function <a href="#numpy">einsum</a> which is Numpy&rsquo;s implementation of taking an Einstein notation formula and executing it. However, there are some differences between numpy&rsquo;s implementation and how it is defined elsewhere (notably, <em>explicit</em> mode &ndash; as noted in the numpy documentation &ndash; has slightly different rules). For example, one main rule you will see for &ldquo;classical&rdquo; Einstein notation is that &ldquo;an index can not repeat more than twice&rdquo; &ndash; this rule is not true for numpy explicit mode.</p>
 <p>This post will focus on defining a simple set of rules for which <em>numpy explicit mode</em> obeys. The reason for focusing on &ldquo;numpy explicit mode&rdquo; rather than &ldquo;classical&rdquo; einstein notation is because I personally think it is easier to reason about and tools exist to parse this notation such as numpy einsum and tensorflow/pytorch einsum.</p>
@@ -121,7 +122,7 @@ The notation for numpy einstein notation will be:</p>
 </ul>
 <h1 id="einstein-notation-extra-information">Einstein Notation Extra Information</h1>
 <p>This section contains some additional information that may be helpful. Again, this applies to numpy explicit mode evaluation.</p>
-<p>If every index is free (every index to the left of &ldquo;-&gt;&rdquo; is also to the right of &ldquo;-&gt;&rdquo;) then there is no summation indices to sum over.
+<p>If every index is free (every index to the left of &ldquo;-&gt;&rdquo; is also to the right of &ldquo;-&gt;&quot;) then there is no summation indices to sum over.
 This allows an expression like &ldquo;ij-&gt;ji&rdquo; to express transposition. In the &ldquo;Core Notation Equation&rdquo; we will get something like
 $$ A_{ji} = B_{ij}$$
 where the sum drops away because there are no summation indices.</p>
@@ -134,8 +135,8 @@ $$ A = \sum_{ij} B_ij  $$</p>
 <p>One extra feature of numpy einstein notation is to indicate broadcasting via ellipsis. A &ldquo;&hellip;&rdquo; indicates all the remaining indices positionally.
 For example, for an N dimensional array</p>
 <ul>
-<li>&ldquo;i&hellip;&rdquo;: the &ldquo;&hellip;&rdquo; refers to the last (N-1) dimensions</li>
-<li>&ldquo;ij&hellip;&rdquo;: the &ldquo;&hellip;&rdquo; refers to the last (N-2) dimensions</li>
+<li>&ldquo;i&hellip;&quot;: the &ldquo;&hellip;&rdquo; refers to the last (N-1) dimensions</li>
+<li>&ldquo;ij&hellip;&quot;: the &ldquo;&hellip;&rdquo; refers to the last (N-2) dimensions</li>
 <li>&ldquo;&hellip;i&rdquo;: the &ldquo;&hellip;&rdquo; refers to the first (N-1) dimensions</li>
 <li>&ldquo;i&hellip;j&rdquo;: the &ldquo;&hellip;&rdquo; refers to the middle (N-2) dimensions</li>
 </ul>
@@ -355,8 +356,8 @@ crossorigin="anonymous"></script>
     </ul>
   </div>
 </div>
-<script src="../../js/jquery-2.2.4.min.c73a5ea94a24d76db8d784e46aefd1555fa305639f5a2f25ec6f0a7603f02b41.js" integrity="sha256-xzpeqUok122414Tkau/RVV&#43;jBWOfWi8l7G8KdgPwK0E="></script>
-  <script src="../../js/feather.4.22.0.min.d13140c98a9977fcbb1887a4122f3e5bf70cf4ff97788f2825a10e3fb2725d47.js" integrity="sha256-0TFAyYqZd/y7GIekEi8&#43;W/cM9P&#43;XeI8oJaEOP7JyXUc="></script>
-  <script src="../../js/modernizr-3.6.0.min.d29ee2eb2abe17b505ca2a2239bf5458dbc0136aa93cdc1041a434b9c17cacec.js" integrity="sha256-0p7i6yq&#43;F7UFyioiOb9UWNvAE2qpPNwQQaQ0ucF8rOw="></script>
-  <script src="../../js/refresh.min.aa9223d82746d0d3993b5365b0ae8059aef4f02a76cf889f905a2548af58c3db.js" integrity="sha256-qpIj2CdG0NOZO1NlsK6AWa708Cp2z4ifkFolSK9Yw9s="></script></body>
+<script src="../../js/jquery-2.2.4.min.9905f735619722ceaee707531dbce48d85dc03730eeec5377e640ad222fc7564.js" integrity="sha256-mQX3NWGXIs6u5wdTHbzkjYXcA3MO7sU3fmQK0iL8dWQ="></script>
+  <script src="../../js/feather.4.22.0.min.60f99c81ecaf159163820d5a01c6a3341afc02fbb64a51d21b685c79a3130217.js" integrity="sha256-YPmcgeyvFZFjgg1aAcajNBr8Avu2SlHSG2hceaMTAhc="></script>
+  <script src="../../js/modernizr-3.6.0.min.7d44f7a93c82d33b0fe07bdb55abc91922e5c7644a5977c358ab47cc54d5d08f.js" integrity="sha256-fUT3qTyC0zsP4HvbVavJGSLlx2RKWXfDWKtHzFTV0I8="></script>
+  <script src="../../js/refresh.min.bdd8c6701d25938ef80886aa03d1cfc7add83f9f73ef825d6d0a6bea81aa639b.js" integrity="sha256-vdjGcB0lk474CIaqA9HPx63YP59z74JdbQpr6oGqY5s="></script></body>
 </html>
