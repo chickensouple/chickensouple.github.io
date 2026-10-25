@@ -128,10 +128,6 @@ params:
     # option to specify the logo in the footer
     # the starting folder is configure in "assetDir" of this file
     logo: "/images/refresh-square.svg"
-    # option to specify your contact email in the footer
-    email: 
-      link: clarkjzhang (at) gmail.com
-      title: clarkjzhang (at) gmail.com
     linkedin: 
       link: in/clark-zhang-2207a774
       title: LinkedIn
